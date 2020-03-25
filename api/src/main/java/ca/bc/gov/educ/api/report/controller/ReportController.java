@@ -5,6 +5,7 @@ import ca.bc.gov.educ.api.report.util.ReportApiConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class ReportController {
 
     @PostMapping (ReportApiConstants.STUDENT_TRANSCRIPT_REPORT)
     public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody Map<String, String> reportParameters) {
-        logger.debug("Get Student Achievement Report");
+        logger.debug("Get Student ranscript Report");
         return reportService.getStudentTranscriptReport(reportParameters);
     }
 }

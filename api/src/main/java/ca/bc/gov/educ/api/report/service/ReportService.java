@@ -3,6 +3,8 @@ package ca.bc.gov.educ.api.report.service;
 import ca.bc.gov.educ.api.report.template.AchievementReportTemplate;
 import ca.bc.gov.educ.api.report.template.TranscriptReportTemplate;
 import ca.bc.gov.educ.api.report.util.ReportApiConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -14,6 +16,8 @@ import java.util.Map;
 
 @Service
 public class ReportService {
+
+    private static Logger logger = LoggerFactory.getLogger(ReportService.class);
 
     @Value(ReportApiConstants.ENDPOINT_GET_PDF_FROM_HTML_URL)
     private String getPDFfromHTMLURL;
