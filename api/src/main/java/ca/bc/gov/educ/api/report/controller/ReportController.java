@@ -20,13 +20,13 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT)
+    @PostMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT)
     public ResponseEntity<byte[]> getStudentAchievementReport(@RequestBody Map<String, String> reportParameters) {
         logger.debug("Get Student Achievement Report");
         return reportService.getStudentAchievementReport(reportParameters);
     }
 
-    @GetMapping (ReportApiConstants.STUDENT_TRANSCRIPT_REPORT)
+    @PostMapping (ReportApiConstants.STUDENT_TRANSCRIPT_REPORT)
     public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody Map<String, String> reportParameters) {
         logger.debug("Get Student Achievement Report");
         return reportService.getStudentTranscriptReport(reportParameters);
