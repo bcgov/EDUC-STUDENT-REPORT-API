@@ -1,8 +1,14 @@
 package ca.bc.gov.educ.api.report.template;
 
+import ca.bc.gov.educ.api.report.controller.ReportController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public class AchievementReportTemplate implements ReportTemplate {
+
+    private static Logger logger = LoggerFactory.getLogger(AchievementReportTemplate.class);
 
     StringBuffer htmlTemplate;
     Map<String, String> parameters;
@@ -57,7 +63,7 @@ public class AchievementReportTemplate implements ReportTemplate {
         String temp = "";
 
         for (String k : parameters.keySet()) {
-            System.out.println("key: " + k + " value: " + parameters.get(k));
+            logger.debug("key: " + k + " value: " + parameters.get(k));
             temp = template.replaceAll("\\{\\$" + k + "\\}", parameters.get(k));
             template = temp;
         }
