@@ -1,12 +1,11 @@
-package ca.bc.gov.educ.studentreport;
+package ca.bc.gov.educ.api.report;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class StudentReportApiApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 
