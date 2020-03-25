@@ -6,11 +6,13 @@ import ca.bc.gov.educ.api.report.util.ReportApiConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.Map;
 
+@Service
 public class ReportService {
 
     @Value(ReportApiConstants.ENDPOINT_GET_PDF_FROM_HTML_URL)
