@@ -5,8 +5,22 @@ import lombok.Data;
 @Data
 public class ReportOptions {
 
-	private boolean cacheReport= false;
-	private String convertTo = "pdf";
-	private boolean overwrite = true;
-	private String reportName= "studentachievementreport.pdf";
+	private boolean cacheReport;
+	private String convertTo;
+	private boolean overwrite;
+	private String reportName;
+	
+	public ReportOptions (String reportName) {
+		if(reportName.equalsIgnoreCase("achievement")) {
+			this.cacheReport = false;
+			this.convertTo = "pdf";
+			this.overwrite = true;
+			this.reportName = "studentachievementreport.pdf";
+		}else if(reportName.equalsIgnoreCase("transcript")) {
+			this.cacheReport = false;
+			this.convertTo = "pdf";
+			this.overwrite = true;
+			this.reportName = "studenttranscriptreport.pdf";
+		}
+	}
 }
