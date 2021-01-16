@@ -1,18 +1,28 @@
 package ca.bc.gov.educ.api.report.controller;
 
-import ca.bc.gov.educ.api.report.service.ReportService;
-import ca.bc.gov.educ.api.report.util.ReportApiConstants;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import ca.bc.gov.educ.api.report.dto.GenerateReport;
+import ca.bc.gov.educ.api.report.service.ReportService;
+import ca.bc.gov.educ.api.report.util.PermissionsContants;
+import ca.bc.gov.educ.api.report.util.ReportApiConstants;
 
 @CrossOrigin
 @RestController
 @RequestMapping (ReportApiConstants.REPORT_API_ROOT_MAPPING)
+@EnableResourceServer
 public class ReportController {
 
     private static Logger logger = LoggerFactory.getLogger(ReportController.class);
@@ -30,5 +40,13 @@ public class ReportController {
     public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody Map<String, String> reportParameters) {
         logger.debug("Get Student ranscript Report");
         return reportService.getStudentTranscriptReport(reportParameters);
+    }
+    
+    
+    @PostMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT_CDOGS)
+    @PreAuthorize(PermissionsContants.STUDENT_ACHIEVEMENT_REPORT)
+    public ResponseEntity<byte[]> getStudentTranscriptReportJasper(@RequestBody GenerateReport report) {
+        logger.debug("Get Student ranscript Report"); 
+        return reportService.getStudentAchievementReport(report);
     }
 }

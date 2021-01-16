@@ -9,6 +9,7 @@ public class ReportApiConstants {
     public static final String REPORT_API_ROOT_MAPPING = "/api/" + API_VERSION + "/reports";
     public static final String STUDENT_ACHIEVEMENT_REPORT = "/achievement-report";
     public static final String STUDENT_TRANSCRIPT_REPORT = "/transcript";
+    public static final String STUDENT_ACHIEVEMENT_REPORT_CDOGS = "/achievementreport";
 
     //Attribute Constants
     public static final String PEN_ATTRIBUTE = "pen";
@@ -24,4 +25,6 @@ public class ReportApiConstants {
 
     //Application Properties Constants
     public static final String ENDPOINT_GET_PDF_FROM_HTML_URL = "${endpoint.weasyprint.getPDFfromHTML}";
+    public static final String ENDPOINT_GET_PDF_URL = "${endpoint.cdogs.getPDF}";
+    public static final String ENDPOINT_GET_TOKEN_URL = "${endpoint.cdogs.getToken}";
 }
