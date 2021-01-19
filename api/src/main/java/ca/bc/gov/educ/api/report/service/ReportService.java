@@ -1,20 +1,16 @@
 package ca.bc.gov.educ.api.report.service;
 
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,14 +108,12 @@ public class ReportService {
     
     public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport report) {
 		InputStream inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
-		URI file;
 		try {
-			file = getClass().getResource("/templates/student_achievement_report_template.docx").toURI();		
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-			String fileContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
-			File files = new File(file);
-			//byte[] reportByteArr = fileContent.getBytes();
-			byte[] reportByteArr = FileUtils.readFileToByteArray(files);
+			File tempFile = File.createTempFile("student_achievement_report_template", ".docx");
+			tempFile.deleteOnExit();
+			FileOutputStream out = new FileOutputStream(tempFile);
+			IOUtils.copy(inputStream, out);
+			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
 			byte[] encoded = Base64.encodeBase64(reportByteArr);
 			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
 			ReportTemplate template = new ReportTemplate();
@@ -147,7 +141,7 @@ public class ReportService {
 			        .headers(headers)
 			        .contentType(MediaType.APPLICATION_PDF)
 			        .body(ress);
-		} catch (URISyntaxException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
