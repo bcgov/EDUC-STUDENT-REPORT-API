@@ -110,7 +110,6 @@ public class ReportService {
 		InputStream inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
 		try {
 			File tempFile = File.createTempFile("student_achievement_report_template", ".docx");
-			tempFile.deleteOnExit();
 			FileOutputStream out = new FileOutputStream(tempFile);
 			IOUtils.copy(inputStream, out);
 			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
@@ -136,6 +135,7 @@ public class ReportService {
 			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studentachievementreport.pdf");
+			tempFile.delete();
 			return ResponseEntity
 			        .ok()
 			        .headers(headers)
