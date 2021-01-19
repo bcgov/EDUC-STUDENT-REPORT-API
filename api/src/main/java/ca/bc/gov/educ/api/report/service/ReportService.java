@@ -1,11 +1,17 @@
 package ca.bc.gov.educ.api.report.service;
 
-import java.io.ByteArrayInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
@@ -22,7 +28,6 @@ import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
 import ca.bc.gov.educ.api.report.dto.GenerateReport;
@@ -106,43 +111,47 @@ public class ReportService {
     }
     
     public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport report) {
+		InputStream inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
+		URI file;
 		try {
-			File file = ResourceUtils.getFile("classpath:student_achievement_report_template.docx");
-			byte[] reportByteArr = FileUtils.readFileToByteArray(file);
+			file = getClass().getResource("/templates/student_achievement_report_template.docx").toURI();		
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			String fileContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+			File files = new File(file);
+			//byte[] reportByteArr = fileContent.getBytes();
+			byte[] reportByteArr = FileUtils.readFileToByteArray(files);
 			byte[] encoded = Base64.encodeBase64(reportByteArr);
-		    String encodedString = new String(encoded,StandardCharsets.US_ASCII);
-		    ReportTemplate template = new ReportTemplate();
-		    template.setContent(encodedString);
-		    report.setOptions(new ReportOptions("achievement"));
-		    report.setTemplate(template);		    
-		    
-		    //Getting Token
-		    HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
-		    MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-		    map.add("grant_type", "client_credentials");
-		    HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
-		    ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
-		    		request, ResponseObj.class).getBody();
-		    
-		    //Making CDOG call
-		    HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
-		    byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
-		    				new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
-		    ByteArrayInputStream bis = new ByteArrayInputStream(ress);
-		    HttpHeaders headers = new HttpHeaders();
-	        headers.add("Content-Disposition", "inline; filename=studentachievementreport.pdf");
-		    return ResponseEntity
-	                .ok()
-	                .headers(headers)
-	                .contentType(MediaType.APPLICATION_PDF)
-	                .body(ress);
-		} catch (IOException e) {
+			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
+			ReportTemplate template = new ReportTemplate();
+			template.setContent(encodedString);
+			report.setOptions(new ReportOptions("achievement"));
+			report.setTemplate(template);		    
+			
+			//Getting Token
+			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
+			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+			map.add("grant_type", "client_credentials");
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
+			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
+					request, ResponseObj.class).getBody();
+			
+			//Making CDOG call
+			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
+			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
+							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
+			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "inline; filename=studentachievementreport.pdf");
+			return ResponseEntity
+			        .ok()
+			        .headers(headers)
+			        .contentType(MediaType.APPLICATION_PDF)
+			        .body(ress);
+		} catch (URISyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		
-    	return null;
+		return null;
     	
     }
 
