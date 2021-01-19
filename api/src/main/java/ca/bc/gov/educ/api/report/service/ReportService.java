@@ -2,9 +2,7 @@ package ca.bc.gov.educ.api.report.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
@@ -15,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,6 +26,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
 import ca.bc.gov.educ.api.report.dto.GenerateReport;
+import ca.bc.gov.educ.api.report.dto.ReportOptions;
 import ca.bc.gov.educ.api.report.dto.ReportTemplate;
 import ca.bc.gov.educ.api.report.dto.ResponseObj;
 import ca.bc.gov.educ.api.report.template.AchievementReportTemplate;
@@ -115,6 +113,7 @@ public class ReportService {
 		    String encodedString = new String(encoded,StandardCharsets.US_ASCII);
 		    ReportTemplate template = new ReportTemplate();
 		    template.setContent(encodedString);
+		    report.setOptions(new ReportOptions("achievement"));
 		    report.setTemplate(template);		    
 		    
 		    //Getting Token
