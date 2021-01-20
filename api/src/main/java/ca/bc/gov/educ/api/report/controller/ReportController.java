@@ -45,8 +45,8 @@ public class ReportController {
     
     @PostMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT_CDOGS)
     @PreAuthorize(PermissionsContants.STUDENT_ACHIEVEMENT_REPORT)
-    public ResponseEntity<byte[]> getStudentTranscriptReportJasper(@RequestBody GenerateReport report) {
-        logger.debug("Get Student ranscript Report"); 
-        return reportService.getStudentAchievementReport(report);
+    public ResponseEntity<byte[]> getStudentAchievementReportCDogs(@RequestBody GenerateReport report) {
+        logger.debug("getStudentAchievementReportCDogs"); 
+        return reportService.getStudentAchievementReportCdogs(report);
     }
 }

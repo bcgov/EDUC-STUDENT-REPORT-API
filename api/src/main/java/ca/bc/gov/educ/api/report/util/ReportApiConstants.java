@@ -21,7 +21,7 @@ public class ReportApiConstants {
     public static final Date DEFAULT_UPDATED_TIMESTAMP = new Date();
 
     //Default Date format constants
-    public static final String DEFAULT_DATE_FORMAT = "dd-MMM-yyyy";
+    public static final String DEFAULT_DATE_FORMAT = "yyyyMMdd";
 
     //Application Properties Constants
     public static final String ENDPOINT_GET_PDF_FROM_HTML_URL = "${endpoint.weasyprint.getPDFfromHTML}";
