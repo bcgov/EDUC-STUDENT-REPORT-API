@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
@@ -106,9 +107,15 @@ public class ReportService {
         return transcriptReportAsPdf;
     }
     
-    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport report) {
-		InputStream inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
+    public ResponseEntity<byte[]> getStudentAchievementReportCdogs(GenerateReport report) {
+    	InputStream inputStream = null;
+    	if(report.getData().getStudentExam() != null && report.getData().getStudentExam().size() > 0) {
+    		inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_inc_exam_template.docx");
+		}else {
+			inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
+		}
 		try {
+			report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
 			File tempFile = File.createTempFile("student_achievement_report_template", ".docx");
 			FileOutputStream out = new FileOutputStream(tempFile);
 			IOUtils.copy(inputStream, out);
