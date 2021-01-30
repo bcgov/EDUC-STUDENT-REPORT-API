@@ -20,7 +20,7 @@ public class StudentCourseAssessment {
     private String sessionDate;
 	private String courseDescription;
 	private String gradReqMet;
-	private Double finalPercentage;
+	private String finalPercentage;
 	private String finalLetterGrade;	
 	private Integer credits;
 	private boolean isNotCompleted;
