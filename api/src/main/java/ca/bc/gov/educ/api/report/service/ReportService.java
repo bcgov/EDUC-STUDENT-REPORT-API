@@ -5,8 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
@@ -31,6 +34,9 @@ import ca.bc.gov.educ.api.report.dto.GenerateReport;
 import ca.bc.gov.educ.api.report.dto.ReportOptions;
 import ca.bc.gov.educ.api.report.dto.ReportTemplate;
 import ca.bc.gov.educ.api.report.dto.ResponseObj;
+import ca.bc.gov.educ.api.report.dto.StudentAssessment;
+import ca.bc.gov.educ.api.report.dto.StudentCourse;
+import ca.bc.gov.educ.api.report.dto.StudentCourseAssessment;
 import ca.bc.gov.educ.api.report.template.AchievementReportTemplate;
 import ca.bc.gov.educ.api.report.template.TranscriptReportTemplate;
 import ca.bc.gov.educ.api.report.util.ReportApiConstants;
@@ -115,7 +121,7 @@ public class ReportService {
 			inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
 		}
 		try {
-			report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
+			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
 			File tempFile = File.createTempFile("student_achievement_report_template", ".docx");
 			FileOutputStream out = new FileOutputStream(tempFile);
 			IOUtils.copy(inputStream, out);
@@ -155,5 +161,132 @@ public class ReportService {
 		return null;
     	
     }
+
+	public ResponseEntity<byte[]> getStudentTranscriptReportCDogs(GenerateReport report) {
+		List<StudentCourse> studentCourseList = report.getData().getStudentCourse();
+		List<StudentCourse> operatedList = new ArrayList<>();
+		studentCourseList.stream()
+		  .filter(sC -> sC.isFailed())
+		  .filter(sC -> sC.isDuplicate())
+		  .forEach(operatedList::add);
+		studentCourseList.removeAll(operatedList);
+		List<StudentCourseAssessment> studentCourseAssesmentList = prepareCourseList(studentCourseList);
+		prepareAssessmentList(report.getData().getStudentAssessment(),studentCourseAssesmentList);
+		report.getData().setStudentCourseAssessment(studentCourseAssesmentList);
+		InputStream inputStream = null;
+		inputStream = getInputStream(report,inputStream,studentCourseAssesmentList);
+		
+		try {
+			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
+			File tempFile = File.createTempFile("student_transcript_report_template", ".docx");
+			FileOutputStream out = new FileOutputStream(tempFile);
+			IOUtils.copy(inputStream, out);
+			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
+			byte[] encoded = Base64.encodeBase64(reportByteArr);
+			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
+			ReportTemplate template = new ReportTemplate();
+			template.setContent(encodedString);
+			report.setOptions(new ReportOptions("transcript"));
+			report.setTemplate(template);		    
+			
+			//Getting Token
+			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
+			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+			map.add("grant_type", "client_credentials");
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
+			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
+					request, ResponseObj.class).getBody();
+			
+			//Making CDOG call
+			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
+			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
+							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
+			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "inline; filename=studenttranscriptreport.pdf");
+			tempFile.delete();
+			return ResponseEntity
+			        .ok()
+			        .headers(headers)
+			        .contentType(MediaType.APPLICATION_PDF)
+			        .body(ress);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private InputStream getInputStream(GenerateReport report, InputStream inputStream, List<StudentCourseAssessment> studentCourseAssesmentList) {
+		if(!report.getData().getDemographics().getMinCode().substring(0, 3).equalsIgnoreCase("098")) {
+	    	if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
+	    		inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_bc_template.docx");
+			}else {
+				inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_bc_multiple_template.docx");
+			}
+		}else {
+			if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
+	    		inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_yukon_template.docx");
+			}else {
+				inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_yukon_multiple_template.docx");
+			}
+		}
+		
+		modifyReportDataBasedOnListSize(report);
+		return inputStream;
+	}
+
+	private void modifyReportDataBasedOnListSize(GenerateReport report) {
+		StudentCourseAssessment secondLastRecord = new StudentCourseAssessment();
+		secondLastRecord.setCourseName(" ");
+		report.getData().getStudentCourseAssessment().add(secondLastRecord);	
+		StudentCourseAssessment lastRecord = new StudentCourseAssessment();
+		secondLastRecord.setCourseName("*** End of Course / Assessment List ***");
+		report.getData().getStudentCourseAssessment().add(lastRecord);		
+	}
+
+	private List<StudentCourseAssessment> prepareAssessmentList(List<StudentAssessment> studentAssessment,
+			List<StudentCourseAssessment> studentCourseAssessmentList) {
+		Collections.sort(studentAssessment, Comparator.comparing(StudentAssessment::getAssessmentCode));
+		studentAssessment.stream().forEach(sA -> {
+			StudentCourseAssessment scA = new StudentCourseAssessment();
+			scA.setCourseCode(sA.getAssessmentCode());
+			scA.setCourseName(sA.getAssessmentName());
+			scA.setSessionDate(sA.getSessionDate());
+			if(sA.getAssessmentCode().equalsIgnoreCase("LTE10") || sA.getAssessmentCode().equalsIgnoreCase("LTP10")) {
+				scA.setFinalPercentage("RM");
+			}else {
+				if(sA.getSpecialCase().equalsIgnoreCase("A")) {
+					scA.setFinalPercentage("AEG");
+				}else if(sA.getSpecialCase().equalsIgnoreCase("E")) {
+					scA.setFinalPercentage("AEG");
+				}else {
+					scA.setFinalPercentage(sA.getProficiencyScore().toString());
+				}
+			}
+			studentCourseAssessmentList.add(scA);
+		});
+		return studentCourseAssessmentList;
+		
+	}
+
+	private List<StudentCourseAssessment> prepareCourseList(List<StudentCourse> studentCourseList) {
+		List<StudentCourseAssessment> studentCourseAssessmentList = new ArrayList<StudentCourseAssessment>();
+		studentCourseList.stream().forEach(sC -> {
+			StudentCourseAssessment scA = new StudentCourseAssessment();
+			scA.setCourseCode(sC.getCourseCode());
+			scA.setCourseName(sC.getCourseName());
+			scA.setCourseLevel(sC.getCourseLevel());
+			scA.setCredits(sC.getCredits());
+			scA.setFinalLetterGrade(sC.getCompletedCourseLetterGrade());
+			scA.setFinalPercentage(sC.getCompletedCoursePercentage().toString());
+			scA.setGradReqMet(sC.getGradReqMet());
+			scA.setSessionDate(sC.getSessionDate());
+			studentCourseAssessmentList.add(scA);
+		});
+		Collections.sort(studentCourseAssessmentList, Comparator.comparing(StudentCourseAssessment::getCourseLevel)
+	                .thenComparing(StudentCourseAssessment::getCourseName));
+		return studentCourseAssessmentList;
+	}
 
 }
