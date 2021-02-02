@@ -181,6 +181,7 @@ public class ReportService {
 			File tempFile = File.createTempFile("student_transcript_report_template", ".docx");
 			FileOutputStream out = new FileOutputStream(tempFile);
 			IOUtils.copy(inputStream, out);
+			//addImageToTemplate(tempFile);
 			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
 			byte[] encoded = Base64.encodeBase64(reportByteArr);
 			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
@@ -216,6 +217,40 @@ public class ReportService {
 		}
 		return null;
 	}
+
+	/*
+	private File addImageToTemplate(File tempFile) {
+		WordprocessingMLPackage wPackage = WordprocessingMLPackage.load(tempFile);
+        MainDocumentPart mainDocumentPart = wPackage.getMainDocumentPart();
+		Document wmlDoc = (Document) mainDocumentPart.getJaxbElement();
+		Body body = wmlDoc.getBody();
+		        // Extract all paragraphs in the body
+		List<Object> paragraphs = body.getContent();
+		        // cursor to extract bookmarks and create bookmarks
+		RangeFinder rt = new RangeFinder("CTBookmark", "CTMarkupRange");
+
+        // traverse bookmarks
+		for (CTBookmark bm:rt.getStarts()) {
+		   if (bm.getName().equals("ministerOfEducation")){             
+		       InputStream is = new FileInputStream("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
+		       byte[] bytes = IOUtils.toByteArray(is);
+		       BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, bytes);
+		       Inline inline = imagePart.createImageInline(null, null, 0,1, false, 50);		                        
+		       P p = (P)(bm.getParent());
+		       
+		       ObjectFactory factory = new ObjectFactory();
+		                        // The R object is an anonymous complex type, but I don't know the specific meaning. I guess it is necessary to take a look at ooxml.
+		       R run = factory.create();
+		                        // drawing is understood as a canvas?
+		       Drawing drawing = factory.createDrawing();
+		       drawing.getAnchorOrInline().add(inline);
+		       run.getContent().add(drawing);
+		       p.getContent().add(run);
+		   }
+		}
+		wPackage.save();		
+	}
+	*/
 
 	private InputStream getInputStream(GenerateReport report, InputStream inputStream, List<StudentCourseAssessment> studentCourseAssesmentList) {
 		if(!report.getData().getDemographics().getMinCode().substring(0, 3).equalsIgnoreCase("098")) {
