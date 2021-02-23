@@ -297,7 +297,7 @@ public class ReportService {
 					}else if(sA.getSpecialCase().equalsIgnoreCase("E")) {
 						scA.setFinalPercentage("AEG");
 					}else {
-						scA.setFinalPercentage(sA.getProficiencyScore().toString());
+						scA.setFinalPercentage(sA.getProficiencyScore() != null ? sA.getProficiencyScore().toString() : null);
 					}
 				}
 			}
