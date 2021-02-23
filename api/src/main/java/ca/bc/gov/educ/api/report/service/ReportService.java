@@ -291,12 +291,14 @@ public class ReportService {
 			if(sA.getAssessmentCode().equalsIgnoreCase("LTE10") || sA.getAssessmentCode().equalsIgnoreCase("LTP10")) {
 				scA.setFinalPercentage("RM");
 			}else {
-				if(sA.getSpecialCase().equalsIgnoreCase("A")) {
-					scA.setFinalPercentage("AEG");
-				}else if(sA.getSpecialCase().equalsIgnoreCase("E")) {
-					scA.setFinalPercentage("AEG");
-				}else {
-					scA.setFinalPercentage(sA.getProficiencyScore().toString());
+				if(sA.getSpecialCase() != null) {
+					if(sA.getSpecialCase().equalsIgnoreCase("A")) {
+						scA.setFinalPercentage("AEG");
+					}else if(sA.getSpecialCase().equalsIgnoreCase("E")) {
+						scA.setFinalPercentage("AEG");
+					}else {
+						scA.setFinalPercentage(sA.getProficiencyScore().toString());
+					}
 				}
 			}
 			studentCourseAssessmentList.add(scA);
