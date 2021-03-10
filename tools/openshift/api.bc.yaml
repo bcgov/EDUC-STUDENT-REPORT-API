@@ -12,11 +12,11 @@ objects:
     labels:
       build: educ-report-api-pipeline
     name: educ-report-api-pipeline
-    namespace: wbmfsf-tools
+    namespace: 77c02f-tools
   spec:
     source:
       git:
-        ref: master
+        ref: main
         uri: 'https://github.com/bcgov/EDUC-REPORT-API'
       type: Git
     strategy:
