@@ -56,4 +56,11 @@ public class ReportController {
         logger.debug("getStudentTranscriptReportCDogs"); 
         return reportService.getStudentTranscriptReportCDogs(report);
     }
+    
+    @PostMapping (ReportApiConstants.STUDENT_CERTIFICATE_CDOGS)
+    @PreAuthorize(PermissionsContants.STUDENT_CERTIFICATE)
+    public ResponseEntity<byte[]> getStudentCertificateCDogs(@RequestBody GenerateReport report) {
+        logger.debug("getStudentCertificateCDogs"); 
+        return reportService.getStudentCertificateCDogs(report);
+    }
 }
