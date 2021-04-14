@@ -18,11 +18,18 @@ import ca.bc.gov.educ.api.report.dto.GenerateReport;
 import ca.bc.gov.educ.api.report.service.ReportService;
 import ca.bc.gov.educ.api.report.util.PermissionsContants;
 import ca.bc.gov.educ.api.report.util.ReportApiConstants;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @CrossOrigin
 @RestController
 @RequestMapping (ReportApiConstants.REPORT_API_ROOT_MAPPING)
 @EnableResourceServer
+@OpenAPIDefinition(info = @Info(title = "API for Report Generation", description = "This API is for Report Generation", version = "1"), security = {@SecurityRequirement(name = "OAUTH2", scopes = {"READ_GRAD_STUDENT_COURSE_DATA"})})
 public class ReportController {
 
     private static Logger logger = LoggerFactory.getLogger(ReportController.class);
@@ -31,12 +38,18 @@ public class ReportController {
     ReportService reportService;
 
     @PostMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT)
+    @PreAuthorize(PermissionsContants.STUDENT_ACHIEVEMENT_REPORT)
+    @Operation(summary = "Generate Student Achievement Report", description = "Generate Student Achievement Report", tags = { "Report" }, deprecated = true)
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     public ResponseEntity<byte[]> getStudentAchievementReport(@RequestBody Map<String, String> reportParameters) {
         logger.debug("Get Student Achievement Report");
         return reportService.getStudentAchievementReport(reportParameters);
     }
 
     @PostMapping (ReportApiConstants.STUDENT_TRANSCRIPT_REPORT)
+    @PreAuthorize(PermissionsContants.STUDENT_TRANSCRIPT_REPORT)
+    @Operation(summary = "Generate Student Transcript Report", description = "Generate Student Transcript Report", tags = { "Report" }, deprecated = true)
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody Map<String, String> reportParameters) {
         logger.debug("Get Student ranscript Report");
         return reportService.getStudentTranscriptReport(reportParameters);
@@ -45,6 +58,8 @@ public class ReportController {
     
     @PostMapping (ReportApiConstants.STUDENT_ACHIEVEMENT_REPORT_CDOGS)
     @PreAuthorize(PermissionsContants.STUDENT_ACHIEVEMENT_REPORT)
+    @Operation(summary = "Generate Student Achievement Report", description = "Generate Student Achievement Report", tags = { "Report" })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     public ResponseEntity<byte[]> getStudentAchievementReportCDogs(@RequestBody GenerateReport report) {
         logger.debug("getStudentAchievementReportCDogs"); 
         return reportService.getStudentAchievementReportCdogs(report);
@@ -52,8 +67,19 @@ public class ReportController {
     
     @PostMapping (ReportApiConstants.STUDENT_TRANSCRIPT_REPORT_CDOGS)
     @PreAuthorize(PermissionsContants.STUDENT_TRANSCRIPT_REPORT)
+    @Operation(summary = "Generate Student Transcript Report", description = "Generate Student Transcript Report", tags = { "Report" })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     public ResponseEntity<byte[]> getStudentTranscriptReportCDogs(@RequestBody GenerateReport report) {
         logger.debug("getStudentTranscriptReportCDogs"); 
         return reportService.getStudentTranscriptReportCDogs(report);
+    }
+    
+    @PostMapping (ReportApiConstants.STUDENT_CERTIFICATE_CDOGS)
+    @PreAuthorize(PermissionsContants.STUDENT_CERTIFICATE)
+    @Operation(summary = "Generate Student Certificate", description = "Generate Student Certificate", tags = { "Report" })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
+    public ResponseEntity<byte[]> getStudentCertificateCDogs(@RequestBody GenerateReport report) {
+        logger.debug("getStudentCertificateCDogs"); 
+        return reportService.getStudentCertificateCDogs(report);
     }
 }

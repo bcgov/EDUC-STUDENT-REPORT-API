@@ -21,6 +21,11 @@ public class ReportOptions {
 			this.convertTo = "pdf";
 			this.overwrite = true;
 			this.reportName = "studenttranscriptreport.pdf";
+		}else {
+			this.cacheReport = false;
+			this.convertTo = "pdf";
+			this.overwrite = true;
+			this.reportName = "studentcertificate.pdf";
 		}
 	}
 }
