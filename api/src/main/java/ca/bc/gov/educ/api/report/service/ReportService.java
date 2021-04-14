@@ -1,10 +1,12 @@
 package ca.bc.gov.educ.api.report.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +17,19 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.docx4j.TraversalUtil;
+import org.docx4j.dml.wordprocessingDrawing.Inline;
+import org.docx4j.finders.RangeFinder;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.Body;
+import org.docx4j.wml.CTBookmark;
+import org.docx4j.wml.Document;
+import org.docx4j.wml.Drawing;
+import org.docx4j.wml.ObjectFactory;
+import org.docx4j.wml.P;
+import org.docx4j.wml.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,7 +196,6 @@ public class ReportService {
 			File tempFile = File.createTempFile("student_transcript_report_template", ".docx");
 			FileOutputStream out = new FileOutputStream(tempFile);
 			IOUtils.copy(inputStream, out);
-			//addImageToTemplate(tempFile);
 			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
 			byte[] encoded = Base64.encodeBase64(reportByteArr);
 			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
@@ -217,41 +231,108 @@ public class ReportService {
 		}
 		return null;
 	}
-
-	/*
-	private File addImageToTemplate(File tempFile) {
-		WordprocessingMLPackage wPackage = WordprocessingMLPackage.load(tempFile);
-        MainDocumentPart mainDocumentPart = wPackage.getMainDocumentPart();
-		Document wmlDoc = (Document) mainDocumentPart.getJaxbElement();
-		Body body = wmlDoc.getBody();
-		        // Extract all paragraphs in the body
-		List<Object> paragraphs = body.getContent();
-		        // cursor to extract bookmarks and create bookmarks
-		RangeFinder rt = new RangeFinder("CTBookmark", "CTMarkupRange");
-
-        // traverse bookmarks
-		for (CTBookmark bm:rt.getStarts()) {
-		   if (bm.getName().equals("ministerOfEducation")){             
-		       InputStream is = new FileInputStream("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
-		       byte[] bytes = IOUtils.toByteArray(is);
-		       BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, bytes);
-		       Inline inline = imagePart.createImageInline(null, null, 0,1, false, 50);		                        
-		       P p = (P)(bm.getParent());
-		       
-		       ObjectFactory factory = new ObjectFactory();
-		                        // The R object is an anonymous complex type, but I don't know the specific meaning. I guess it is necessary to take a look at ooxml.
-		       R run = factory.create();
-		                        // drawing is understood as a canvas?
-		       Drawing drawing = factory.createDrawing();
-		       drawing.getAnchorOrInline().add(inline);
-		       run.getContent().add(drawing);
-		       p.getContent().add(run);
-		   }
+	
+	public ResponseEntity<byte[]> getStudentCertificateCDogs(GenerateReport report) {
+		
+		InputStream inputStream = null;
+		inputStream = getClass().getResourceAsStream("/templates/student_certificate_template.docx");
+		
+		try {
+			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
+			File tempFile = File.createTempFile("student_certificate_template", ".docx");
+			FileOutputStream out = new FileOutputStream(tempFile);
+			IOUtils.copy(inputStream, out);
+			//addImageToTemplate(tempFile);
+			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
+			byte[] encoded = Base64.encodeBase64(reportByteArr);
+			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
+			ReportTemplate template = new ReportTemplate();
+			template.setContent(encodedString);
+			report.setOptions(new ReportOptions("certificate"));
+			report.setTemplate(template);		    
+			
+			//Getting Token
+			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
+			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+			map.add("grant_type", "client_credentials");
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
+			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
+					request, ResponseObj.class).getBody();
+			
+			//Making CDOG call
+			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
+			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
+							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
+			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "inline; filename=studentcertificate.pdf");
+			tempFile.delete();
+			return ResponseEntity
+			        .ok()
+			        .headers(headers)
+			        .contentType(MediaType.APPLICATION_PDF)
+			        .body(ress);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		wPackage.save();		
+		return null;
 	}
-	*/
 
+	private void addImageToTemplate(File tempFile) throws IOException {
+		String targetPath = "target.docx";
+		try {
+			WordprocessingMLPackage wPackage1 = WordprocessingMLPackage.createPackage();
+			WordprocessingMLPackage wPackage = WordprocessingMLPackage.load(new FileInputStream(tempFile));
+	        MainDocumentPart mainDocumentPart = wPackage.getMainDocumentPart();
+			Document wmlDoc = mainDocumentPart.getContents();
+			Body body = wmlDoc.getBody();
+			List<Object> paragraphs = body.getContent();
+			RangeFinder rt = new RangeFinder("CTBookmark", "CTMarkupRange");
+			new TraversalUtil(paragraphs, rt);
+	        // traverse bookmarks
+			for (CTBookmark bm:rt.getStarts()) {
+			   if (bm.getName().equals("ministerOfEducation")){             
+				   File image = new File("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
+				   byte[] fileContent = Files.readAllBytes(image.toPath());
+				   BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, fileContent);
+			       Inline inline = imagePart.createImageInline("Baeldung Image 1", "Alt Text 1", 1, 2, false, 1100);
+			       P p = (P)(bm.getParent());			       
+			       p.getContent().add(addImageToParagraph(inline));
+			   }
+			   if (bm.getName().equals("superintendentOfSchools")){             
+				   File image = new File("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
+				   byte[] fileContent = Files.readAllBytes(image.toPath());
+				   BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, fileContent);
+			       Inline inline = imagePart.createImageInline("Baeldung Image 2", "Alt Text 2", 1, 2, false, 1100);		                        
+			       P p = (P)(bm.getParent());
+			       p.getContent().add(addImageToParagraph(inline));
+			   }
+			}
+			//wPackage.save(new FileOutputStream(tempCreatedFile));
+			MainDocumentPart mainDocumentPart1 = wPackage1.getMainDocumentPart();
+			for(Object p:paragraphs) {
+				mainDocumentPart1.addParagraph(p.toString());
+			}
+//			wmlDoc1.setBody(body);
+//			wmlDoc1.setIgnorable(wmlDoc.getIgnorable());
+//			wmlDoc1.setParent(wmlDoc.getParent());
+//			mainDocumentPart1.setContents(wmlDoc1);
+			wPackage1.save(new FileOutputStream(targetPath));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static R addImageToParagraph(Inline inline) {
+	        ObjectFactory factory = new ObjectFactory();
+	        R r = factory.createR();
+	        Drawing drawing = factory.createDrawing();
+	        r.getContent().add(drawing);
+	        drawing.getAnchorOrInline().add(inline);
+	        return r;
+	    }
 	private InputStream getInputStream(GenerateReport report, InputStream inputStream, List<StudentCourseAssessment> studentCourseAssesmentList) {
 		if(!report.getData().getDemographics().getMinCode().substring(0, 3).equalsIgnoreCase("098")) {
 	    	if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
