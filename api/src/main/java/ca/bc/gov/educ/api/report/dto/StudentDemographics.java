@@ -6,28 +6,34 @@ import lombok.Data;
 
 @Data
 @Component
-public class StudentDemographics {
-	private String schoolName;
-	private String minCode;
+public class StudentDemographics {    
+    private String studentID;
 	private String pen;
-	private String studentLocalId;
-	private String studSurname;
-    private String studGiven;
-    private String studMiddle;	
-    private String address1;
-    private String address2;
-    private String city;
-    private String provinceCode;
-    private String countryCode;
-    private String postalCode;
-    private String studBirth;
-    private String studSex;
-    private String studentGrade;
-    private String studentCitizenship;
-    private String gradProgram;
-    private String programCode;
-    private String programCode2;
-    private String programCode3;
-    private String programCode4;
-    private String programCode5;
+	private String legalFirstName;//change this in report
+	private String legalMiddleNames;//change this in report
+	private String legalLastName; //change this in report
+	private String dob; //change this in report
+	private String sexCode; //change this in report
+	private String genderCode;
+	private String usualFirstName;
+	private String usualMiddleNames;
+	private String usualLastName;
+	private String email;
+	private String emailVerified;
+	private String deceasedDate;
+	private String postalCode;
+	private String mincode; //change this in report
+	private String localID; //change this in report
+	private String gradeCode;
+	private String gradeYear;
+	private String demogCode;
+	private String statusCode;
+	private String memo;
+	private String trueStudentID;
+	private String program; //change this in report
+	private String schoolOfRecord;
+	private String schoolOfRecordName; //Change this in report
+	private String schoolOfRecordindependentAffiliation;
+	private String studentGrade;
+	private String studentStatus;
 }
