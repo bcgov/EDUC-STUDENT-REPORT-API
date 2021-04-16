@@ -334,7 +334,7 @@ public class ReportService {
 	        return r;
 	    }
 	private InputStream getInputStream(GenerateReport report, InputStream inputStream, List<StudentCourseAssessment> studentCourseAssesmentList) {
-		if(!report.getData().getDemographics().getMinCode().substring(0, 3).equalsIgnoreCase("098")) {
+		if(!report.getData().getDemographics().getMincode().substring(0, 3).equalsIgnoreCase("098")) {
 	    	if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
 	    		inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_bc_template.docx");
 			}else {
