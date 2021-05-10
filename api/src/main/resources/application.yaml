@@ -29,10 +29,6 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: false
-  security:
-    user:
-      name: ${API_USERNAME}
-      password: ${API_PASSWORD}
 
 #Logging properties
 logging:
@@ -67,15 +63,23 @@ server:
       io: 16
   #port: ${HTTP_PORT}
 
-report: 
- render: 
-  user: ${REPORT_RENDER_USER}
-  password: ${REPORT_RENDER_PASSWORD}
+#API Documentation
+springdoc:
+  api-docs:
+    path: /api/v1/api-docs
+  swagger-ui:
+    path: /api/v1/api-docs-ui.html
+    operationsSorter: alpha
+
+report:
+  render:
+    user: ${REPORT_RENDER_USER}
+    password: ${REPORT_RENDER_PASSWORD}
 
 #Endpoints
-endpoint: 
- weasyprint: 
-  getPDFfromHTML: http://weasyprint-wbmfsf-dev.pathfinder.gov.bc.ca/pdf?filename=myfile.pdf
- cdogs: 
-  getPDF: https://cdogs-test.apps.silver.devops.gov.bc.ca/api/v2/template/render
-  getToken: https://test.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
+endpoint:
+  weasyprint:
+    getPDFfromHTML: http://weasyprint-wbmfsf-dev.pathfinder.gov.bc.ca/pdf?filename=myfile.pdf
+  cdogs:
+    getPDF: https://cdogs-test.apps.silver.devops.gov.bc.ca/api/v2/template/render
+    getToken: https://test.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
