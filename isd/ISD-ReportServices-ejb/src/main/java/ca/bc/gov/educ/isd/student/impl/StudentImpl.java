@@ -1,0 +1,141 @@
+/*
+ * *********************************************************************
+ *  Copyright (c) 2016, Ministry of Education, BC.
+ *
+ *  All rights reserved.
+ *    This information contained herein may not be used in whole
+ *    or in part without the express written consent of the
+ *    Government of British Columbia, Canada.
+ *
+ *  Revision Control Information
+ *  File:                $Id::                                                 $
+ *  Date of Last Commit: $Date::                                               $
+ *  Revision Number:     $Rev::                                                $
+ *  Last Commit by:      $Author::                                             $
+ *
+ * ***********************************************************************
+ */
+package ca.bc.gov.educ.isd.student.impl;
+
+import ca.bc.gov.educ.isd.common.party.Identifier;
+import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
+import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
+import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
+import ca.bc.gov.educ.isd.student.Student;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *
+ * @author CGI Information Management Consultants Inc.
+ */
+public class StudentImpl extends AbstractDomainEntity implements Student {
+
+    private static final long serialVersionUID = 3L;
+
+    private PersonalEducationNumber pen = null;
+    private Date birthdate = new Date(0L);
+    private PostalAddress address = new PostalAddressImpl();
+    private String firstName = "";
+    private String middleName = "";
+    private String lastName = "";
+    private String grade = "";
+
+    public StudentImpl() {
+    }
+
+    public StudentImpl(
+            final String firstName,
+            final String middleName,
+            final String lastName,
+            final Date birthdate) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+    }
+
+    @Override
+    public PersonalEducationNumber getPen() {
+        return pen;
+    }
+
+    @Override
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    @Override
+    public PostalAddress getCurrentMailingAddress() {
+        return address;
+    }
+
+    @Override
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Override
+    public String getLastName() {
+        return lastName;
+    }
+
+    @Override
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    @Override
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setPen(final PersonalEducationNumber pen) {
+        this.pen = pen;
+    }
+
+    public void setCurrentMailingAddress(final PostalAddress address) {
+        this.address = address;
+    }
+
+    public void setBirthdate(final Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(final String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGrade(final String grade) {
+        this.grade = grade;
+    }
+
+    /**
+     * Returns a new date to avoid the null pointer exception thrown in the
+     * report service that created an XML transcript.
+     *
+     * @return
+     */
+    @Override
+    public Date getCreatedOn() {
+        return new Date();
+    }
+
+    @Override
+    public Long getId() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Identifier> getIdentifiers() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+}

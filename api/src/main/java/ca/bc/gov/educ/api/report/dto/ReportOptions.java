@@ -9,23 +9,24 @@ public class ReportOptions {
 	private String convertTo;
 	private boolean overwrite;
 	private String reportName;
+	private String reportFile;
 	
 	public ReportOptions (String reportName) {
 		if(reportName.equalsIgnoreCase("achievement")) {
 			this.cacheReport = false;
 			this.convertTo = "pdf";
 			this.overwrite = true;
-			this.reportName = "studentachievementreport.pdf";
+			this.reportFile = "studentachievementreport.pdf";
 		}else if(reportName.equalsIgnoreCase("transcript")) {
 			this.cacheReport = false;
 			this.convertTo = "pdf";
 			this.overwrite = true;
-			this.reportName = "studenttranscriptreport.pdf";
+			this.reportFile = "studenttranscriptreport.pdf";
 		}else {
 			this.cacheReport = false;
 			this.convertTo = "pdf";
 			this.overwrite = true;
-			this.reportName = "studentcertificate.pdf";
+			this.reportFile = "studentcertificate.pdf";
 		}
 	}
 }

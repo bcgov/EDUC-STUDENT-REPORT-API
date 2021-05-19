@@ -16,8 +16,8 @@ public class GraduationMessages {
 	private boolean hasSpecialProgram;
 	private boolean hasCareerProgram;
 	private boolean hasCertificates;
-	private List<CodeDTO> specialProgram;
-	private List<CodeDTO> careerProgram;
-	private List<CodeDTO> certificateProgram;
+	private List<Code> specialProgram;
+	private List<Code> careerProgram;
+	private List<Code> certificateProgram;
 	private List<GradRequirement> nonGradReasons;
 }

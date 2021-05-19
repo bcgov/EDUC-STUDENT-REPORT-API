@@ -4,8 +4,10 @@ import ca.bc.gov.educ.api.report.dto.GenerateReport;
 import ca.bc.gov.educ.api.report.dto.StudentAssessment;
 import ca.bc.gov.educ.api.report.dto.StudentCourse;
 import ca.bc.gov.educ.api.report.dto.StudentCourseAssessment;
+import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,10 @@ public class ReportService {
 
     private static Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport report) {
+	@Autowired
+	StudentTranscriptService transcriptService;
+
+    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport reportRequest) {
 		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
