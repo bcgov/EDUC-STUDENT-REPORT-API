@@ -57,6 +57,7 @@ import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.stereotype.Service;
 
 /**
  * Provides a mechanism to create reports to fill out and produce a specific
@@ -64,6 +65,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Service
 @DeclareRoles({
     USER,
     USER_REPORTS_EXPORT,

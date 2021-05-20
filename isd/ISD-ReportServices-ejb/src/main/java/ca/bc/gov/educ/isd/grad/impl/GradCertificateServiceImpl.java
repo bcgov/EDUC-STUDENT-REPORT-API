@@ -53,6 +53,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_CERTIFICATE_REPORT;
 import static java.util.Locale.CANADA;
 import static java.util.Locale.CANADA_FRENCH;
 import java.util.logging.Level;
@@ -60,12 +62,14 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author CGI Information Management Consultants Inc.
  */
-@DeclareRoles({USER})
+@Service
+@DeclareRoles({STUDENT_CERTIFICATE_REPORT, USER})
 public class GradCertificateServiceImpl
         implements GradCertificateService, Serializable {
 
@@ -79,7 +83,7 @@ public class GradCertificateServiceImpl
 
     private StudentXRefService studentxref;
 
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_CERTIFICATE_REPORT, USER})
     @Override
     public List<GradCertificateReport> buildReport() throws DomainServiceException {
         final String _m = "buildReport()";

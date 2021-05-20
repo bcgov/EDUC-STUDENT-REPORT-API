@@ -15,6 +15,7 @@
  * ********************************************************************** */
 package ca.bc.gov.educ.isd.exam.impl;
 
+import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.assessment.AssessmentCourseCode;
 import ca.bc.gov.educ.isd.assessment.IncompleteAssessmentCode;
 import ca.bc.gov.educ.isd.common.DataException;
@@ -36,8 +37,10 @@ import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
 import ca.bc.gov.educ.isd.student.StudentXRef;
 import ca.bc.gov.educ.isd.student.StudentXRefService;
+import ca.bc.gov.educ.isd.student.impl.PersonalEducationNumberSimple;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,6 +53,8 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
@@ -79,7 +84,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * <p>
  * @author CGI Information Management Consultants Inc.
  */
-@DeclareRoles({USER})
+@DeclareRoles({STUDENT_EXAM_REPORT, USER})
 public class StudentExamServiceImpl implements StudentExamService, Serializable {
     
     private static final long serialVersionUID = 3L;
@@ -96,7 +101,7 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
     private List<AssessmentCourseCode> assessmentCodes;
 
     @Override
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_EXAM_REPORT, USER})
     public StudentExamResultsReport buildReport(final ReportFormat format)
             throws DomainServiceException {
         final String _m = "buildReport(ReportFormat)";
@@ -128,7 +133,7 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
     }
     
     @Override
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_EXAM_REPORT, USER})
     public Exam getExam() throws DomainServiceException {
         final String _m = "getExam()";
         LOG.entering(CLASSNAME, _m);
@@ -141,7 +146,7 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
     }
     
     @Override
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_EXAM_REPORT, USER})
     public Exam getExam(final String pen) throws DomainServiceException {
         final String _m = "getExam()";
         LOG.entering(CLASSNAME, _m);
@@ -168,20 +173,18 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
     private PersonalEducationNumber getStudentPEN() throws DomainServiceException {
         final String _m = "getStudentPEN()";
         LOG.entering(CLASSNAME, _m);
-        PersonalEducationNumber pen = null;
-        
-        if (studentXRefService.exists()) {
-            StudentXRef sxref = studentXRefService.read();
-            pen = sxref != null ? sxref.getPen() : null;
-        }
-        
-        if (pen == null) {
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
             DomainServiceException dse = new DomainServiceException(
                     null,
-                    "The current user is not a student with a PEN.");
+                    "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
         }
+
+        PersonalEducationNumberSimple pen = new PersonalEducationNumberSimple();
+        pen.setPen(reportData.getDemographics().getPen());
         
         LOG.log(Level.FINE, "Confirmed the user is a student and retrieved the PEN: {0}.", pen);
         LOG.exiting(CLASSNAME, _m);
@@ -444,14 +447,14 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
     }
     
     @Override
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_EXAM_REPORT, USER})
     public Boolean hasNumeracyAssessments() throws DomainServiceException {
         assessmentCodes = AssessmentCourseCode.getNumeracyCodes();
         return hasAssessments();
     }
     
     @Override
-    @RolesAllowed({USER})
+    @RolesAllowed({STUDENT_EXAM_REPORT, USER})
     public Boolean hasLiteracyAssessments() throws DomainServiceException {
         assessmentCodes = AssessmentCourseCode.getLiteracyCodes();
         return hasAssessments();

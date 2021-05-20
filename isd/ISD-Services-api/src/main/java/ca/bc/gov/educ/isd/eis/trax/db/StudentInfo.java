@@ -150,7 +150,6 @@ public interface StudentInfo extends TRAXData, TRAXCountry {
      * @return A non-null instance.
      * @throws IllegalArgumentException The gradProgram is not represented by
      * GraduationProgramCode.
-     * @see getGradProgram()
      */
     GraduationProgramCode getGraduationProgramCode();
 

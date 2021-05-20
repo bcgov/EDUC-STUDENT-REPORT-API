@@ -1,10 +1,12 @@
 package ca.bc.gov.educ.api.report.service;
 
-import ca.bc.gov.educ.api.report.dto.GenerateReport;
-import ca.bc.gov.educ.api.report.dto.StudentAssessment;
-import ca.bc.gov.educ.api.report.dto.StudentCourse;
-import ca.bc.gov.educ.api.report.dto.StudentCourseAssessment;
+import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
+import ca.bc.gov.educ.grad.dto.StudentAssessment;
+import ca.bc.gov.educ.grad.dto.StudentCourse;
+import ca.bc.gov.educ.grad.dto.StudentCourseAssessment;
+import ca.bc.gov.educ.isd.grad.GradCertificateService;
 import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,19 @@ import java.util.List;
 @Service
 public class ReportService {
 
-    private static Logger logger = LoggerFactory.getLogger(ReportService.class);
+	private static final String CLASS_NAME = ReportService.class.getName();
+	private static Logger log = LoggerFactory.getLogger(CLASS_NAME);
 
 	@Autowired
 	StudentTranscriptService transcriptService;
 
-    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReport reportRequest) {
+	@Autowired
+	GradCertificateService gradCertificateService;
+
+    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReportRequest reportRequest) {
+    	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
 		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
@@ -37,15 +46,18 @@ public class ReportService {
 			        .contentType(MediaType.APPLICATION_PDF)
 			        .body(resultBinary);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unable to execute {}", _m, e);
 		}
+		log.debug(">{}.{}", _m, CLASS_NAME);
 		return null;
     	
     }
 
-	public ResponseEntity<byte[]> getStudentTranscriptReport(GenerateReport report) {
-		List<StudentCourse> studentCourseList = report.getData().getStudentCourse();
+	public ResponseEntity<byte[]> getStudentTranscriptReport(GenerateReportRequest reportRequest) {
+		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
+
+		List<StudentCourse> studentCourseList = reportRequest.getData().getStudentCourse();
 		List<StudentCourse> operatedList = new ArrayList<>();
 		studentCourseList.stream()
 		  .filter(sC -> sC.isFailed())
@@ -53,11 +65,12 @@ public class ReportService {
 		  .forEach(operatedList::add);
 		studentCourseList.removeAll(operatedList);
 		List<StudentCourseAssessment> studentCourseAssesmentList = prepareCourseList(studentCourseList);
-		prepareAssessmentList(report.getData().getStudentAssessment(),studentCourseAssesmentList);
-		report.getData().setStudentCourseAssessment(studentCourseAssesmentList);
+		prepareAssessmentList(reportRequest.getData().getStudentAssessment(),studentCourseAssesmentList);
+		reportRequest.getData().setStudentCourseAssessment(studentCourseAssesmentList);
+
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
 
 		try {
-
 			byte[] reportBinary = null;
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studenttranscriptreport.pdf");
@@ -67,16 +80,19 @@ public class ReportService {
 			        .contentType(MediaType.APPLICATION_PDF)
 			        .body(reportBinary);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unable to execute {}", _m, e);
 		}
+		log.debug(">{}.{}", _m, CLASS_NAME);
 		return null;
 	}
 	
-	public ResponseEntity<byte[]> getStudentCertificateReport(GenerateReport report) {
-		
-		try {
+	public ResponseEntity<byte[]> getStudentCertificateReport(GenerateReportRequest reportRequest) {
+		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
 
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
+
+		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studentcertificate.pdf");
@@ -86,16 +102,19 @@ public class ReportService {
 			        .contentType(MediaType.APPLICATION_PDF)
 			        .body(resultBinary);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unable to execute {}", _m, e);
 		}
+		log.debug(">{}.{}", _m, CLASS_NAME);
 		return null;
 	}
 
-	public ResponseEntity<byte[]> getStudentVerificationReport(GenerateReport report) {
+	public ResponseEntity<byte[]> getStudentVerificationReport(GenerateReportRequest reportRequest) {
+		String _m = "getStudentVerificationReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
+
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
 
 		try {
-
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studentverification.pdf");
@@ -105,9 +124,9 @@ public class ReportService {
 					.contentType(MediaType.APPLICATION_PDF)
 					.body(resultBinary);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unable to execute {}", _m, e);
 		}
+		log.debug(">{}.{}", _m, CLASS_NAME);
 		return null;
 	}
 

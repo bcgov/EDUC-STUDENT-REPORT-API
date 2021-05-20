@@ -1,5 +1,6 @@
 package ca.bc.gov.educ.api.report.controller;
 
+import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.bc.gov.educ.api.report.dto.GenerateReport;
 import ca.bc.gov.educ.api.report.service.ReportService;
 import ca.bc.gov.educ.api.report.util.PermissionsContants;
 import ca.bc.gov.educ.api.report.util.ReportApiConstants;
@@ -39,7 +39,7 @@ public class ReportController {
     @PreAuthorize(PermissionsContants.STUDENT_ACHIEVEMENT_REPORT)
     @Operation(summary = "Generate Student Achievement Report", description = "Generate Student Achievement Report", tags = { "Report" })
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
-    public ResponseEntity<byte[]> getStudentAchievementReport(@RequestBody GenerateReport report) {
+    public ResponseEntity<byte[]> getStudentAchievementReport(@RequestBody GenerateReportRequest report) {
         logger.debug("getStudentAchievementReportCDogs");
         return reportService.getStudentAchievementReport(report);
     }
@@ -48,7 +48,7 @@ public class ReportController {
     @PreAuthorize(PermissionsContants.STUDENT_TRANSCRIPT_REPORT)
     @Operation(summary = "Generate Student Transcript Report", description = "Generate Student Transcript Report", tags = { "Report" })
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
-    public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody GenerateReport report) {
+    public ResponseEntity<byte[]> getStudentTranscriptReport(@RequestBody GenerateReportRequest report) {
         logger.debug("getStudentTranscriptReportCDogs"); 
         return reportService.getStudentTranscriptReport(report);
     }
@@ -57,7 +57,7 @@ public class ReportController {
     @PreAuthorize(PermissionsContants.STUDENT_CERTIFICATE)
     @Operation(summary = "Generate Student Certificate", description = "Generate Student Certificate", tags = { "Report" })
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
-    public ResponseEntity<byte[]> getStudentCertificate(@RequestBody GenerateReport report) {
+    public ResponseEntity<byte[]> getStudentCertificate(@RequestBody GenerateReportRequest report) {
         logger.debug("getStudentCertificateCDogs"); 
         return reportService.getStudentCertificateReport(report);
     }

@@ -33,7 +33,7 @@ public enum CertificateCategoryEnum {
 
     /**
      *
-     * @param name
+     * @param value
      */
     CertificateCategoryEnum(final String value) {
         this.value = value;

@@ -19,9 +19,12 @@ package ca.bc.gov.educ.isd.transcript.impl;
 
 import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YMD;
 import static ca.bc.gov.educ.isd.common.Constants.PESC_HST_PREDICATE;
+
+import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
+import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.common.DataException;
 import ca.bc.gov.educ.isd.common.DomainServiceException;
-import ca.bc.gov.educ.isd.common.ServiceConstants;
+
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
 import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
@@ -49,11 +52,7 @@ import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
 import ca.bc.gov.educ.isd.student.StudentXRef;
-import ca.bc.gov.educ.isd.student.StudentXRefService;
-import ca.bc.gov.educ.isd.student.impl.CanadianPostalAddressImpl;
-import ca.bc.gov.educ.isd.student.impl.PostalAddressImpl;
-import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
-import ca.bc.gov.educ.isd.student.impl.StudentImpl;
+import ca.bc.gov.educ.isd.student.impl.*;
 import ca.bc.gov.educ.isd.transcript.Course;
 import ca.bc.gov.educ.isd.transcript.GraduationData;
 import ca.bc.gov.educ.isd.transcript.ParameterPredicate;
@@ -82,8 +81,12 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
+
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.stereotype.Service;
 
 /**
  * The transcript service is an implementation component of the broader
@@ -112,9 +115,9 @@ import org.springframework.scheduling.annotation.AsyncResult;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Service
 @DeclareRoles({STUDENT_TRANSCRIPT_REPORT, USER, FULFILLMENT_SERVICES_USER})
-public class StudentTranscriptServiceImpl
-        implements StudentTranscriptService, Serializable {
+public class StudentTranscriptServiceImpl implements StudentTranscriptService, Serializable {
 
     private static final long serialVersionUID = 5L;
 
@@ -131,11 +134,11 @@ public class StudentTranscriptServiceImpl
      */
     private static final String SORT_ASSESSMENT = "100";
 
+    @Autowired
     private TRAXAdapter traxAdapter;
 
+    @Autowired
     private ReportService reportService;
-
-    private StudentXRefService studentXRefService;
 
     /**
      * Creates the student's official transcript as a PDF (no other formats are
@@ -344,20 +347,19 @@ public class StudentTranscriptServiceImpl
     private PersonalEducationNumber getStudentPEN() throws DomainServiceException {
         final String _m = "getStudentPEN()";
         LOG.entering(CLASSNAME, _m);
-        PersonalEducationNumber pen = null;
 
-        if (studentXRefService.exists()) {
-            StudentXRef sxref = studentXRefService.read();
-            pen = sxref != null ? sxref.getPen() : null;
-        }
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
-        if (pen == null) {
+        if (reportData == null) {
             DomainServiceException dse = new DomainServiceException(
                     null,
-                    "The current user is not a student with a PEN.");
+                    "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
         }
+
+        PersonalEducationNumberSimple pen = new PersonalEducationNumberSimple();
+        pen.setPen(reportData.getDemographics().getPen());
 
         LOG.log(Level.FINE, "Confirmed the user is a student and retrieved the PEN: {0}.", pen);
         LOG.exiting(CLASSNAME, _m);
