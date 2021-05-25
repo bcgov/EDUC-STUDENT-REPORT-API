@@ -18,31 +18,32 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-import ca.bc.gov.educ.isd.traxadaptor.dao.impl.CourseId;
+
+import ca.bc.gov.educ.grad.dto.ReportData;
+import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import ca.bc.gov.educ.isd.traxadaptor.service.TranscriptData;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntity;
 import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
 import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
-import static ca.bc.gov.educ.isd.eis.trax.db.TRAXData.TIMEOUT;
 import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.StsTranCourseEntity;
 import ca.bc.gov.educ.isd.traxadaptor.impl.StudentInfoImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TranscriptCourseImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -59,6 +60,7 @@ import javax.persistence.TypedQuery;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Repository
 @DeclareRoles({TRAX_READ})
 public class TranscriptDataBean implements TranscriptData, Serializable {
 
@@ -67,6 +69,10 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
     private static final String CLASSNAME = TranscriptDataBean.class.getName();
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
+    @Autowired
+    GradtoIsdDataConvertBean gradtoIsdDataConvertBean;
+
+    /* Keep it for conversion reference for now
     private static final String QUERY_FIND_STUD_BY_PEN
             = "SELECT"
             + "  new " + StudentInfoImpl.class.getCanonicalName() + "("
@@ -113,12 +119,10 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
             + "  TswTranCourseEntity a "
             + "WHERE"
             + "  a.primaryKey.studNo = ?1";
+     */
 
     private final String FORMAT_COURSE_CODE = "%-5s";
     private final String FORMAT_COURSE_LEVEL = "%-3s";
-
-    @PersistenceContext
-    private transient EntityManager em;
 
     @Override
     @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
@@ -126,14 +130,21 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String _m = "findStudentByPEN(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<StudentInfoImpl> query = em.createQuery(QUERY_FIND_STUD_BY_PEN, StudentInfoImpl.class);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<StudentInfoImpl> students = query.getResultList();
-        for (final StudentInfoImpl student : students) {
-            determineLastUpdate(student);
-            readNonGradReasons(student);
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
         }
+
+        final List<StudentInfoImpl> students = new ArrayList<>();
+
+        StudentInfoImpl student = (StudentInfoImpl) gradtoIsdDataConvertBean.getStudentInfo(reportData);
+        readNonGradReasons(student);
+        students.add(student);
+
         LOG.exiting(CLASSNAME, _m);
         return students;
     }
@@ -149,12 +160,18 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String _m = "findCoursesByPEN(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<TranscriptCourseImpl> query = em.createQuery(QUERY_FIND_COURSES_BY_PEN, TranscriptCourseImpl.class);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<TranscriptCourseImpl> courses = query.getResultList();
-        for (final TranscriptCourseImpl course : courses) {
-            addExtendedCourseInfo(course);
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
+
+        final List<TranscriptCourse> courses = gradtoIsdDataConvertBean.getTranscriptCources(reportData);
+        for (final TranscriptCourse course : courses) {
+            addExtendedCourseInfo((TranscriptCourseImpl)course);
         }
 
         LOG.exiting(CLASSNAME, _m);
@@ -172,12 +189,18 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String _m = "findCoursesByPEN(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<TranscriptCourseImpl> query = em.createQuery(QUERY_FIND_INTERIM_COURSES_BY_PEN, TranscriptCourseImpl.class);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<TranscriptCourseImpl> courses = query.getResultList();
-        for (final TranscriptCourseImpl course : courses) {
-            addExtendedCourseInfo(course);
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
+
+        final List<TranscriptCourse> courses = gradtoIsdDataConvertBean.getTranscriptCources(reportData);
+        for (final TranscriptCourse course : courses) {
+            addExtendedCourseInfo((TranscriptCourseImpl)course);
         }
 
         LOG.exiting(CLASSNAME, _m);
@@ -197,10 +220,18 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         Integer retValue = 0;
 
-        final Query query = em.createQuery(QUERY_COUNT_COURSES_BY_PEN);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        Object singleResult = query.getSingleResult();
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
+
+        final List<TranscriptCourse> courses = gradtoIsdDataConvertBean.getTranscriptCources(reportData);
+
+        Object singleResult = courses.size();
 
         if (singleResult != null) {
             String stringResult = String.valueOf(singleResult);
@@ -277,13 +308,18 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         Character usedForGraduation = ' ';
 
-        final CourseId courseID = new CourseId(pen, paddedCourseCode, paddedCourseLevel, session);
-        final Query query = em.createNamedQuery("StsTranCourseEntity.findByKey");
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
-        query.setParameter("primaryKey", courseID);
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
 
         try {
-            final StsTranCourseEntity stsTranCourseEntity = (StsTranCourseEntity) query.getSingleResult();
+
+            final StsTranCourseEntity stsTranCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData);
 
             final String relatedCourse = stsTranCourseEntity.getRelatedCrse();
             final String relatedCourseSanitized = trimSafe(relatedCourse);
@@ -339,12 +375,17 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String sanitizedCoursedLevel = trimSafe(paddedCourseLevel);
         final String sanitizedSession = trimSafe(session);
 
-        CourseId courseID = new CourseId(sanitizedPen, sanitizedCourseCode, sanitizedCoursedLevel, sanitizedSession);
-        Query query = em.createNamedQuery("StsTranCourseEntity.findByKey");
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
-        query.setParameter("primaryKey", courseID);
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
+
         try {
-            final StsTranCourseEntity stsTransCourseEntity = (StsTranCourseEntity) query.getSingleResult();
+            final StsTranCourseEntity stsTransCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData);
             final Character usedForGraduationVal = stsTransCourseEntity.getUsedForGrad();
 
             usedForGraduation = (usedForGraduationVal == null ? ' ' : usedForGraduationVal);
@@ -375,33 +416,6 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
     }
 
     /**
-     * Search all the transcript courses associated with the given PEN and
-     * select the most recent update date (UTG update).
-     *
-     * @param student
-     */
-    private void determineLastUpdate(final StudentInfoImpl student) {
-        final String _m = "determineLastUpdate(StudentInfoImpl)";
-        LOG.entering(CLASSNAME, _m);
-
-        final String pen = student.getPen();
-        final Query query = em.createNamedQuery("TswTranCourseEntity.findMaxUpdtByStudNo");
-        query.setParameter("studNo", pen);
-        try {
-            final Long lastUpdtVal = (Long) query.getSingleResult();
-            student.setLastUpdateDate(lastUpdtVal);
-        } catch (final NonUniqueResultException ex) {
-            // this indicates a data issue as the query should return a single data value
-            LOG.log(Level.SEVERE, "Found multiple results for query TswTranCourseEntity.findMaxUpdtByStudNo which should return a single value");
-        } catch (final NoResultException ex) {
-            // Do nothing for a student without courses.
-            LOG.log(Level.FINE, "Student has no courses: " + pen, ex.getMessage());
-        }
-
-        LOG.exiting(CLASSNAME, _m);
-    }
-
-    /**
      * query for any existing reasons why the student did not meet graduation
      * requirements.
      *
@@ -413,9 +427,17 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         LOG.entering(CLASSNAME, _m);
 
         final String pen = student.getPen();
-        final Query query = em.createNamedQuery("TswTranNongradEntity.findByStudNo", TswTranNongradEntity.class);
-        query.setParameter("studNo", pen);
-        final List<TswTranNongradEntity> reasonList = query.getResultList();
+
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
+
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    "Report Data not exists for the current report generation");
+            LOG.throwing(CLASSNAME, _m, dse);
+            throw dse;
+        }
+
+        final List<TswTranNongradEntity> reasonList = gradtoIsdDataConvertBean.getTswTranNongradEntity(reportData);
         final HashMap<String, String> reasons = new HashMap<>();
         for (final TswTranNongradEntity reason : reasonList) {
             final String code = reason.getNonGradCode().trim();

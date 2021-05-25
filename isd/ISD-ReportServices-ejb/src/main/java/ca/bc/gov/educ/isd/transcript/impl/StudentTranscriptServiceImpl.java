@@ -80,6 +80,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityNotFoundException;
+
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
@@ -351,8 +353,7 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
         ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
         if (reportData == null) {
-            DomainServiceException dse = new DomainServiceException(
-                    null,
+            EntityNotFoundException dse = new EntityNotFoundException(
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;

@@ -36,11 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Entity
-@Table(name = "TSW_TRAN_NONGRAD_VW")
+
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TswTranNongradEntity.findByStudNo", query = "SELECT t FROM TswTranNongradEntity t WHERE t.id.studNo = :studNo")})
 public class TswTranNongradEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +45,7 @@ public class TswTranNongradEntity implements Serializable {
     @EmbeddedId
     private TswTranNongradEntityPK id;
 
-    @Size(max = 40)
-    @Column(name = "NON_GRAD_DESC", insertable = false, updatable = false)
     private String nonGradDesc;
-    @Column(name = "UPDATE_DT", insertable = false, updatable = false)
     private Long updateDt;
 
     public TswTranNongradEntity() {

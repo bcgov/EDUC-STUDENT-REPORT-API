@@ -35,7 +35,7 @@ public class ReportService {
     public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReportRequest reportRequest) {
     	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
-		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
@@ -68,7 +68,7 @@ public class ReportService {
 		prepareAssessmentList(reportRequest.getData().getStudentAssessment(),studentCourseAssesmentList);
 		reportRequest.getData().setStudentCourseAssessment(studentCourseAssesmentList);
 
-		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		try {
 			byte[] reportBinary = null;
@@ -90,7 +90,7 @@ public class ReportService {
 		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
 
-		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		try {
 			byte[] resultBinary = null;
@@ -112,7 +112,7 @@ public class ReportService {
 		String _m = "getStudentVerificationReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
 
-		TRAXThreadDataUtility.setGenerateReportData(reportRequest);
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		try {
 			byte[] resultBinary = null;
