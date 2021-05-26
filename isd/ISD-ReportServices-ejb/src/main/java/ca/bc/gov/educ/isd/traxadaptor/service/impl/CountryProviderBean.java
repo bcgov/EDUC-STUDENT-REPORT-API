@@ -18,19 +18,11 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.trax.db.CountryConverter;
-import ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter;
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATETIME_YYYY_MM_DD_HH_MM_SS;
 import ca.bc.gov.educ.isd.eis.trax.db.CountryProvider;
-import static ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter.ISO_TRAX_PROPERTIES_NAME;
-import static ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter.META_INF;
-import static ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter.SYSTEM_PROPERTY_DIR;
-import static ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter.TRAX_ISO_PROPERTIES_NAME;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter;
+
+import javax.annotation.PostConstruct;
+import java.io.*;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +32,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
+
+import static ca.bc.gov.educ.isd.eis.trax.Constants.DATETIME_YYYY_MM_DD_HH_MM_SS;
+import static ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter.*;
 
 /**
  * This Bean is started when the application begins and creates/refreshes the

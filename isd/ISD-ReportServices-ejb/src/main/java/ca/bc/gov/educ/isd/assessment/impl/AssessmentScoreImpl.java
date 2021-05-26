@@ -18,9 +18,10 @@
 package ca.bc.gov.educ.isd.assessment.impl;
 
 import ca.bc.gov.educ.isd.assessment.AssessmentCode;
-import static ca.bc.gov.educ.isd.assessment.AssessmentCode.NO_RESPONSE;
 import ca.bc.gov.educ.isd.assessment.AssessmentScore;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
+
+import static ca.bc.gov.educ.isd.assessment.AssessmentCode.NO_RESPONSE;
 
 /**
  * Contains the assessment results for tasks a student completes as part of the

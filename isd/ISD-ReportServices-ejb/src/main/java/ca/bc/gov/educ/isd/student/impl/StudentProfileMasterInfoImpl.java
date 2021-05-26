@@ -17,11 +17,13 @@
  */
 package ca.bc.gov.educ.isd.student.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
 import ca.bc.gov.educ.isd.student.StudentProfileMasterInfo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
 
 /**
  * Represents combined data from student profile and student master. Correlated by the PEN.

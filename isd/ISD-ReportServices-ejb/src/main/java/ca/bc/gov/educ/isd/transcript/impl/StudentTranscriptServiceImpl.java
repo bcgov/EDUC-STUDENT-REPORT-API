@@ -17,19 +17,10 @@
  */
 package ca.bc.gov.educ.isd.transcript.impl;
 
-import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YMD;
-import static ca.bc.gov.educ.isd.common.Constants.PESC_HST_PREDICATE;
-
-import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
+import ca.bc.gov.educ.exception.EntityNotFoundException;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.common.DataException;
 import ca.bc.gov.educ.isd.common.DomainServiceException;
-
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
-import static ca.bc.gov.educ.isd.course.ReportCourseType.ASSESSMENT;
-import static ca.bc.gov.educ.isd.course.ReportCourseType.PROVINCIALLY_EXAMINABLE;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
@@ -37,58 +28,48 @@ import ca.bc.gov.educ.isd.eis.trax.db.TRAXAdapter;
 import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
 import ca.bc.gov.educ.isd.grad.GradProgram;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
-import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.PROGRAM_SCCP;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
 import ca.bc.gov.educ.isd.grad.impl.GradProgramImpl;
 import ca.bc.gov.educ.isd.grad.impl.NonGradReasonImpl;
-import ca.bc.gov.educ.isd.reports.Parameters;
-import ca.bc.gov.educ.isd.reports.ReportDocument;
-import ca.bc.gov.educ.isd.reports.ReportFormat;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
-import ca.bc.gov.educ.isd.reports.ReportService;
-import ca.bc.gov.educ.isd.reports.TranscriptReport;
+import ca.bc.gov.educ.isd.reports.*;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
-import ca.bc.gov.educ.isd.student.StudentXRef;
 import ca.bc.gov.educ.isd.student.impl.*;
-import ca.bc.gov.educ.isd.transcript.Course;
-import ca.bc.gov.educ.isd.transcript.GraduationData;
-import ca.bc.gov.educ.isd.transcript.ParameterPredicate;
-import ca.bc.gov.educ.isd.transcript.StudentTranscriptReport;
-import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
-import ca.bc.gov.educ.isd.transcript.Transcript;
-import ca.bc.gov.educ.isd.transcript.TranscriptResult;
-import static ca.bc.gov.educ.isd.transcript.impl.RequirementNames.getName;
-import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_TRANSCRIPT_REPORT;
-import java.io.IOException;
-import java.io.Serializable;
-import static java.lang.Integer.parseInt;
-import java.text.NumberFormat;
-import static java.text.NumberFormat.getIntegerInstance;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityNotFoundException;
-
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
-
+import ca.bc.gov.educ.isd.transcript.*;
 import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
+import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YMD;
+import static ca.bc.gov.educ.isd.common.Constants.PESC_HST_PREDICATE;
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import static ca.bc.gov.educ.isd.course.ReportCourseType.ASSESSMENT;
+import static ca.bc.gov.educ.isd.course.ReportCourseType.PROVINCIALLY_EXAMINABLE;
+import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.PROGRAM_SCCP;
+import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
+import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
+import static ca.bc.gov.educ.isd.transcript.impl.RequirementNames.getName;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_TRANSCRIPT_REPORT;
+import static java.lang.Integer.parseInt;
+import static java.text.NumberFormat.getIntegerInstance;
+import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 /**
  * The transcript service is an implementation component of the broader
@@ -354,13 +335,14 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
         }
 
         PersonalEducationNumberSimple pen = new PersonalEducationNumberSimple();
-        pen.setPen(reportData.getDemographics().getPen());
+        pen.setPen(reportData.getStudent().getPen().toString());
 
         LOG.log(Level.FINE, "Confirmed the user is a student and retrieved the PEN: {0}.", pen);
         LOG.exiting(CLASSNAME, _m);

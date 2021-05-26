@@ -14,18 +14,10 @@
  */
 package ca.bc.gov.educ.isd.reports.impl;
 
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.EVNT_PUBLISH_ENTITY_CHANGE;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_CREATE_DATA;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_CREATE_REPORT;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_EXPORT;
-
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_CERTIFICATES;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_EXPORT;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_PACKINGSLIP;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_PEAR;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_SCHOLARSHIPS;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_TRANSCRIPT;
 import java.lang.reflect.Field;
+
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.EVNT_PUBLISH_ENTITY_CHANGE;
+import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.*;
 
 /**
  * Contains centralized location for role groups.

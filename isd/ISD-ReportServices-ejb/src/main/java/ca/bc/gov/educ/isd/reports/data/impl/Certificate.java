@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.reports.data.impl;
 
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
+
 import java.util.Date;
 
 /**

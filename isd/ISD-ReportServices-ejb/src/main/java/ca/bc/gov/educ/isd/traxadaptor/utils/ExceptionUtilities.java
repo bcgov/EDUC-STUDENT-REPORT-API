@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.traxadaptor.utils;
 
 import ca.bc.gov.educ.isd.eis.EISException;
+
 import java.util.logging.Logger;
 
 /**

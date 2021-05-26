@@ -19,6 +19,7 @@ package ca.bc.gov.educ.isd.exam.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.exam.Mark;
+
 import java.io.Serializable;
 
 /**

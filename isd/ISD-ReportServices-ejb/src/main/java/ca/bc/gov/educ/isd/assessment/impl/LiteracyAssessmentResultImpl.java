@@ -17,9 +17,10 @@
  */
 package ca.bc.gov.educ.isd.assessment.impl;
 
-import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentResult;
 import ca.bc.gov.educ.isd.assessment.RawScore;
+import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
+
 import java.util.List;
 
 /**

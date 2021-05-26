@@ -18,9 +18,10 @@
 package ca.bc.gov.educ.isd.reports.data.impl;
 
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.util.Date;
 
 /**
  * Represents information about a single scholarship or award.

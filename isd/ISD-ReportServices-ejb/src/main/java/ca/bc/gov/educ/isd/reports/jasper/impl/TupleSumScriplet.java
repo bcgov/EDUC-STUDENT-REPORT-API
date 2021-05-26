@@ -17,18 +17,13 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper.impl;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
 import net.sf.jasperreports.engine.JRScriptletException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Calculates grand sums for non-groupable values where the keys and values are

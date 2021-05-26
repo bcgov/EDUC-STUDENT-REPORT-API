@@ -21,24 +21,15 @@ import ca.bc.gov.educ.isd.reports.Report;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
 import ca.bc.gov.educ.isd.reports.admin.AdminReport;
 import ca.bc.gov.educ.isd.reports.admin.AdminReportService;
-import ca.bc.gov.educ.isd.reports.admin.data.AdminReportDAO;
-import ca.bc.gov.educ.isd.reports.admin.data.IdleTranscript;
-import ca.bc.gov.educ.isd.reports.admin.data.ManualInterventionOrder;
-import ca.bc.gov.educ.isd.reports.admin.data.NonPENUserOrder;
-import ca.bc.gov.educ.isd.reports.admin.data.PENUserOrder;
-import ca.bc.gov.educ.isd.reports.admin.data.PSIChoice;
-import ca.bc.gov.educ.isd.reports.admin.data.RegistrationIssue;
-import ca.bc.gov.educ.isd.reports.admin.data.SelfServeOrder;
-import ca.bc.gov.educ.isd.reports.admin.data.StudentProfile;
+import ca.bc.gov.educ.isd.reports.admin.data.*;
 import ca.bc.gov.educ.isd.reports.common.impl.AbstractReportService;
 import ca.bc.gov.educ.isd.reports.impl.constants.Roles;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_CREATE_DATA;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_CREATE_REPORT;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_EXPORT;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.ADMIN_REPORTS_SERVICE;
-import java.io.IOException;
+
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
+
+import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.*;
 
 /**
  * Provides a mechanism to create reports to fill out and produce a specific

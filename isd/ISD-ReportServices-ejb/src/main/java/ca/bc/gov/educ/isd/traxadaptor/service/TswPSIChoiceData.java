@@ -20,8 +20,9 @@ package ca.bc.gov.educ.isd.traxadaptor.service;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.PSIChoice;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXData;
-import java.util.List;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * An interface for the PSIChoice EJB that it is tied to the ISD's PSIChoices

@@ -17,8 +17,6 @@
  */
 package ca.bc.gov.educ.isd.scholarship.impl;
 
-import static ca.bc.gov.educ.isd.common.Constants.DATE_ISO_8601_FULL;
-import static ca.bc.gov.educ.isd.common.Constants.DATE_YEAR;
 import ca.bc.gov.educ.isd.common.DataException;
 import ca.bc.gov.educ.isd.common.DomainServiceException;
 import ca.bc.gov.educ.isd.eis.EISException;
@@ -39,22 +37,22 @@ import ca.bc.gov.educ.isd.student.StudentXRefService;
 import ca.bc.gov.educ.isd.student.impl.CanadianPostalAddressImpl;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
-import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_SCHOLARSHIP_REPORT;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.builder.CompareToBuilder;
+
+import static ca.bc.gov.educ.isd.common.Constants.DATE_ISO_8601_FULL;
+import static ca.bc.gov.educ.isd.common.Constants.DATE_YEAR;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_SCHOLARSHIP_REPORT;
 
 /**
  * The Scholarship Services is an implementation component of the broader

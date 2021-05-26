@@ -20,7 +20,6 @@ package ca.bc.gov.educ.isd.reports.data.receipt.impl;
 import ca.bc.gov.educ.isd.codes.Code;
 import ca.bc.gov.educ.isd.codes.CodeEntityEnum;
 import ca.bc.gov.educ.isd.codes.CodeSet;
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
 import ca.bc.gov.educ.isd.reports.impl.AbstractReportDomainEntity;
 
 /**

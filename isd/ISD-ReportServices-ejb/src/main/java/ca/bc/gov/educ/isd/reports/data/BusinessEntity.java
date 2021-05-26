@@ -17,8 +17,6 @@
  */
 package ca.bc.gov.educ.isd.reports.data;
 
-import static ca.bc.gov.educ.isd.common.Constants.DATE_REPORT_SESSION;
-import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YM;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -28,8 +26,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import static java.util.logging.Level.WARNING;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.Constants.DATE_REPORT_SESSION;
+import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YM;
+import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
 
 /**

@@ -9,7 +9,6 @@ import ca.bc.gov.educ.isd.student.Student;
 import ca.bc.gov.educ.isd.transcript.Transcript;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.StsTranCourseEntity;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntity;
-import ca.bc.gov.educ.isd.traxadaptor.impl.TranscriptCourseImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

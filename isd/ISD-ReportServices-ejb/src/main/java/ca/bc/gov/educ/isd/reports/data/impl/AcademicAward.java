@@ -18,16 +18,16 @@
 package ca.bc.gov.educ.isd.reports.data.impl;
 
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import static ca.bc.gov.educ.isd.reports.data.BusinessEntity.nullSafe;
-import static ca.bc.gov.educ.isd.reports.data.impl.AcademicProgramNames.getAcademicProgramName;
-import java.io.Serializable;
-import static java.lang.String.format;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ca.bc.gov.educ.isd.reports.data.impl.AcademicProgramNames.getAcademicProgramName;
 
 /**
  * Represents a students academic information towards completing graduation

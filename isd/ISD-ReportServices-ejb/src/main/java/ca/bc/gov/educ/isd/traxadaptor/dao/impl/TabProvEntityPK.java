@@ -18,9 +18,6 @@
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Size;
 
 /**
  *

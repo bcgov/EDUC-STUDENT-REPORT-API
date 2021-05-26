@@ -20,12 +20,14 @@ package ca.bc.gov.educ.isd.reports.impl;
 import ca.bc.gov.educ.isd.reports.StudentReport;
 import ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter;
 import ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation;
-import static ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation.LOGO_CODE_BC;
 import ca.bc.gov.educ.isd.reports.data.impl.School;
 import ca.bc.gov.educ.isd.reports.data.impl.Student;
 import ca.bc.gov.educ.isd.reports.jasper.impl.ReportImpl;
+
 import java.util.Date;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation.LOGO_CODE_BC;
 
 /**
  * Superclass for all examination, transcript, and scholarship reports.

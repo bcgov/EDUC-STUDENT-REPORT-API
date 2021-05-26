@@ -17,23 +17,22 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-
-import ca.bc.gov.educ.grad.dto.ReportData;
+import ca.bc.gov.educ.exception.EntityNotFoundException;
 import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
-import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
-import ca.bc.gov.educ.isd.traxadaptor.service.TranscriptData;
-import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntity;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
+import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
 import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.StsTranCourseEntity;
+import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntity;
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import ca.bc.gov.educ.isd.traxadaptor.impl.StudentInfoImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TranscriptCourseImpl;
+import ca.bc.gov.educ.isd.traxadaptor.service.TranscriptData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -41,9 +40,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.*;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -134,6 +134,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -164,6 +165,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -193,6 +195,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -224,6 +227,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -312,6 +316,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -331,13 +336,9 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
             final Character usedForGraduationValue = stsTranCourseEntity.getUsedForGrad();
             usedForGraduation = (usedForGraduationValue == null ? ' ' : usedForGraduationValue);
-        } catch (final NonUniqueResultException ex) {
+        } catch (final Exception ex) {
             // this indicates a data issue.  Unable to determine correct record so leave TranscriptCourseImpl with default empty attributes.
             LOG.log(Level.WARNING, "Found multiple StudXcrseEntities matching {0},{1},{2},{3}", new Object[]{pen, paddedCourseCode, paddedCourseLevel, session});
-        } catch (final NoResultException ex) {
-            // Do nothing, this is a valid scenario.
-            // Leave TranscriptCourseImpl with default empty attributes.
-            LOG.log(Level.FINE, "Student has no StudXcrseEntity: " + pen, ex.getMessage());
         }
 
         LOG.exiting(CLASSNAME, _m);
@@ -379,6 +380,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
@@ -396,15 +398,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
                     sanitizedCoursedLevel,
                     sanitizedSession,
                     usedForGraduation);
-        } catch (final NonUniqueResultException ex) {
-            // this indicates a data issue.  Unable to determine correct record.
-            logLevel = Level.WARNING;
-            logString = buildLogString("Found multiple StsTranCourseEntity matching {0},{1},{2},{3}",
-                    sanitizedPen,
-                    sanitizedCourseCode,
-                    sanitizedCoursedLevel,
-                    sanitizedSession);
-        } catch (final NoResultException ex) {
+        } catch (final Exception ex) {
             // Do nothing for a student without exam entities.
             logString = buildLogString("Student has no STs Transcript Course entity for pen {0}", sanitizedPen);
         }
@@ -432,6 +426,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;

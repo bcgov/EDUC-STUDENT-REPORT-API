@@ -17,9 +17,9 @@
  */
 package ca.bc.gov.educ.isd.exam.impl;
 
+import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 import ca.bc.gov.educ.isd.exam.StudentExamResultsReport;
 import ca.bc.gov.educ.isd.reports.ReportFormat;
-import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 
 /**
  * The underlying implementation for the GUI. This is an intermediary between

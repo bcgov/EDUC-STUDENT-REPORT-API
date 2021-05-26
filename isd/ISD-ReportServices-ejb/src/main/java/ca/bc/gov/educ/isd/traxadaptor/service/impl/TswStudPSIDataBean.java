@@ -18,23 +18,22 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.EISException;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.TSWStud;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswStudPSIEntity;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswStudPSIId;
-import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswStudPSIData;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWStudImpl;
+import ca.bc.gov.educ.isd.traxadaptor.service.TswStudPSIData;
+import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -67,10 +66,6 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
             + "AND i.tswStudPsiId.psiCode = :psiCode "
             + "AND i.tswStudPsiId.psiYear = :psiYear";
 
-    // ------------------ VARIABLE(S)
-    @PersistenceContext
-    private transient EntityManager em;
-
     // ------------------ CONSTRUCTOR(S)
     // ------------------ GETTER(S) AND SETTER(S)
     // ------------------ METHOD(S)
@@ -94,11 +89,7 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWStudImpl> query = em.createQuery(findStudByQuery, TSWStudImpl.class);
-
-        query.setParameter(1, studNo);
-
-        List<TSWStudImpl> tswStud = query.getResultList();
+        List<TSWStudImpl> tswStud = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswStud;
@@ -132,12 +123,7 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWStudImpl> query = em.createQuery(findStudByQueryMutiple, TSWStudImpl.class);
-        query.setParameter("studNo", studNo);
-        query.setParameter("psiCode", psiCode);
-        query.setParameter("psiYear", psiYear);
-
-        List<TSWStudImpl> tswPsiChoices = query.getResultList();
+        List<TSWStudImpl> tswPsiChoices = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswPsiChoices;
@@ -172,8 +158,7 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
         TswStudPSIEntity newTswStud = new TswStudPSIEntity(studNo, psiCode, psiYear, status);
-        em.persist(newTswStud);
-        em.flush();
+
         LOG.log(Level.WARNING, "Student PSI Object identified by student number = {0}, PSI code = {1}, Year = {2} and Status = {3} was inserted.", new Object[]{studNo, psiCode, psiYear, status});
 
         LOG.exiting(CLASSNAME, _m);
@@ -210,13 +195,11 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
         boolean response = false;
 
         TswStudPSIId tswStudId = new TswStudPSIId(studNo, psiCode, psiYear);
-        TswStudPSIEntity tswStudToUpdate = em.find(TswStudPSIEntity.class, tswStudId);
+        TswStudPSIEntity tswStudToUpdate = null;
 
         if (tswStudToUpdate != null) {
             LOG.log(Level.FINE, "Student PSI Object identified by student number = {0}, PSI code = {1},  and Year = {2} was found.", new Object[]{studNo, psiCode, psiYear});
-
             tswStudToUpdate.setPsiStatus(status);
-            em.flush();
             response = true;
             LOG.log(Level.FINE, "The status of the Student PSI object identified by Student Number = {0}, PSI code = {1},  and Year = {2} was updated to {3}.", new Object[]{studNo, psiCode, psiYear, status});
         } else {
@@ -258,12 +241,10 @@ public class TswStudPSIDataBean implements TswStudPSIData, Serializable {
         boolean response = false;
 
         TswStudPSIId tswStudId = new TswStudPSIId(studNo, psiCode, psiYear);
-        TswStudPSIEntity tswStudToDelete = em.find(TswStudPSIEntity.class, tswStudId);
+        TswStudPSIEntity tswStudToDelete = null;
 
         if (tswStudToDelete != null) {
             LOG.log(Level.FINE, "Student PSI Object identified by student number = {0}, PSI code = {1},  and Year = {2} was found.", new Object[]{studNo, psiCode, psiYear});
-
-            em.remove(tswStudToDelete);
             response = true;
             LOG.log(Level.FINE, "The status of the Student PSI object identified by Student Number = {0}, PSI code = {1},  and Year = {2} was deleted.", new Object[]{studNo, psiCode, psiYear});
         } else {

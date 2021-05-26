@@ -18,25 +18,18 @@
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Size;
 
 /**
  * Represents a composite key for TswTranNongradEntity instances.
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Embeddable
 public class TswTranNongradEntityPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Size(max = 10)
-    @Column(name = "STUD_NO", insertable = false, updatable = false)
     private String studNo;
-    @Size(max = 12)
-    @Column(name = "NON_GRAD_CODE", insertable = false, updatable = false)
+
     private String nonGradCode;
 
     public TswTranNongradEntityPK() {

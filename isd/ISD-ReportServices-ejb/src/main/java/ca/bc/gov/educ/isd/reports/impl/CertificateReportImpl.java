@@ -17,17 +17,19 @@ package ca.bc.gov.educ.isd.reports.impl;
 
 import ca.bc.gov.educ.isd.reports.CertificateReport;
 import ca.bc.gov.educ.isd.reports.CertificateSubtype;
-import static ca.bc.gov.educ.isd.reports.CertificateSubtype.DEFAULT;
 import ca.bc.gov.educ.isd.reports.CertificateType;
-import static ca.bc.gov.educ.isd.reports.CertificateType.SCCP;
 import ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter;
 import ca.bc.gov.educ.isd.reports.data.impl.Certificate;
 import ca.bc.gov.educ.isd.reports.data.impl.Signatories;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.reports.CertificateSubtype.DEFAULT;
+import static ca.bc.gov.educ.isd.reports.CertificateType.SCCP;
 import static java.lang.Boolean.FALSE;
 import static java.util.Locale.CANADA_FRENCH;
 import static java.util.Locale.ENGLISH;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Represents information required to generate a certificate.

@@ -19,9 +19,11 @@ package ca.bc.gov.educ.isd.reports.data.receipt.impl;
 
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItem;
 import ca.bc.gov.educ.isd.reports.impl.AbstractReportDomainEntity;
+
 import java.math.BigDecimal;
-import static java.math.BigDecimal.ZERO;
 import java.util.Date;
+
+import static java.math.BigDecimal.ZERO;
 
 /**
  * Provides a lightweight equivalent for sales order item instances.

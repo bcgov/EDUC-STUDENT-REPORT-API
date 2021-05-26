@@ -17,7 +17,6 @@
  */
 package ca.bc.gov.educ.isd.reports.data.receipt.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentMethod;
 
 /**

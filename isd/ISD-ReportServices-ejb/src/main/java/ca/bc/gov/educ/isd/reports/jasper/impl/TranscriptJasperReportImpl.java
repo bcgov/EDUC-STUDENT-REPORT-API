@@ -19,14 +19,16 @@ package ca.bc.gov.educ.isd.reports.jasper.impl;
 
 import ca.bc.gov.educ.isd.reports.Report;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfSmartCopy;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
 
 /**
  * Responsible for interleaving report summary pages for the student transcript

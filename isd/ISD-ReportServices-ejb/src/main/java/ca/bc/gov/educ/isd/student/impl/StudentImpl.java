@@ -22,6 +22,7 @@ import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
+
 import java.util.Date;
 import java.util.List;
 

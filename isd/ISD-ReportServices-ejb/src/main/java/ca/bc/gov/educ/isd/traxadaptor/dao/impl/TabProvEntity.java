@@ -18,11 +18,6 @@
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
 /**
  *

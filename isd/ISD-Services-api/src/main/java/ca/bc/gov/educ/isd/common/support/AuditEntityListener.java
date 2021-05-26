@@ -19,8 +19,6 @@ package ca.bc.gov.educ.isd.common.support;
 
 import java.util.Date;
 import java.util.logging.Logger;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 /**
  * This class fulfills the need for a mechanism to fill in audit fields when the
@@ -50,7 +48,6 @@ public class AuditEntityListener {
      *
      * @param entity The entity whose audit fields need populating.
      */
-    @PrePersist
     public void populateAuditFieldsCreate(Object entity) {
         LOG.entering(CLASSNAME, "populateAuditFieldsCreate");
 
@@ -91,7 +88,6 @@ public class AuditEntityListener {
      *
      * @param entity The entity whose audit fields need populating.
      */
-    @PreUpdate
     public void populateAuditFieldsUpdate(Object entity) {
         LOG.entering(CLASSNAME, "populateAuditFieldsUpdate");
 

@@ -20,6 +20,7 @@ package ca.bc.gov.educ.isd.reports.impl;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Receipt;
 import ca.bc.gov.educ.isd.reports.ReceiptReport;
 import ca.bc.gov.educ.isd.reports.jasper.impl.ReportImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 

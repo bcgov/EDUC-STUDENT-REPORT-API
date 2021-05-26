@@ -15,21 +15,12 @@
  * ********************************************************************** */
 package ca.bc.gov.educ.isd.reports.impl;
 
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Payment;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentAdmin;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItem;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItemAdmin;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentMethod;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentStatus;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Receipt;
+import ca.bc.gov.educ.isd.ecommerce.payment.receipt.*;
 import ca.bc.gov.educ.isd.reports.ReportAdminService;
-import ca.bc.gov.educ.isd.reports.data.receipt.impl.PaymentAdminImpl;
-import ca.bc.gov.educ.isd.reports.data.receipt.impl.PaymentLineItemAdminImpl;
-import ca.bc.gov.educ.isd.reports.data.receipt.impl.PaymentMethodImpl;
-import ca.bc.gov.educ.isd.reports.data.receipt.impl.PaymentStatusImpl;
-import ca.bc.gov.educ.isd.reports.data.receipt.impl.ReceiptImpl;
-import java.util.List;
+import ca.bc.gov.educ.isd.reports.data.receipt.impl.*;
+
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 /**
  * Provides a mechanism to create reports to fill out and produce a specific

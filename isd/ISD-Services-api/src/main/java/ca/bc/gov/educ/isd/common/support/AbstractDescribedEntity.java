@@ -17,14 +17,12 @@ package ca.bc.gov.educ.isd.common.support;
 
 import ca.bc.gov.educ.isd.common.DescribedEntity;
 import java.util.Objects;
-import javax.persistence.MappedSuperclass;
 
 /**
  * A domain entity with a name and description.
  *
  * @author CGI Information Management Consultants Inc.
  */
-@MappedSuperclass
 public abstract class AbstractDescribedEntity extends AbstractDomainEntity implements DescribedEntity {
 
     private static final long serialVersionUID = -7011596282398302288L;

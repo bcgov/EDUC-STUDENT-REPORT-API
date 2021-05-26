@@ -15,12 +15,12 @@
  * ********************************************************************** */
 package ca.bc.gov.educ.isd.exam.impl;
 
+import ca.bc.gov.educ.exception.EntityNotFoundException;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.assessment.AssessmentCourseCode;
 import ca.bc.gov.educ.isd.assessment.IncompleteAssessmentCode;
 import ca.bc.gov.educ.isd.common.DataException;
 import ca.bc.gov.educ.isd.common.DomainServiceException;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.ExamResult;
 import ca.bc.gov.educ.isd.eis.trax.db.ExamStudent;
@@ -35,29 +35,24 @@ import ca.bc.gov.educ.isd.reports.ReportService;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
-import ca.bc.gov.educ.isd.student.StudentXRef;
 import ca.bc.gov.educ.isd.student.StudentXRefService;
 import ca.bc.gov.educ.isd.student.impl.PersonalEducationNumberSimple;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
-import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityNotFoundException;
-
-import static org.apache.commons.lang3.ArrayUtils.isEmpty;
-
 import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.apache.commons.lang3.builder.CompareToBuilder;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
+import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 /**
  * The Exam Services is an implementation component of the broader Transcript
@@ -180,13 +175,14 @@ public class StudentExamServiceImpl implements StudentExamService, Serializable 
 
         if (reportData == null) {
             EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
                     "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
         }
 
         PersonalEducationNumberSimple pen = new PersonalEducationNumberSimple();
-        pen.setPen(reportData.getDemographics().getPen());
+        pen.setPen(reportData.getStudent().getPen().toString());
         
         LOG.log(Level.FINE, "Confirmed the user is a student and retrieved the PEN: {0}.", pen);
         LOG.exiting(CLASSNAME, _m);

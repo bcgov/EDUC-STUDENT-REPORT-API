@@ -17,9 +17,9 @@
  */
 package ca.bc.gov.educ.isd.grad.impl;
 
+import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 import ca.bc.gov.educ.isd.grad.GradCertificateReport;
 import ca.bc.gov.educ.isd.reports.ReportFormat;
-import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 
 public class GradCertificateReportImpl extends BusinessReportEntity
         implements GradCertificateReport {

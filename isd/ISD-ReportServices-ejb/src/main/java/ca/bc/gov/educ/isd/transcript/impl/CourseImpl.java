@@ -19,8 +19,10 @@ package ca.bc.gov.educ.isd.transcript.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.transcript.Course;
-import static java.lang.String.format;
+
 import java.util.Objects;
+
+import static java.lang.String.format;
 
 /**
  * This class models a course.

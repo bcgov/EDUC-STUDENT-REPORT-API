@@ -19,10 +19,12 @@ package ca.bc.gov.educ.isd.reports.common.impl;
 
 import ca.bc.gov.educ.isd.reports.Report;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.HTML;
 import ca.bc.gov.educ.isd.reports.jasper.impl.JasperReportImpl;
 import ca.bc.gov.educ.isd.reports.jasper.impl.ReportDocumentImpl;
+
 import java.io.IOException;
+
+import static ca.bc.gov.educ.isd.reports.ReportFormat.HTML;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**

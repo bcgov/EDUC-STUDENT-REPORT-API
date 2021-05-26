@@ -17,9 +17,9 @@
  */
 package ca.bc.gov.educ.isd.reports.data.impl;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serializable;
 
 /**
  * TODO: Comment how this class is used.

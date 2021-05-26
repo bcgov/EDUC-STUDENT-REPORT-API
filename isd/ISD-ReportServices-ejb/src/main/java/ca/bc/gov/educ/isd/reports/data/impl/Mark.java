@@ -18,10 +18,11 @@
 package ca.bc.gov.educ.isd.reports.data.impl;
 
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import java.util.logging.Logger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.logging.Logger;
 
 /**
  * Mark grades are used for both examination results and transcript results.

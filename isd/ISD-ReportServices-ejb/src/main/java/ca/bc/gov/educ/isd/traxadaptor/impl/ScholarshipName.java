@@ -17,9 +17,10 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_TRAX_YMD;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_TRAX_YMD;
 
 /**
  * This defines: the scholarships, their relative expiration year (e.g., 5 years

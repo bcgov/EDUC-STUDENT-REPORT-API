@@ -18,9 +18,11 @@
 package ca.bc.gov.educ.isd.transcript.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.transcript.Mark;
+
 import java.io.Serializable;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 
 /**
  * Represents the marks associated with a course.

@@ -20,9 +20,11 @@ package ca.bc.gov.educ.isd.traxadaptor.impl;
 import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.CourseId;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.StsTranCourseEntity;
-import static java.lang.Integer.parseInt;
+
 import java.util.Objects;
 import java.util.logging.Logger;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given

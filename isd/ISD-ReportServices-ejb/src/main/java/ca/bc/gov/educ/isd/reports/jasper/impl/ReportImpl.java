@@ -18,26 +18,28 @@
 package ca.bc.gov.educ.isd.reports.jasper.impl;
 
 import ca.bc.gov.educ.isd.common.Predicate;
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.reports.Parameters;
 import ca.bc.gov.educ.isd.reports.Report;
 import ca.bc.gov.educ.isd.reports.ReportFormat;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
 import ca.bc.gov.educ.isd.reports.impl.ParametersImpl;
-import static ca.bc.gov.educ.isd.reports.util.InheritableResourceBundle.getBundle;
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Locale;
-import static java.util.Locale.CANADA;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
+import static ca.bc.gov.educ.isd.reports.ReportFormat.PDF;
+import static ca.bc.gov.educ.isd.reports.util.InheritableResourceBundle.getBundle;
+import static java.util.Locale.CANADA;
 import static net.sf.jasperreports.engine.JRParameter.IS_IGNORE_PAGINATION;
-import org.apache.commons.io.IOUtils;
 
 /**
  * Provides an interface to the JasperReports reporting tool. This isolates

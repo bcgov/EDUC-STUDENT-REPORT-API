@@ -1,4 +1,4 @@
-package ca.bc.gov.educ.api.report.exception;
+package ca.bc.gov.educ.exception;
 
 /**
  * InvalidParameterException to provide error details when unexpected parameters are passed to endpoint

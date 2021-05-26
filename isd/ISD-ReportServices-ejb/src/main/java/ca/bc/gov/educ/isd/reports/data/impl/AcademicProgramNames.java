@@ -17,11 +17,12 @@
  */
 package ca.bc.gov.educ.isd.reports.data.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-import static java.lang.String.format;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
+import static java.lang.String.format;
 
 /**
  * Map with Academic program names.

@@ -17,9 +17,10 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper;
 
-import static java.lang.String.format;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.lang.String.format;
 
 /**
  * Responsible for computing various requirements for the transcript reports.

@@ -18,8 +18,9 @@
 package ca.bc.gov.educ.isd.reports.data.assessment.impl;
 
 import ca.bc.gov.educ.isd.assessment.AssessmentCode;
-import static ca.bc.gov.educ.isd.assessment.AssessmentCode.NO_RESPONSE;
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
+
+import static ca.bc.gov.educ.isd.assessment.AssessmentCode.NO_RESPONSE;
 
 /**
  *

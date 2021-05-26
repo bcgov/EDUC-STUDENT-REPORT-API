@@ -20,9 +20,6 @@ package ca.bc.gov.educ.isd.common.support;
 import ca.bc.gov.educ.isd.common.DomainEntity;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.Version;
 
 /**
  * Common super class for all DomainEntity.
@@ -70,13 +67,11 @@ public abstract class AbstractDomainEntity implements DomainEntity {
     /**
      * Timestamp of when object was first persisted.
      */
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createdOn = new Date(0L);
 
     /**
      * Timestamp of when this object was last changed and written.
      */
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastUpdatedOn = new Date(0L);
 
     /**
@@ -88,7 +83,6 @@ public abstract class AbstractDomainEntity implements DomainEntity {
      * Stateless Transaction ID, used to deal with record concurrent
      * modifications.
      */
-    @Version
     private int xactId = 0;
 
     private String entityId;

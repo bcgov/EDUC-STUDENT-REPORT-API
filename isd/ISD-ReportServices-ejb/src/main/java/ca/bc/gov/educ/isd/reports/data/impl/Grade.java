@@ -17,10 +17,11 @@
  */
 package ca.bc.gov.educ.isd.reports.data.impl;
 
-import static ca.bc.gov.educ.isd.reports.data.BusinessEntity.nullSafe;
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serializable;
+
+import static ca.bc.gov.educ.isd.reports.data.BusinessEntity.nullSafe;
 
 /**
  * Represents a grade percentage and corresponding letter grade. Final and

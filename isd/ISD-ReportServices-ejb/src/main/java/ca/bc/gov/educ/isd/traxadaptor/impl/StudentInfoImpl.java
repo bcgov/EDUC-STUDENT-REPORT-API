@@ -17,23 +17,20 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.asBoolean;
-import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YM;
-import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YMD;
 import ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode;
-import static ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode.valueFrom;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.asBoolean;
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
+import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YM;
+import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YMD;
+import static ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode.valueFrom;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given

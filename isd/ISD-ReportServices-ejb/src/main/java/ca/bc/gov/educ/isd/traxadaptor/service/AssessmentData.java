@@ -19,9 +19,10 @@ package ca.bc.gov.educ.isd.traxadaptor.service;
 
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode;
-import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
 import ca.bc.gov.educ.isd.eis.trax.db.LitAssessmentResult;
+import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXData;
+
 import java.util.List;
 
 /**

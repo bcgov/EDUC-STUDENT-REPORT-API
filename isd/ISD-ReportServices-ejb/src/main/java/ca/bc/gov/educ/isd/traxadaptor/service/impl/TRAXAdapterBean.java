@@ -17,57 +17,29 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
-import static ca.bc.gov.educ.isd.common.support.Lists.getFirst;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode;
-import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode.LITERACY_ENGLISH;
-import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode.LITERACY_FRENCH;
 import ca.bc.gov.educ.isd.eis.common.DomainServiceException;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.PUBLIC_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.USER;
-import ca.bc.gov.educ.isd.eis.trax.db.AssessmentResult;
-import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
-import ca.bc.gov.educ.isd.eis.trax.db.ExamResult;
-import ca.bc.gov.educ.isd.eis.trax.db.ExamStudent;
-import ca.bc.gov.educ.isd.eis.trax.db.PSIChoice;
-import ca.bc.gov.educ.isd.eis.trax.db.Scholarship;
-import ca.bc.gov.educ.isd.eis.trax.db.ScholarshipStudent;
-import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
-import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
-import ca.bc.gov.educ.isd.eis.trax.db.TRAXAdapter;
-import ca.bc.gov.educ.isd.eis.trax.db.TRAXStudentRecordException;
-import ca.bc.gov.educ.isd.eis.trax.db.TSWRegistry;
-import ca.bc.gov.educ.isd.eis.trax.db.TSWStud;
-import ca.bc.gov.educ.isd.eis.trax.db.TSWTxPSI;
-import ca.bc.gov.educ.isd.eis.trax.db.TabProvince;
-import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
-import ca.bc.gov.educ.isd.traxadaptor.service.ExamData;
-import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
-import ca.bc.gov.educ.isd.traxadaptor.service.ScholarshipData;
-import ca.bc.gov.educ.isd.traxadaptor.service.StudentData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TabProvData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TranscriptData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswPSIChoiceData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswPSIRegistryData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswStudPSIData;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswTxPsiData;
+import ca.bc.gov.educ.isd.eis.trax.db.*;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWRegistryImpl;
-import ca.bc.gov.educ.isd.eis.trax.db.CountryConverter;
-import ca.bc.gov.educ.isd.eis.trax.db.StudentProfileMasterLite;
-import ca.bc.gov.educ.isd.traxadaptor.service.AssessmentData;
+import ca.bc.gov.educ.isd.traxadaptor.service.*;
+import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
 import org.springframework.stereotype.Service;
 
-import static java.lang.String.format;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
+
+import static ca.bc.gov.educ.isd.common.support.Lists.getFirst;
+import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode.LITERACY_ENGLISH;
+import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode.LITERACY_FRENCH;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.*;
+import static java.lang.String.format;
 
 /**
  * <p>

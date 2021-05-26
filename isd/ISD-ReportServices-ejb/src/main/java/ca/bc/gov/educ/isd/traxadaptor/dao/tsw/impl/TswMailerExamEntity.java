@@ -17,16 +17,9 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.CourseId;
+
 import java.io.Serializable;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  * An auto generated entity for the TSW_MAILER_EXAM_VW which is a view created
@@ -48,37 +41,24 @@ import javax.validation.constraints.Size;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Entity
-@Table(name = ENTITY_STUDENT_EXAM)
 public class TswMailerExamEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    @AttributeOverrides({
-        @AttributeOverride(name = "crseSession", column = @Column(name = COL_COURSE_PK_SESSION))
-    })
     private CourseId primaryKey;
-    @Size(max = 40)
-    @Column(name = COL_COURSE_NAME, insertable = false, updatable = false)
+
     private String courseName;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_SCHOOL_PERCENT, insertable = false, updatable = false)
+
     private String schoolPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_BEST_SCHOOL_PERCENT, insertable = false, updatable = false)
+
     private String bestSchoolPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_EXAM_PERCENT, insertable = false, updatable = false)
+
     private String examPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_BEST_EXAM_PERCENT, insertable = false, updatable = false)
+
     private String bestExamPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_FINAL_PERCENT, insertable = false, updatable = false)
+
     private String finalPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_FINAL_LETTER_GRADE, insertable = false, updatable = false)
+
     private String finalLg;
 
     public TswMailerExamEntity() {

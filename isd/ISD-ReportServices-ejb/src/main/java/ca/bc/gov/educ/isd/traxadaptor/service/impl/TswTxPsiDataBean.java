@@ -18,24 +18,24 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.EISException;
+import ca.bc.gov.educ.isd.eis.trax.db.TSWTxPSI;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTxPsiEntity;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTxPsiId;
-import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswTxPsiData;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
-import ca.bc.gov.educ.isd.eis.trax.db.TSWTxPSI;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWTxPSIImpl;
+import ca.bc.gov.educ.isd.traxadaptor.service.TswTxPsiData;
+import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -79,9 +79,6 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
 
     private final String PEN_FORMAT = "%-10s";
 
-    @PersistenceContext
-    private transient EntityManager em;
-
     @Override
     @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
     public List<? extends TSWTxPSI> findTxPSIBy(String studNo) throws EISException {
@@ -102,10 +99,7 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWTxPSIImpl> query = em.createQuery(findChoiceByQuery, TSWTxPSIImpl.class);
-        query.setParameter(1, studNo);
-
-        final List<TSWTxPSIImpl> tswTxPSI = query.getResultList();
+        final List<TSWTxPSIImpl> tswTxPSI = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswTxPSI;
@@ -139,12 +133,7 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWTxPSIImpl> query = em.createQuery(findChoiceByQueryMutiple, TSWTxPSIImpl.class);
-        query.setParameter("txId", txId);
-        query.setParameter("studNo", studNo);
-        query.setParameter("psiCode", psiCode);
-
-        final List<TSWTxPSIImpl> tswTxPSI = query.getResultList();
+        final List<TSWTxPSIImpl> tswTxPSI = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswTxPSI;
@@ -178,18 +167,11 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWTxPSIImpl> query = em.createQuery(findChoiceByDateMutiple, TSWTxPSIImpl.class);
-        query.setParameter("txId", txId);
-        query.setParameter("studNo", studNo);
-        query.setParameter("psiCode", psiCode);
-        query.setParameter("prcssDate", processDate);
-
-        List<TSWTxPSIImpl> tswTxPSI = query.getResultList();
+        List<TSWTxPSIImpl> tswTxPSI = null;
 
         if (tswTxPSI == null || tswTxPSI.isEmpty()) {
             String newPen = String.format(PEN_FORMAT, studNo);
-            query.setParameter("studNo", newPen);
-            tswTxPSI = query.getResultList();
+            tswTxPSI = null;
         }
         LOG.log(Level.FINE, "Found {0} TWS TX PSI for [txId ={1}, studNo={2}, psiCode={3}, processDate={4}].",
                 new Object[]{tswTxPSI.size(), txId, studNo, psiCode, processDate});
@@ -227,8 +209,7 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
         TswTxPsiEntity newTxPSI = new TswTxPsiEntity(txId, studNo, psiCode, status);
-        em.persist(newTxPSI);
-        em.flush();
+
         LOG.log(Level.WARNING, "TX Object identified by student number = {0}, PSI code = {1}, Id  = {2} and Status = {3} was inserted.", new Object[]{studNo, psiCode, txId, status});
 
         LOG.exiting(CLASSNAME, _m);
@@ -276,7 +257,6 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
                     LOG.log(Level.FINE, "TX Object identified by student number = {0}, PSI code = {1},  and Id = {2} was found.", new Object[]{studNo, psiCode, txId});
 
                     item.setPsiStatus(status);
-                    em.flush();
                     response = true;
                     LOG.log(Level.FINE, "The status of the object identified by Student Number = {0}, PSI code = {1},  and Id = {2} was updated to {3}.", new Object[]{studNo, psiCode, txId, status});
                 }
@@ -318,14 +298,11 @@ public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
         TswTxPsiId tswTxPSIId = new TswTxPsiId(txId, studNo, psiCode);
-        TswTxPsiEntity tswTxPSIToDelete = em.find(TswTxPsiEntity.class, tswTxPSIId);
+        TswTxPsiEntity tswTxPSIToDelete = null;
 
         if (tswTxPSIToDelete
                 != null) {
             LOG.log(Level.FINE, "TX Object identified by student number = {0}, PSI code = {1},  and Id = {2} was found.", new Object[]{studNo, psiCode, txId});
-
-            em.remove(tswTxPSIToDelete);
-            em.flush();
             LOG.log(Level.FINE, "The status of the object identified by Student Number = {0}, PSI code = {1},  and Id = {2} was deleted.", new Object[]{studNo, psiCode, txId});
         } else {
             LOG.log(Level.WARNING, "TX Object identified by student number = {0}, PSI code = {1},  and Id = {2} was not found.", new Object[]{studNo, psiCode, txId});

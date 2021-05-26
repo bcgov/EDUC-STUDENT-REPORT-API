@@ -17,18 +17,10 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
+import ca.bc.gov.educ.isd.eis.trax.db.TabSchool;
+
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
-import ca.bc.gov.educ.isd.eis.trax.db.TabSchool;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * An auto generated entity for the TAB_SCHOOL_VW view which is a view created

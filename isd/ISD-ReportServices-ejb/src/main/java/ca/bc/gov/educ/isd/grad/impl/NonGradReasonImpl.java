@@ -19,6 +19,7 @@ package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
+
 import java.io.Serializable;
 
 /**

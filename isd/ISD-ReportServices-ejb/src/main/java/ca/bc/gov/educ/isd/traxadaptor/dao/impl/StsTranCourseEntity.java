@@ -17,18 +17,8 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
-import java.io.Serializable;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * An auto generated entity for the STS_TRAN_CRSE_VW view which is a view

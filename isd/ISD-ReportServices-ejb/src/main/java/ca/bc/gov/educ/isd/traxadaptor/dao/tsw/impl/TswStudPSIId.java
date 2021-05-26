@@ -17,14 +17,12 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
-import java.io.Serializable;
-import java.util.logging.Logger;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
 
 /**
  * Embeddable JPA Entity composite primary key consisting of Student number, the
@@ -33,7 +31,6 @@ import javax.validation.constraints.Size;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Embeddable
 public class TswStudPSIId implements Serializable {
 
     // ------------------ CONSTANT(S) AND FINAL(S)
@@ -41,21 +38,10 @@ public class TswStudPSIId implements Serializable {
     private static final String CLASSNAME = TswStudPSIId.class.getName();
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
-    // ------------------ VARIABLE(S)
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = COL_STUDENT_NUMBER)
     private String studNo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = COL_PSI_CODE)
+
     private String psiCode;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = COL_PSI_YEAR)
+
     private String psiYear;
 
     // ------------------ CONSTRUCTOR(S)

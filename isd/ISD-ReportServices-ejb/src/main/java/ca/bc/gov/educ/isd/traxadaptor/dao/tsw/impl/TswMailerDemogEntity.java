@@ -17,12 +17,8 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * An auto generated entity for the TSW_MAILER_DEMOG_VW which is a view created
@@ -38,24 +34,18 @@ import javax.validation.constraints.Size;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Entity
-@Table(name = "TSW_MAILER_DEMOG_VW")
 public class TswMailerDemogEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Size(max = 10)
-    @Column(name = "STUD_NO", insertable = false, updatable = false)
-    @Id
+
     private String studNo;
-    @Size(max = 40)
-    @Column(name = "FIRST_NAME", insertable = false, updatable = false)
+
     private String firstName;
-    @Size(max = 40)
-    @Column(name = "LAST_NAME", insertable = false, updatable = false)
+
     private String lastName;
-    @Column(name = "UPDATE_DT", insertable = false, updatable = false)
+
     private Long updateDt;
-    @Column(name = "BIRTHDATE", insertable = false, updatable = false)
+
     private Long birthdate;
 
     public TswMailerDemogEntity() {

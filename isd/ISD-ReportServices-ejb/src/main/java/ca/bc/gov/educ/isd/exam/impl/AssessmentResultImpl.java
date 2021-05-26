@@ -18,13 +18,15 @@
 package ca.bc.gov.educ.isd.exam.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.exam.AssessmentResult;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 
 /**
  *

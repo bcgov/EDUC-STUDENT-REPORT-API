@@ -17,49 +17,28 @@
  */
 package ca.bc.gov.educ.isd.reports.data.adapter;
 
-import ca.bc.gov.educ.isd.assessment.RawScoreCategory;
-import static ca.bc.gov.educ.isd.common.Constants.DATE_ISO_8601_YMD;
-import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YM;
-import static ca.bc.gov.educ.isd.common.Constants.DATE_YEAR_MONTH;
 import ca.bc.gov.educ.isd.grad.GradProgram;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
-import static ca.bc.gov.educ.isd.reports.data.BusinessEntity.nullSafe;
 import ca.bc.gov.educ.isd.reports.data.assessment.impl.AssessmentScore;
 import ca.bc.gov.educ.isd.reports.data.assessment.impl.LiteracyAssessmentResult;
 import ca.bc.gov.educ.isd.reports.data.assessment.impl.NumeracyAssessmentResult;
 import ca.bc.gov.educ.isd.reports.data.assessment.impl.RawScore;
-import ca.bc.gov.educ.isd.reports.data.impl.AcademicAward;
-import ca.bc.gov.educ.isd.reports.data.impl.AcademicSession;
-import ca.bc.gov.educ.isd.reports.data.impl.AcademicSessionDetail;
-import ca.bc.gov.educ.isd.reports.data.impl.Certificate;
-import ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation;
-import static ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation.LOGO_CODE_BC;
-import ca.bc.gov.educ.isd.reports.data.impl.ExaminationResult;
-import ca.bc.gov.educ.isd.reports.data.impl.Grade;
-import ca.bc.gov.educ.isd.reports.data.impl.GraduationProgram;
-import ca.bc.gov.educ.isd.reports.data.impl.IncompletionReason;
-import ca.bc.gov.educ.isd.reports.data.impl.PackingSlipDetails;
-import ca.bc.gov.educ.isd.reports.data.impl.PostalAddress;
-import ca.bc.gov.educ.isd.reports.data.impl.Scholarship;
-import ca.bc.gov.educ.isd.reports.data.impl.School;
-import ca.bc.gov.educ.isd.reports.data.impl.Status;
-import ca.bc.gov.educ.isd.reports.data.impl.Student;
-import ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult;
-import static java.lang.String.format;
+import ca.bc.gov.educ.isd.reports.data.impl.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.Constants.*;
+import static ca.bc.gov.educ.isd.reports.data.BusinessEntity.nullSafe;
+import static ca.bc.gov.educ.isd.reports.data.impl.DistrictOrganisation.LOGO_CODE_BC;
+import static java.lang.String.format;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 
 /**
  * Responsible for adapting data from the services interfaces into the report

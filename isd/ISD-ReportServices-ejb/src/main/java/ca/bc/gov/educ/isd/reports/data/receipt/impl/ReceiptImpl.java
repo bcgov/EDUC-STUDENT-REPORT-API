@@ -21,6 +21,7 @@ import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Payment;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItem;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Receipt;
 import ca.bc.gov.educ.isd.reports.impl.AbstractReportDomainEntity;
+
 import java.util.List;
 
 /**

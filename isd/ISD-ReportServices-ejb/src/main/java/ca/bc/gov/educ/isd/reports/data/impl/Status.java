@@ -18,10 +18,11 @@
 package ca.bc.gov.educ.isd.reports.data.impl;
 
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 /**
  * Responsible for answering questions about a Student, including:

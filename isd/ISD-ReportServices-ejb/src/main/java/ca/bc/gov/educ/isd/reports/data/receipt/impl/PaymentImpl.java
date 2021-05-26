@@ -21,9 +21,11 @@ import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Payment;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentMethod;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentStatus;
 import ca.bc.gov.educ.isd.reports.impl.AbstractReportDomainEntity;
+
 import java.math.BigDecimal;
-import static java.math.BigDecimal.ZERO;
 import java.util.Date;
+
+import static java.math.BigDecimal.ZERO;
 
 /**
  * Represents information about a payment transaction, including: when the

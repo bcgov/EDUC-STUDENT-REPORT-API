@@ -17,20 +17,16 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
-import ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter;
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_TRAX_YMD;
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_UNKNOWN_BIRTHDATE;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentMaster;
+import ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
+
+import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_TRAX_YMD;
+import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_UNKNOWN_BIRTHDATE;
 
 /**
  * An auto generated entity for the STUDENT_MASTER_VW view which is a view

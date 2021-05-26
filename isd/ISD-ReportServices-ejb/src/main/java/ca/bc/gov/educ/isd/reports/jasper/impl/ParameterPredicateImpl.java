@@ -17,9 +17,8 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper.impl;
 
-import ca.bc.gov.educ.isd.transcript.ParameterPredicate;
 import ca.bc.gov.educ.isd.common.support.filter.AbstractPredicate;
-import ca.bc.gov.educ.isd.common.Predicate;
+import ca.bc.gov.educ.isd.transcript.ParameterPredicate;
 
 /**
  *

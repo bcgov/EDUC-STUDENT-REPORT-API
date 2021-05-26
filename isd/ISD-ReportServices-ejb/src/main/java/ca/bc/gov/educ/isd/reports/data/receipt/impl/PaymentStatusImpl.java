@@ -17,9 +17,10 @@
  */
 package ca.bc.gov.educ.isd.reports.data.receipt.impl;
 
+import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentStatus;
+
 import static ca.bc.gov.educ.isd.common.Constants.PAYMENT_APPROVED_STATUS;
 import static ca.bc.gov.educ.isd.common.Constants.PAYMENT_DECLINED_STATUS;
-import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentStatus;
 
 /**
  * Represents the state for a particular payment, which is related to its

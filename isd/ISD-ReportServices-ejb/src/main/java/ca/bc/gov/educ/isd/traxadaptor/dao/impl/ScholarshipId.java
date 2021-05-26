@@ -17,13 +17,8 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.COL_AWARD_CODE;
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.COL_STUDENT_NUMBER;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Size;
 
 /**
  * Embeddable JPA Entity composite primary key consisting of student number and

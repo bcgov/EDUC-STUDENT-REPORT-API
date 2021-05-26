@@ -17,13 +17,15 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
+import ca.bc.gov.educ.isd.eis.trax.db.ScholarshipStudent;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentMaster;
 import ca.bc.gov.educ.isd.eis.trax.db.TabSchool;
-import ca.bc.gov.educ.isd.eis.trax.db.ScholarshipStudent;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given

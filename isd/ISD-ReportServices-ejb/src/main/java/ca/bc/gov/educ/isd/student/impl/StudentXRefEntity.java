@@ -21,26 +21,10 @@ import ca.bc.gov.educ.isd.common.party.Identifier;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.StudentXRef;
-import static ca.bc.gov.educ.isd.student.impl.constants.DatabaseDefinitions.XREF_TABLE;
-import static ca.bc.gov.educ.isd.student.impl.constants.DatabaseDefinitions.XREF_TABLE_ID_NAME;
-import static ca.bc.gov.educ.isd.student.impl.constants.DatabaseDefinitions.XREF_TABLE_SEQ;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import static javax.persistence.CascadeType.ALL;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  *

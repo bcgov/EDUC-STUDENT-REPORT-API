@@ -17,19 +17,10 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.CourseId;
-import java.io.Serializable;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * An auto generated entity for the TSW_TRAN_COURSE_VW view which is a view
@@ -52,50 +43,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@Entity
-@Table(name = ENTITY_STUDENT_TRANSCRIPT_RESULTS)
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TswTranCourseEntity.findByKey", query = "SELECT s FROM TswTranCourseEntity s WHERE s.primaryKey = :primaryKey"),
-    @NamedQuery(name = "TswTranCourseEntity.findMaxUpdtByStudNo", query = "SELECT max(s.updateDt) FROM TswTranCourseEntity s WHERE s.primaryKey.studNo = :studNo")})
 public class TswTranCourseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    @AttributeOverrides({
-        @AttributeOverride(name = "crseSession", column = @Column(name = COL_COURSE_PK_SESSION))
-    })
+
     private CourseId primaryKey;
-    @Size(max = 40)
-    @Column(name = COL_COURSE_NAME, insertable = false, updatable = false)
+
     private String courseName;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_CREDITS, insertable = false, updatable = false)
+
     private String numCredits;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_EXAM_PERCENT, insertable = false, updatable = false)
+
     private String examPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_SCHOOL_PERCENT, insertable = false, updatable = false)
+
     private String schoolPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_FINAL_PERCENT, insertable = false, updatable = false)
+
     private String finalPct;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_FINAL_LETTER_GRADE, insertable = false, updatable = false)
+
     private String finalLg;
-    @Size(max = 3)
-    @Column(name = COL_COURSE_INTERIM_MARK, insertable = false, updatable = false)
+
     private String interimMark;
-    @Size(max = 2)
-    @Column(name = COL_TRANSCRIPT_FOUNDATION_REQUIREMENT, insertable = false, updatable = false)
+
     private String foundationReq;
-    @Size(max = 2)
-    @Column(name = COL_TRANSCRIPT_SPECIAL_CASE, insertable = false, updatable = false)
+
     private String specialCase;
-    @Column(name = COL_AUDIT_UPDATED_DATE, insertable = false, updatable = false)
+
     private Long updateDt;
-    @Column(name = COL_TRANSCRIPT_REPORT_COURSE_TYPE, insertable = false, updatable = false)
+
     private Character rptCrsType;
 
     public TswTranCourseEntity() {

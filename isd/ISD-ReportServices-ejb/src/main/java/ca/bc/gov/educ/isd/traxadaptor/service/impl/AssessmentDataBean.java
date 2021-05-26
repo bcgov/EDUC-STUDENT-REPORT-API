@@ -19,23 +19,20 @@ package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
-import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
 import ca.bc.gov.educ.isd.eis.trax.db.LitAssessmentResult;
-import static ca.bc.gov.educ.isd.eis.trax.db.TRAXData.TIMEOUT;
-import ca.bc.gov.educ.isd.traxadaptor.impl.NumeracyAssessmentResultImpl;
+import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
 import ca.bc.gov.educ.isd.traxadaptor.impl.LiteracyAssessmentResultImpl;
+import ca.bc.gov.educ.isd.traxadaptor.impl.NumeracyAssessmentResultImpl;
 import ca.bc.gov.educ.isd.traxadaptor.service.AssessmentData;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  *
@@ -108,9 +105,6 @@ public class AssessmentDataBean implements AssessmentData, Serializable {
             + "WHERE"
             + "  r.studentNumber = ?1 AND r.assessmentSession = ?2 AND r.assessmentCode = ?3";
 
-    @PersistenceContext
-    private transient EntityManager em;
-
     @Override
     @RolesAllowed(TRAX_READ)
     public List<? extends NumAssessmentResult> findAssessments(
@@ -120,12 +114,7 @@ public class AssessmentDataBean implements AssessmentData, Serializable {
         final String methodName = "findAssessments(String)";
         LOG.entering(CLASSNAME, methodName);
 
-        final TypedQuery<NumeracyAssessmentResultImpl> query = em.createQuery(QUERY_FIND_ASSESSMENTS_BY_PEN, NumeracyAssessmentResultImpl.class);
-        query.setParameter(1, pen);
-        query.setParameter(2, sessionDate);
-        query.setParameter(3, code.getCode());
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        List<NumeracyAssessmentResultImpl> resultsList = query.getResultList();
+        List<NumeracyAssessmentResultImpl> resultsList = null;
 
         if (resultsList == null) {
             resultsList = new ArrayList<>();
@@ -146,12 +135,7 @@ public class AssessmentDataBean implements AssessmentData, Serializable {
         
         String queryStr = AssessmentCourseCode.LITERACY_ENGLISH.equals(code) ? QUERY_FIND_LITERACY_ASSESSMENTS_BY_PEN : QUERY_FIND_LITERACY_ASSESSMENTS_FR_BY_PEN;
 
-        final TypedQuery<LiteracyAssessmentResultImpl> query = em.createQuery(queryStr, LiteracyAssessmentResultImpl.class);
-        query.setParameter(1, pen);
-        query.setParameter(2, sessionDate);
-        query.setParameter(3, code.getCode());
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        List<LiteracyAssessmentResultImpl> resultsList = query.getResultList();
+        List<LiteracyAssessmentResultImpl> resultsList = null;
 
         if (resultsList == null) {
             resultsList = new ArrayList<>();

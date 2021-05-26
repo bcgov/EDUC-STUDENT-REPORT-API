@@ -17,20 +17,19 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
-import ca.bc.gov.educ.isd.traxadaptor.service.ScholarshipData;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.Scholarship;
 import ca.bc.gov.educ.isd.eis.trax.db.ScholarshipStudent;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ScholarshipImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ScholarshipStudentImpl;
+import ca.bc.gov.educ.isd.traxadaptor.service.ScholarshipData;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -55,9 +54,6 @@ public class ScholarshipDataBean implements ScholarshipData, Serializable {
     private static final String CLASSNAME = ScholarshipDataBean.class.getName();
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
-    @PersistenceContext
-    private transient EntityManager em;
-
     private static final String QUERY_STUD_BY_PEN
             = "SELECT DISTINCT new " + ScholarshipStudentImpl.class.getCanonicalName() + "(s, c) "
             + "FROM StudentMasterEntity s, ScholarshipEntity a, TabSchoolEntity c "
@@ -78,11 +74,7 @@ public class ScholarshipDataBean implements ScholarshipData, Serializable {
         final String _m = "findStudentByPEN(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<ScholarshipStudent> query
-                = em.createQuery(QUERY_STUD_BY_PEN, ScholarshipStudent.class);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<ScholarshipStudent> scholarships = query.getResultList();
+        final List<ScholarshipStudent> scholarships = null;
 
         LOG.exiting(CLASSNAME, _m);
         return scholarships;
@@ -94,11 +86,7 @@ public class ScholarshipDataBean implements ScholarshipData, Serializable {
         final String _m = "findScholarshipsByPEN(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<Scholarship> query
-                = em.createQuery(QUERY_SCHOLARSHIPS_BY_PEN, Scholarship.class);
-        query.setParameter(1, pen);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<Scholarship> scholarships = query.getResultList();
+        final List<Scholarship> scholarships = null;
 
         LOG.exiting(CLASSNAME, _m);
         return scholarships;

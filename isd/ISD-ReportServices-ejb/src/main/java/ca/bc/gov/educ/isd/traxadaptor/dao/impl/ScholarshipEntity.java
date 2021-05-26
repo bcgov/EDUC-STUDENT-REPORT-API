@@ -17,17 +17,10 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * An auto generated entity for the student scholarship view which is a view

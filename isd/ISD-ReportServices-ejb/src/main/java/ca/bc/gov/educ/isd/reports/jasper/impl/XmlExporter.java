@@ -20,6 +20,22 @@ package ca.bc.gov.educ.isd.reports.jasper.impl;
 import ca.bc.gov.educ.isd.common.Predicate;
 import ca.bc.gov.educ.isd.common.support.xml.XmlBuilder;
 import ca.bc.gov.educ.isd.reports.data.impl.Student;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.ReportContext;
+import net.sf.jasperreports.export.*;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -28,27 +44,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+
 import static mondrian.xmla.XmlaException.getRootCause;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.ReportContext;
-import net.sf.jasperreports.export.Exporter;
-import net.sf.jasperreports.export.ExporterConfiguration;
-import net.sf.jasperreports.export.ExporterInput;
-import net.sf.jasperreports.export.ExporterOutput;
-import net.sf.jasperreports.export.ReportExportConfiguration;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
  * This exporter is used in the creation of XML documents that are to be used in

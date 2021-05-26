@@ -1,4 +1,4 @@
-package ca.bc.gov.educ.api.report.exception;
+package ca.bc.gov.educ.exception;
 
 import org.apache.commons.lang3.StringUtils;
 

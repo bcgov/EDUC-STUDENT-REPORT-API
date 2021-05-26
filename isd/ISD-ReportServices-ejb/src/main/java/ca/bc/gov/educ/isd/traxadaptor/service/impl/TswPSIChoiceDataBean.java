@@ -18,23 +18,22 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.EISException;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.PSIChoice;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswPSIChoiceEntity;
-import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
-import ca.bc.gov.educ.isd.traxadaptor.service.TswPSIChoiceData;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWChoiceImpl;
+import ca.bc.gov.educ.isd.traxadaptor.service.TswPSIChoiceData;
+import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -74,10 +73,6 @@ public class TswPSIChoiceDataBean implements TswPSIChoiceData, Serializable {
             + "AND i.tswChoiceId.psiCode = :psiCode "
             + "AND i.tswChoiceId.psiYear = :psiYear";
 
-    // ------------------ VARIABLE(S)
-    @PersistenceContext
-    private transient EntityManager em;
-
     // ------------------ CONSTRUCTOR(S)
     // ------------------ GETTER(S) AND SETTER(S)
     // ------------------ METHOD(S)
@@ -101,11 +96,7 @@ public class TswPSIChoiceDataBean implements TswPSIChoiceData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<PSIChoice> query = em.createQuery(findChoiceByQuery, PSIChoice.class);
-
-        query.setParameter(1, studNo);
-
-        List<PSIChoice> tswPsiChoices = query.getResultList();
+        List<PSIChoice> tswPsiChoices = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswPsiChoices;
@@ -139,12 +130,7 @@ public class TswPSIChoiceDataBean implements TswPSIChoiceData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<PSIChoice> query = em.createQuery(findChoiceByQueryMutiple, PSIChoice.class);
-        query.setParameter("studNo", studNo);
-        query.setParameter("psiCode", psiCode);
-        query.setParameter("psiYear", psiYear);
-
-        List<PSIChoice> tswPsiChoices = query.getResultList();
+        List<PSIChoice> tswPsiChoices = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswPsiChoices;
@@ -171,11 +157,7 @@ public class TswPSIChoiceDataBean implements TswPSIChoiceData, Serializable {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<TSWChoiceImpl> query = em.createQuery(findChoiceByBetweenDate, TSWChoiceImpl.class);
-        query.setParameter(1, startDate);
-        query.setParameter(2, endDate);
-
-        final List<PSIChoice> tswPsiChoices = (List) query.getResultList();
+        final List<PSIChoice> tswPsiChoices = null;
 
         LOG.exiting(CLASSNAME, _m);
         return tswPsiChoices;

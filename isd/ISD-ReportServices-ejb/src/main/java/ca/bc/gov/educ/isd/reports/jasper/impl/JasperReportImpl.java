@@ -22,8 +22,14 @@ import ca.bc.gov.educ.isd.reports.Parameters;
 import ca.bc.gov.educ.isd.reports.Report;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
 import ca.bc.gov.educ.isd.reports.ReportFormat;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
 import ca.bc.gov.educ.isd.reports.jasper.ReportFormatFactory;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,26 +38,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.ReportContext;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.Exporter;
-import net.sf.jasperreports.export.ExporterInput;
-import net.sf.jasperreports.export.HtmlExporterConfiguration;
-import net.sf.jasperreports.export.HtmlReportConfiguration;
-import net.sf.jasperreports.export.SimpleCsvExporterConfiguration;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterConfiguration;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleWriterExporterOutput;
+
+import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
 import static net.sf.jasperreports.export.type.HtmlSizeUnitEnum.POINT;
 
 /**

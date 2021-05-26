@@ -17,32 +17,16 @@
  */
 package ca.bc.gov.educ.isd.assessment.impl;
 
-import ca.bc.gov.educ.isd.assessment.AssessmentCode;
-import static ca.bc.gov.educ.isd.assessment.AssessmentCode.fromValue;
-import ca.bc.gov.educ.isd.assessment.AssessmentScore;
-import ca.bc.gov.educ.isd.assessment.AssessmentCourseCode;
-import ca.bc.gov.educ.isd.common.DomainServiceException;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
-import ca.bc.gov.educ.isd.reports.ReportFormat;
-import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentReport;
-import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentResult;
-import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentService;
-import ca.bc.gov.educ.isd.assessment.RawScore;
-import ca.bc.gov.educ.isd.assessment.RawScoreCategory;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.TASK;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.PART;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.PART_FR;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.TASK_FR;
+import ca.bc.gov.educ.isd.assessment.*;
 import ca.bc.gov.educ.isd.common.BusinessReport;
-import static ca.bc.gov.educ.isd.common.ServiceConstants.REPORT_SERVICE;
-import static ca.bc.gov.educ.isd.common.ServiceConstants.STUDENT_X_REF_SERVICE;
-import static ca.bc.gov.educ.isd.common.ServiceConstants.TRAX_ADAPTOR;
+import ca.bc.gov.educ.isd.common.DomainServiceException;
 import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.LitAssessmentResult;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXAdapter;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
+import ca.bc.gov.educ.isd.reports.ReportFormat;
 import ca.bc.gov.educ.isd.reports.ReportService;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
@@ -52,15 +36,20 @@ import ca.bc.gov.educ.isd.student.StudentXRefService;
 import ca.bc.gov.educ.isd.student.impl.CanadianPostalAddressImpl;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
-import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
+
+import static ca.bc.gov.educ.isd.assessment.AssessmentCode.fromValue;
+import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.*;
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
 
 /**
  *

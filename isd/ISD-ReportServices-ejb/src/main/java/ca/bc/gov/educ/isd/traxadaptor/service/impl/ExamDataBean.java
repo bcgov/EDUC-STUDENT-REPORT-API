@@ -17,20 +17,18 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
-import ca.bc.gov.educ.isd.traxadaptor.service.ExamData;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.ExamResult;
 import ca.bc.gov.educ.isd.eis.trax.db.ExamStudent;
-import static ca.bc.gov.educ.isd.eis.trax.db.TRAXData.TIMEOUT;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ExamResultImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ExamStudentImpl;
-import java.util.List;
-import java.util.logging.Logger;
+import ca.bc.gov.educ.isd.traxadaptor.service.ExamData;
+
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import java.util.List;
+import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  * This is an intermediate layer between the database entities and the unmanaged
@@ -80,19 +78,13 @@ public class ExamDataBean implements ExamData {
             + "ORDER BY"
             + " r.primaryKey.crseSession DESC, r.courseName";
 
-    @PersistenceContext
-    private transient EntityManager em;
-
     @Override
     @RolesAllowed(TRAX_READ)
     public List<? extends ExamStudent> findStudentByPEN(String PEN) {
         final String methodName = "findStudentByPEN(String)";
         LOG.entering(CLASSNAME, methodName);
 
-        final TypedQuery<ExamStudentImpl> query = em.createQuery(QUERY_FIND_STUD_BY_PEN, ExamStudentImpl.class);
-        query.setParameter(1, PEN);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<ExamStudentImpl> studentList = query.getResultList();
+        final List<ExamStudentImpl> studentList = null;
 
         LOG.exiting(CLASSNAME, methodName);
         return studentList;
@@ -104,10 +96,7 @@ public class ExamDataBean implements ExamData {
         final String methodName = "findResultsByPEN(String)";
         LOG.entering(CLASSNAME, methodName);
 
-        final TypedQuery<ExamResultImpl> query = em.createQuery(QUERY_FIND_COURSES_BY_PEN, ExamResultImpl.class);
-        query.setParameter(1, PEN);
-        query.setHint("javax.persistence.query.timeout", TIMEOUT);
-        final List<ExamResultImpl> resultsList = query.getResultList();
+        final List<ExamResultImpl> resultsList = null;
 
         LOG.exiting(CLASSNAME, methodName);
         return resultsList;

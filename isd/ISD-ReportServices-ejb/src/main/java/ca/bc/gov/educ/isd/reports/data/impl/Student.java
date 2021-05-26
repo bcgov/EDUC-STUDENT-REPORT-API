@@ -17,22 +17,17 @@
  */
 package ca.bc.gov.educ.isd.reports.data.impl;
 
-import ca.bc.gov.educ.isd.reports.data.assessment.impl.NumeracyAssessmentResult;
-import ca.bc.gov.educ.isd.reports.data.assessment.impl.LiteracyAssessmentResult;
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import static ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult.COURSE_TYPE_ASSESSMENT;
-import static ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult.COURSE_TYPE_NONPROVINCIAL;
-import static ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult.COURSE_TYPE_PROVINCIAL;
+import ca.bc.gov.educ.isd.reports.data.assessment.impl.LiteracyAssessmentResult;
+import ca.bc.gov.educ.isd.reports.data.assessment.impl.NumeracyAssessmentResult;
+
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+import static ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult.*;
 
 /**
  * Represents a Student and the information about this student that pertains to

@@ -20,7 +20,7 @@ package ca.bc.gov.educ.isd.exam.impl;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.exam.Exam;
 import ca.bc.gov.educ.isd.exam.ExamResult;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

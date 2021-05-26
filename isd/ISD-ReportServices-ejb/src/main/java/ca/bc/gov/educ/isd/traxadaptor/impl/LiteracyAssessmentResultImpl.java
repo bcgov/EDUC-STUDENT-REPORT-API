@@ -17,14 +17,15 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
-import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCode.*;
 import ca.bc.gov.educ.isd.eis.trax.db.LitAssessmentResult;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
+import static ca.bc.gov.educ.isd.eis.assessment.AssessmentCode.*;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given

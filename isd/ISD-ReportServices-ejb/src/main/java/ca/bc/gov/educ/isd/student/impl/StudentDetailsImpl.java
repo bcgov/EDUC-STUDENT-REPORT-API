@@ -19,16 +19,18 @@ package ca.bc.gov.educ.isd.student.impl;
 
 import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
-import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.PROGRAM_SCCP;
-import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.valueFrom;
 import ca.bc.gov.educ.isd.student.CertificateCategoryEnum;
-import static ca.bc.gov.educ.isd.student.MincodeEnum.CODE_098;
 import ca.bc.gov.educ.isd.student.OverwriteStudentValidations;
 import ca.bc.gov.educ.isd.student.StudentDetails;
 import ca.bc.gov.educ.isd.student.StudentTypeEnum;
+
 import java.io.Serializable;
-import static java.lang.Boolean.TRUE;
 import java.util.Date;
+
+import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.PROGRAM_SCCP;
+import static ca.bc.gov.educ.isd.grad.GraduationProgramCode.valueFrom;
+import static ca.bc.gov.educ.isd.student.MincodeEnum.CODE_098;
+import static java.lang.Boolean.TRUE;
 
 /**
  *

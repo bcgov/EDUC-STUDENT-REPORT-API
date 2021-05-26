@@ -17,12 +17,14 @@
  */
 package ca.bc.gov.educ.isd.scholarship.impl;
 
-import static ca.bc.gov.educ.isd.common.Constants.DATE_YEAR;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.scholarship.Scholarship;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static ca.bc.gov.educ.isd.common.Constants.DATE_YEAR;
 
 /**
  * A student scholarship.

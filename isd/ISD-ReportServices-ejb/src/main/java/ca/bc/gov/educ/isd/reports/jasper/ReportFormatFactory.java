@@ -17,6 +17,8 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper;
 
+import net.sf.jasperreports.engine.util.DefaultFormatFactory;
+
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -24,7 +26,6 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
-import net.sf.jasperreports.engine.util.DefaultFormatFactory;
 
 /**
  * Delegates creation of date and number formatters to JasperReports' default

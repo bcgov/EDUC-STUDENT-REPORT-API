@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
 import ca.bc.gov.educ.isd.eis.trax.db.Scholarship;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;

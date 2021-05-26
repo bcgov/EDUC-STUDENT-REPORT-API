@@ -17,24 +17,26 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper;
 
-import static ca.bc.gov.educ.isd.reports.jasper.impl.JasperReportImpl.HTML_SCALE_FACTOR;
-import static java.awt.Color.white;
-import java.awt.RenderingHints;
-import static java.awt.RenderingHints.*;
+import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.batik.gvt.renderer.ImageRenderer;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
+
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static ca.bc.gov.educ.isd.reports.jasper.impl.JasperReportImpl.HTML_SCALE_FACTOR;
+import static java.awt.Color.white;
+import static java.awt.RenderingHints.*;
 import static java.lang.Boolean.TRUE;
-import net.sf.jasperreports.engine.util.JRLoader;
-import org.apache.batik.gvt.renderer.ImageRenderer;
 import static org.apache.batik.transcoder.SVGAbstractTranscoder.KEY_WIDTH;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
 import static org.apache.batik.transcoder.image.ImageTranscoder.KEY_BACKGROUND_COLOR;
 import static org.apache.batik.transcoder.image.ImageTranscoder.KEY_FORCE_TRANSPARENT_WHITE;
-import org.apache.batik.transcoder.image.PNGTranscoder;
 
 /**
  * Uses a third-party library to convert an image from SVG format into PNG

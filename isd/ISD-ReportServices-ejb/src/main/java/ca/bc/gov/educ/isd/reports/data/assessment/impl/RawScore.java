@@ -19,6 +19,7 @@ package ca.bc.gov.educ.isd.reports.data.assessment.impl;
 
 import ca.bc.gov.educ.isd.assessment.RawScoreCategory;
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
+
 import java.util.List;
 
 /**

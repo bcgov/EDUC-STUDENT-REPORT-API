@@ -17,10 +17,12 @@
  */
 package ca.bc.gov.educ.isd.reports.admin.impl;
 
-import static ca.bc.gov.educ.isd.psi.TransmissionMode.PAPER;
 import ca.bc.gov.educ.isd.reports.admin.data.PSIChoice;
+
 import java.util.Date;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.psi.TransmissionMode.PAPER;
 
 /**
  *

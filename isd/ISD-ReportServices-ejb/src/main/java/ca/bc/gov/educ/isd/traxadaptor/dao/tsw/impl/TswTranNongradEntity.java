@@ -17,15 +17,8 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * An auto generated entity for the TSW_TRAN_NONGRAD_VW which is a view created
@@ -42,7 +35,6 @@ public class TswTranNongradEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
     private TswTranNongradEntityPK id;
 
     private String nonGradDesc;

@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.reports.data.receipt.impl;
 
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItemAdmin;
+
 import java.math.BigDecimal;
 
 /**

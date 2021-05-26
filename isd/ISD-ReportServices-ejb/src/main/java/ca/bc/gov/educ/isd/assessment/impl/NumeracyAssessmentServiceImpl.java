@@ -17,27 +17,16 @@
  */
 package ca.bc.gov.educ.isd.assessment.impl;
 
-import ca.bc.gov.educ.isd.assessment.AssessmentCode;
-import static ca.bc.gov.educ.isd.assessment.AssessmentCode.fromValue;
-import ca.bc.gov.educ.isd.assessment.AssessmentScore;
-import ca.bc.gov.educ.isd.assessment.AssessmentCourseCode;
-import ca.bc.gov.educ.isd.common.DomainServiceException;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
-import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
-import ca.bc.gov.educ.isd.reports.ReportFormat;
-import ca.bc.gov.educ.isd.assessment.NumeracyAssessmentReport;
-import ca.bc.gov.educ.isd.assessment.NumeracyAssessmentResult;
-import ca.bc.gov.educ.isd.assessment.NumeracyAssessmentService;
-import ca.bc.gov.educ.isd.assessment.RawScore;
-import ca.bc.gov.educ.isd.assessment.RawScoreCategory;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.ONLINE;
-import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.WRITTEN_RESPONSE;
+import ca.bc.gov.educ.isd.assessment.*;
 import ca.bc.gov.educ.isd.common.BusinessReport;
+import ca.bc.gov.educ.isd.common.DomainServiceException;
 import ca.bc.gov.educ.isd.common.support.report.BusinessReportEntity;
 import ca.bc.gov.educ.isd.eis.EISException;
+import ca.bc.gov.educ.isd.eis.trax.db.NumAssessmentResult;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXAdapter;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
+import ca.bc.gov.educ.isd.reports.ReportFormat;
 import ca.bc.gov.educ.isd.reports.ReportService;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
@@ -47,15 +36,21 @@ import ca.bc.gov.educ.isd.student.StudentXRefService;
 import ca.bc.gov.educ.isd.student.impl.CanadianPostalAddressImpl;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
-import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
+
+import static ca.bc.gov.educ.isd.assessment.AssessmentCode.fromValue;
+import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.ONLINE;
+import static ca.bc.gov.educ.isd.assessment.RawScoreCategory.WRITTEN_RESPONSE;
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import static ca.bc.gov.educ.isd.transcript.impl.constants.Roles.STUDENT_EXAM_REPORT;
 
 /**
  *

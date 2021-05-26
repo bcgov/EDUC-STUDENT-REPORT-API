@@ -19,13 +19,14 @@ package ca.bc.gov.educ.isd.reports.jasper.impl;
 
 import ca.bc.gov.educ.isd.reports.data.impl.Student;
 import ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult;
+import net.sf.jasperreports.engine.JRDefaultScriptlet;
+import net.sf.jasperreports.engine.JRScriptletException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRDefaultScriptlet;
-import net.sf.jasperreports.engine.JRScriptletException;
 
 /**
  * Sets the P_PAGE_COUNT parameter before the report runs based on the number of

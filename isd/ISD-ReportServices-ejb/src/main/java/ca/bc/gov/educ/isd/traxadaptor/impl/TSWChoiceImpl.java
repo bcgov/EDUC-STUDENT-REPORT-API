@@ -17,9 +17,11 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.eis.trax.db.PSIChoice;
+
 import java.util.Date;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given

@@ -17,12 +17,12 @@
  */
 package ca.bc.gov.educ.isd.reports.impl;
 
-import ca.bc.gov.educ.isd.reports.packingslip.DestinationType;
-import ca.bc.gov.educ.isd.reports.bundle.service.OrderType;
 import ca.bc.gov.educ.isd.reports.PackingSlipReport;
+import ca.bc.gov.educ.isd.reports.bundle.service.OrderType;
 import ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter;
 import ca.bc.gov.educ.isd.reports.data.impl.PackingSlipDetails;
 import ca.bc.gov.educ.isd.reports.jasper.impl.ReportImpl;
+import ca.bc.gov.educ.isd.reports.packingslip.DestinationType;
 
 /**
  * Represents information required to generate a packing slip.

@@ -18,20 +18,18 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.isd.eis.EISException;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 import ca.bc.gov.educ.isd.eis.trax.db.TabProvince;
-import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
 import ca.bc.gov.educ.isd.traxadaptor.service.TabProvData;
-import ca.bc.gov.educ.isd.traxadaptor.impl.TabProvinceImpl;
+import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+import static ca.bc.gov.educ.isd.eis.roles.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
 
 /**
  *
@@ -86,10 +84,6 @@ public class TabProvDataBean implements TabProvData {
             + "FROM TabProvEntity t "
             + "WHERE t.tabProvEntityPK.cntryCode = :cntryCode";
 
-    // ------------------ VARIABLE(S)
-    @PersistenceContext
-    private transient EntityManager em;
-
     // ------------------ CONSTRUCTOR(S)
     // ------------------ GETTER(S) AND SETTER(S)
     // ------------------ METHOD(S)
@@ -113,10 +107,7 @@ public class TabProvDataBean implements TabProvData {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<? extends TabProvince> query = em.createQuery(findByProvinceCode, TabProvinceImpl.class);
-        query.setParameter("provCode", provCode);
-
-        List<TabProvince> results = (List<TabProvince>) query.getResultList();
+        List<TabProvince> results = (List<TabProvince>) null;
 
         LOG.exiting(CLASSNAME, _m);
         return results;
@@ -142,10 +133,7 @@ public class TabProvDataBean implements TabProvData {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<? extends TabProvince> query = em.createQuery(findByProvinceName, TabProvinceImpl.class);
-        query.setParameter("provName", provName);
-
-        List<TabProvince> results = (List<TabProvince>) query.getResultList();
+        List<TabProvince> results = (List<TabProvince>) null;
 
         LOG.exiting(CLASSNAME, _m);
         return results;
@@ -171,10 +159,7 @@ public class TabProvDataBean implements TabProvData {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<? extends TabProvince> query = em.createQuery(findCountryProvinces, TabProvinceImpl.class);
-        query.setParameter("cntryCode", cntryCode);
-
-        List<TabProvince> results = (List<TabProvince>) query.getResultList();
+        List<TabProvince> results = (List<TabProvince>) null;
 
         LOG.exiting(CLASSNAME, _m);
         return results;
@@ -186,9 +171,7 @@ public class TabProvDataBean implements TabProvData {
         final String _m = "findProvinceByCode(String)";
         LOG.entering(CLASSNAME, _m);
 
-        final TypedQuery<? extends TabProvince> query = em.createQuery(all, TabProvinceImpl.class);
-
-        List<TabProvince> results = (List<TabProvince>) query.getResultList();
+        List<TabProvince> results = (List<TabProvince>) null;
 
         LOG.exiting(CLASSNAME, _m);
         return results;
@@ -222,12 +205,7 @@ public class TabProvDataBean implements TabProvData {
         //</editor-fold>
         LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
 
-        final TypedQuery<? extends TabProvince> query = em.createQuery(search, TabProvinceImpl.class);
-        query.setParameter("provCode", provCode);
-        query.setParameter("provName", provName);
-        query.setParameter("cntryCode", cntryCode);
-
-        List<TabProvince> results = (List<TabProvince>) query.getResultList();
+        List<TabProvince> results = (List<TabProvince>) null;
 
         LOG.exiting(CLASSNAME, _m);
         return results;

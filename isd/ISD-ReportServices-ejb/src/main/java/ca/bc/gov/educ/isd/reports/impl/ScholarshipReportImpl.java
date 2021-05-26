@@ -18,9 +18,11 @@
 package ca.bc.gov.educ.isd.reports.impl;
 
 import ca.bc.gov.educ.isd.reports.ScholarshipReport;
-import static ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter.adapt;
 import ca.bc.gov.educ.isd.scholarship.Scholarship;
+
 import java.util.List;
+
+import static ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter.adapt;
 
 /**
  * Represents a student's scholarship report.

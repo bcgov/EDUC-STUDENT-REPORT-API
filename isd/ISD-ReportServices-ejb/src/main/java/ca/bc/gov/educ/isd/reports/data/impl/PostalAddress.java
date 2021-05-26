@@ -17,13 +17,15 @@
  */
 package ca.bc.gov.educ.isd.reports.data.impl;
 
-import static ca.bc.gov.educ.isd.common.party.address.MailingAddress.LINE_SEPARATOR;
 import ca.bc.gov.educ.isd.reports.data.BusinessEntity;
-import java.util.Locale;
-import static java.util.Locale.ENGLISH;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Locale;
+
+import static ca.bc.gov.educ.isd.common.party.address.MailingAddress.LINE_SEPARATOR;
+import static java.util.Locale.ENGLISH;
 
 /**
  * Represents a general-purpose address. The address is used by both the Student

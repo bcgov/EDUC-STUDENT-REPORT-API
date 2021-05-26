@@ -19,6 +19,7 @@ package ca.bc.gov.educ.isd.reports.impl;
 
 import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentReport;
 import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentResult;
+
 import static ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter.adapt;
 
 /**

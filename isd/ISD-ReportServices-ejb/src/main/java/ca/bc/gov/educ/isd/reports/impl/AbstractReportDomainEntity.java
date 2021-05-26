@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.reports.impl;
 
 import ca.bc.gov.educ.isd.common.DomainEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
 

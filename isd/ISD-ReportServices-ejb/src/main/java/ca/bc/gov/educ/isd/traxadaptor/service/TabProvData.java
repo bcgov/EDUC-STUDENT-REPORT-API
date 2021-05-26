@@ -20,6 +20,7 @@ package ca.bc.gov.educ.isd.traxadaptor.service;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXData;
 import ca.bc.gov.educ.isd.eis.trax.db.TabProvince;
+
 import java.io.Serializable;
 import java.util.List;
 

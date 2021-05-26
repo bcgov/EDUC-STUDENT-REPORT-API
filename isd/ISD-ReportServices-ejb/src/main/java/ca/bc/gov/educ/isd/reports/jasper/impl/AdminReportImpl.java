@@ -17,10 +17,12 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper.impl;
 
-import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import ca.bc.gov.educ.isd.reports.admin.AdminReport;
 import ca.bc.gov.educ.isd.reports.admin.data.AdminReportDAO;
+
 import java.util.Date;
+
+import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 
 /**
  * Superclass for all administrative reports. This uses a global "Admin" report

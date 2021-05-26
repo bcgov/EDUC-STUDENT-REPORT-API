@@ -17,21 +17,9 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.impl;
 
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_BIRTHDATE;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_FIRST_NAME;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_LAST_LOGIN_DATE;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_LAST_NAME;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_MIDDLE_NAME;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_PEN;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_PROFILE_ENTITY_ID;
-import static ca.bc.gov.educ.isd.eis.common.Constants.COL_PROFILE_ID;
-import static ca.bc.gov.educ.isd.eis.common.Constants.ENTITY_STUDENT_PROFILE_MASTER_LITE;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentProfileMasterLite;
+
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * The combined data from student master and profile for the search function in

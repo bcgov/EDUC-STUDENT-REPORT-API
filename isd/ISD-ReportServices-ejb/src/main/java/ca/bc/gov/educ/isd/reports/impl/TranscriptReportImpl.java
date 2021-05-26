@@ -20,19 +20,21 @@ package ca.bc.gov.educ.isd.reports.impl;
 import ca.bc.gov.educ.isd.grad.GradProgram;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.HTML;
-import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
 import ca.bc.gov.educ.isd.reports.TranscriptReport;
 import ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter;
-import static ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter.adapt;
 import ca.bc.gov.educ.isd.reports.data.impl.GraduationProgram;
 import ca.bc.gov.educ.isd.reports.data.impl.Status;
 import ca.bc.gov.educ.isd.reports.data.impl.Student;
 import ca.bc.gov.educ.isd.reports.data.impl.TranscriptResult;
-import static ca.bc.gov.educ.isd.reports.util.InheritableResourceBundle.BASE_NAME_SEPARATOR;
 import ca.bc.gov.educ.isd.transcript.GraduationData;
-import static java.lang.String.format;
+
 import java.util.List;
+
+import static ca.bc.gov.educ.isd.reports.ReportFormat.HTML;
+import static ca.bc.gov.educ.isd.reports.ReportFormat.XML;
+import static ca.bc.gov.educ.isd.reports.data.adapter.BusinessEntityAdapter.adapt;
+import static ca.bc.gov.educ.isd.reports.util.InheritableResourceBundle.BASE_NAME_SEPARATOR;
+import static java.lang.String.format;
 
 /**
  * Represents a student's transcript report.

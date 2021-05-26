@@ -17,47 +17,30 @@
  */
 package ca.bc.gov.educ.isd.reports.impl;
 
-import ca.bc.gov.educ.isd.assessment.NumeracyAssessmentReport;
 import ca.bc.gov.educ.isd.assessment.LiteracyAssessmentReport;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
-import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import ca.bc.gov.educ.isd.assessment.NumeracyAssessmentReport;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.PaymentLineItem;
 import ca.bc.gov.educ.isd.ecommerce.payment.receipt.Receipt;
-import ca.bc.gov.educ.isd.reports.CertificateReport;
-import ca.bc.gov.educ.isd.reports.LinkedParameters;
-import ca.bc.gov.educ.isd.reports.PackingSlipReport;
-import ca.bc.gov.educ.isd.reports.Parameters;
-import ca.bc.gov.educ.isd.reports.ProvincialExaminationReport;
-import ca.bc.gov.educ.isd.reports.ReceiptReport;
-import ca.bc.gov.educ.isd.reports.Report;
-import ca.bc.gov.educ.isd.reports.ReportDocument;
-import ca.bc.gov.educ.isd.reports.ReportService;
-import ca.bc.gov.educ.isd.reports.ScholarshipReport;
-import ca.bc.gov.educ.isd.reports.TranscriptReport;
+import ca.bc.gov.educ.isd.reports.*;
 import ca.bc.gov.educ.isd.reports.admin.AdminReport;
 import ca.bc.gov.educ.isd.reports.common.impl.AbstractReportService;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_CERTIFICATES;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_EXPORT;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_PACKINGSLIP;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_PEAR;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_SCHOLARSHIPS;
-import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.USER_REPORTS_TRANSCRIPT;
-import ca.bc.gov.educ.isd.reports.jasper.impl.AdminJasperReportImpl;
-import ca.bc.gov.educ.isd.reports.jasper.impl.JasperReportImpl;
-import ca.bc.gov.educ.isd.reports.jasper.impl.ParameterPredicateImpl;
-import ca.bc.gov.educ.isd.reports.jasper.impl.ReportDocumentImpl;
-import ca.bc.gov.educ.isd.reports.jasper.impl.TranscriptJasperReportImpl;
+import ca.bc.gov.educ.isd.reports.jasper.impl.*;
 import ca.bc.gov.educ.isd.transcript.ParameterPredicate;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.springframework.stereotype.Service;
+
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
+import static ca.bc.gov.educ.isd.common.support.impl.Roles.USER;
+import static ca.bc.gov.educ.isd.reports.impl.constants.Roles.*;
 
 /**
  * Provides a mechanism to create reports to fill out and produce a specific

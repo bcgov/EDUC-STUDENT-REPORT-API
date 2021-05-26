@@ -19,11 +19,13 @@ package ca.bc.gov.educ.isd.transcript.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.transcript.GraduationData;
+
 import java.io.Serializable;
-import static java.lang.Boolean.FALSE;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Boolean.FALSE;
 
 /**
  * This implementation contains graduation data that is used in the generation

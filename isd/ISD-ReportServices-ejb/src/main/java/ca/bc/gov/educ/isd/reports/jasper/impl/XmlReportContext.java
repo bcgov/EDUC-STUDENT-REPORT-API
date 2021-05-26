@@ -17,10 +17,11 @@
  */
 package ca.bc.gov.educ.isd.reports.jasper.impl;
 
+import net.sf.jasperreports.engine.ReportContext;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
-import net.sf.jasperreports.engine.ReportContext;
 
 /**
  * Implementation to contain a data source outside of the parameter map to be

@@ -17,18 +17,20 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.impl;
 
+import ca.bc.gov.educ.isd.eis.common.Constants;
+import ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode;
+import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentMaster;
 import ca.bc.gov.educ.isd.eis.trax.db.TabSchool;
-import ca.bc.gov.educ.isd.eis.common.Constants;
-import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YM;
-import ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode;
-import static ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode.PROGRAM_SCCP;
-import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YM;
+import static ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode.PROGRAM_SCCP;
 
 /**
  * A TRAX data object containing data from the TRAX database for the given
