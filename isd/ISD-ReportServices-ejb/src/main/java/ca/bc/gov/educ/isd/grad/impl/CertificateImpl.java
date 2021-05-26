@@ -18,6 +18,8 @@
 package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.isd.cert.Certificate;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,6 +29,8 @@ import java.util.Date;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonSubTypes({@JsonSubTypes.Type(value = CertificateImpl.class, name = "certificate")})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class CertificateImpl implements Certificate, Serializable {
 
     private static final long serialVersionUID = 2L;

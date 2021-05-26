@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.student.impl;
 
 import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +30,7 @@ import java.util.Date;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class PostalAddressImpl implements PostalAddress, Serializable {
 
     private static final long serialVersionUID = 2L;

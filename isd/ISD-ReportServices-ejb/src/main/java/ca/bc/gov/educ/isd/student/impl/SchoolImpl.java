@@ -21,6 +21,9 @@ import ca.bc.gov.educ.isd.common.party.Identifier;
 import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.school.School;
+import ca.bc.gov.educ.isd.transcript.impl.TranscriptImpl;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.util.List;
 
@@ -29,6 +32,11 @@ import java.util.List;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = SchoolImpl.class, name = "school"),
+        @JsonSubTypes.Type(value = PostalAddressImpl.class, name = "address"),
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class SchoolImpl extends AbstractDomainEntity implements School {
 
     private static final long serialVersionUID = 4L;

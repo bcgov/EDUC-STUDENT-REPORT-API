@@ -19,6 +19,8 @@ package ca.bc.gov.educ.isd.student;
 
 import ca.bc.gov.educ.isd.common.party.Person;
 import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 
 /**

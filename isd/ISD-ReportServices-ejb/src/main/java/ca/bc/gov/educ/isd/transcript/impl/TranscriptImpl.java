@@ -21,6 +21,8 @@ import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
 import ca.bc.gov.educ.isd.transcript.Transcript;
 import ca.bc.gov.educ.isd.transcript.TranscriptResult;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ import java.util.List;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonSubTypes({@JsonSubTypes.Type(value = TranscriptImpl.class, name = "transcript")})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class TranscriptImpl extends AbstractDomainEntity
         implements Transcript, Serializable {
 

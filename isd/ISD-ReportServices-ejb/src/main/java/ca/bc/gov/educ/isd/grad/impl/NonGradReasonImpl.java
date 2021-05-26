@@ -19,6 +19,9 @@ package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
+import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 
@@ -28,18 +31,15 @@ import java.io.Serializable;
  * <p>
  * @author CGI Information Management Consultants Inc.
  */
+@JsonSubTypes({@JsonSubTypes.Type(value = NonGradReasonImpl.class, name = "nonGradReasons")})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class NonGradReasonImpl extends AbstractDomainEntity
         implements NonGradReason, Serializable {
 
     private static final long serialVersionUID = 3L;
 
-    private final String code;
-    private final String description;
-
-    public NonGradReasonImpl(String reasonCode, String reasonText) {
-        this.code = reasonCode;
-        this.description = reasonText;
-    }
+    private String code;
+    private String description;
 
     @Override
     public String getCode() {
@@ -49,6 +49,14 @@ public class NonGradReasonImpl extends AbstractDomainEntity
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

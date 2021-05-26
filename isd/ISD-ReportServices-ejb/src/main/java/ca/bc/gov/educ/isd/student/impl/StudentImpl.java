@@ -22,6 +22,8 @@ import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
+import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,12 @@ import java.util.List;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = SchoolImpl.class, name = "school"),
+        @JsonSubTypes.Type(value = PostalAddressImpl.class, name = "address"),
+        @JsonSubTypes.Type(value = PersonalEducationNumberSimple.class, name = "pen"),
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class StudentImpl extends AbstractDomainEntity implements Student {
 
     private static final long serialVersionUID = 3L;
@@ -41,20 +49,6 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
     private String middleName = "";
     private String lastName = "";
     private String grade = "";
-
-    public StudentImpl() {
-    }
-
-    public StudentImpl(
-            final String firstName,
-            final String middleName,
-            final String lastName,
-            final Date birthdate) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-    }
 
     @Override
     public PersonalEducationNumber getPen() {

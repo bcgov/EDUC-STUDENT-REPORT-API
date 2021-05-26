@@ -676,7 +676,10 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
         for (Map.Entry<String, String> entry : traxReasons.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
-            reasons.add(new NonGradReasonImpl(key, value));
+            NonGradReasonImpl r = new NonGradReasonImpl();
+            r.setCode(key);
+            r.setDescription(value);
+            reasons.add(r);
         }
 
         LOG.exiting(CLASSNAME, _m);
