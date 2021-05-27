@@ -19,8 +19,8 @@ package ca.bc.gov.educ.isd.traxadaptor.service;
 
 import ca.bc.gov.educ.isd.eis.common.DomainServiceException;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
+import ca.bc.gov.educ.isd.eis.trax.db.StudentProfileMasterLite;
 import ca.bc.gov.educ.isd.eis.trax.db.TRAXData;
-import ca.bc.gov.educ.isd.traxadaptor.dao.impl.StudentProfileMasterLiteEntity;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ public interface StudentData extends TRAXData {
      * @throws ca.bc.gov.educ.isd.eis.common.DomainServiceException if a given
      * token doesn't match "^\\d+$" or "^\\w+$"
      */
-    List<StudentProfileMasterLiteEntity> searchStudentPartialMatchAll(List<String> tokens)
+    List<StudentProfileMasterLite> searchStudentPartialMatchAll(List<String> tokens)
             throws DomainServiceException;
 
 }

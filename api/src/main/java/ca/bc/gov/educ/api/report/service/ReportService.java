@@ -1,7 +1,9 @@
 package ca.bc.gov.educ.api.report.service;
 
 import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
+import ca.bc.gov.educ.isd.grad.GradCertificateReport;
 import ca.bc.gov.educ.isd.grad.GradCertificateService;
+import ca.bc.gov.educ.isd.transcript.StudentTranscriptReport;
 import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
 import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.slf4j.Logger;
@@ -12,9 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -57,7 +56,8 @@ public class ReportService {
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		try {
-			byte[] reportBinary = null;
+			StudentTranscriptReport report = transcriptService.buildOfficialTranscriptReport();
+			byte[] reportBinary = report.getReportData();
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studenttranscriptreport.pdf");
 			return ResponseEntity
@@ -79,7 +79,8 @@ public class ReportService {
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		try {
-			byte[] resultBinary = null;
+			List<GradCertificateReport> gradCertificateReports = gradCertificateService.buildReport();
+			byte[] resultBinary = gradCertificateReports.get(0).getReportData();
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=studentcertificate.pdf");
 			return ResponseEntity

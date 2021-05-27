@@ -35,6 +35,11 @@ public class TswTranNongradEntityPK implements Serializable {
     public TswTranNongradEntityPK() {
     }
 
+    public TswTranNongradEntityPK(String studNo, String nonGradCode) {
+        this.studNo = studNo;
+        this.nonGradCode = nonGradCode;
+    }
+
     public String getStudNo() {
         return this.studNo;
     }

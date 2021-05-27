@@ -43,6 +43,12 @@ public class TswTranNongradEntity implements Serializable {
     public TswTranNongradEntity() {
     }
 
+    public TswTranNongradEntity(TswTranNongradEntityPK id, String nonGradDesc, Long updateDt) {
+        this.id = id;
+        this.nonGradDesc = nonGradDesc;
+        this.updateDt = updateDt;
+    }
+
     public TswTranNongradEntityPK getId() {
         return this.id;
     }

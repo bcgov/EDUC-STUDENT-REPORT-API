@@ -17,6 +17,9 @@
  */
 package ca.bc.gov.educ.isd.grad.impl;
 
+import ca.bc.gov.educ.exception.EntityNotFoundException;
+import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
+import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.cert.Certificate;
 import ca.bc.gov.educ.isd.common.BusinessProcessException;
 import ca.bc.gov.educ.isd.common.Constants;
@@ -33,11 +36,11 @@ import ca.bc.gov.educ.isd.reports.*;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
-import ca.bc.gov.educ.isd.student.StudentXRef;
-import ca.bc.gov.educ.isd.student.StudentXRefService;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.DeclareRoles;
@@ -74,11 +77,14 @@ public class GradCertificateServiceImpl
     private static final String CLASSNAME = GradCertificateServiceImpl.class.getName();
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
+    @Autowired
     private TRAXAdapter traxAdapter;
 
+    @Autowired
     private ReportService reportService;
 
-    private StudentXRefService studentxref;
+    @Autowired
+    GradtoIsdDataConvertBean gradtoIsdDataConvertBean;
 
     @RolesAllowed({STUDENT_CERTIFICATE_REPORT, USER})
     @Override
@@ -90,18 +96,18 @@ public class GradCertificateServiceImpl
         PersonalEducationNumber penObj = null;
         String penId = null;
 
-        if (studentxref.exists()) {
-            final StudentXRef sxref = studentxref.read();
-            penObj = sxref != null ? sxref.getPen() : null;
-            penId = penObj != null ? penObj.getValue() : null;
-        }
+        ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
-        if (penObj == null) {
-            final String msg = "The current user is not a student with a PEN.";
-            final DomainServiceException dse = new DomainServiceException(msg);
+        if (reportData == null) {
+            EntityNotFoundException dse = new EntityNotFoundException(
+                    null,
+                    "Report Data not exists for the current report generation");
             LOG.throwing(CLASSNAME, _m, dse);
             throw dse;
         }
+
+        penObj = reportData.getStudent().getPen();
+        penId = penObj.getValue();
 
         LOG.log(Level.FINE,
                 "Confirmed the user is a student and retrieved the PEN.");

@@ -168,7 +168,7 @@ public class StudentInfoImpl implements StudentInfo {
             final String schoolProv,
             final String schoolPostalCode,
             final String schoolPhone,
-            final Character schlIndType) {
+            final String schlIndType) {
 
         this.pen = trimSafe(studNo);
         this.firstName = trimSafe(firstName);
@@ -405,7 +405,6 @@ public class StudentInfoImpl implements StudentInfo {
     /**
      * set the school type banner.
      *
-     * @param schoolTypeBanner
      */
     private void setSchoolTypeBanner() {
         switch (getSchoolTypeIndicator()) {

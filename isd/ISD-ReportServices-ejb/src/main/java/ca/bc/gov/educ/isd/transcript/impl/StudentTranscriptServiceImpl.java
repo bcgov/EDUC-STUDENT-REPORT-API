@@ -342,7 +342,7 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
         }
 
         PersonalEducationNumberSimple pen = new PersonalEducationNumberSimple();
-        pen.setPen(reportData.getStudent().getPen().toString());
+        pen.setPen(reportData.getStudent().getPen().getValue());
 
         LOG.log(Level.FINE, "Confirmed the user is a student and retrieved the PEN: {0}.", pen);
         LOG.exiting(CLASSNAME, _m);

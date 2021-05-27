@@ -17,10 +17,7 @@
  */
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-
-import static ca.bc.gov.educ.isd.eis.common.DatabaseConstants.*;
 
 /**
  * An auto generated entity for the TSW_TRAN_DEMOG_VW view which is a view
@@ -68,6 +65,42 @@ public class TswTranDemogEntity implements Serializable {
     private Character currentFormerFlag;
 
     public TswTranDemogEntity() {
+    }
+
+    public TswTranDemogEntity(
+            String studNo,
+            String firstName,
+            String middleName,
+            String lastName,
+            Long birthdate,
+            String localId,
+            Character studGender,
+            String mincode,
+            String studGrade,
+            String gradDate,
+            String gradReqtYear,
+            Long updateDt,
+            String logoType,
+            String gradMsgTxt,
+            Character gradFlag,
+            Character currentFormerFlag
+    ) {
+        this.studNo = studNo;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.localId = localId;
+        this.studGender = studGender;
+        this.mincode = mincode;
+        this.studGrade = studGrade;
+        this.gradDate = gradDate;
+        this.gradReqtYear = gradReqtYear;
+        this.updateDt = updateDt;
+        this.logoType = logoType;
+        this.gradMsgTxt = gradMsgTxt;
+        this.gradFlag = gradFlag;
+        this.currentFormerFlag = currentFormerFlag;
     }
 
     public String getStudNo() {

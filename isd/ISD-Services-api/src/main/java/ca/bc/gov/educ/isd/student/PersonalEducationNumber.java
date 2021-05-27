@@ -22,5 +22,6 @@ import ca.bc.gov.educ.isd.common.party.Identifier;
 /**
  * @author CGI Information Management Consultants Inc.
  */
+
 public interface PersonalEducationNumber extends Identifier {
 }

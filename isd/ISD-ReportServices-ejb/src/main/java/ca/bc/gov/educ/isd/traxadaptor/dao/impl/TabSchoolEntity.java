@@ -51,6 +51,34 @@ public class TabSchoolEntity implements TabSchool {
     public TabSchoolEntity() {
     }
 
+    public TabSchoolEntity(
+            String mincode,
+            String schlName,
+            String address1,
+            String address2,
+            String city,
+            String provCode,
+            String postal,
+            String signatureDistno,
+            Character xcriptElig,
+            String phone,
+            Character schlIndType,
+            Character dogwoodElig
+    ) {
+        this.mincode = mincode;
+        this.schlName = schlName;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.city = city;
+        this.provCode = provCode;
+        this.postal = postal;
+        this.signatureDistno = signatureDistno;
+        this.xcriptElig = xcriptElig;
+        this.phone = phone;
+        this.schlIndType = schlIndType;
+        this.dogwoodElig = dogwoodElig;
+    }
+
     @Override
     public String getMincode() {
         return this.mincode;

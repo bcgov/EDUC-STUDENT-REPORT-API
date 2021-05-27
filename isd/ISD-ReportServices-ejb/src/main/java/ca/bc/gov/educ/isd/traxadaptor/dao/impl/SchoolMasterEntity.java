@@ -48,6 +48,18 @@ public class SchoolMasterEntity implements SchoolMaster {
     public SchoolMasterEntity() {
     }
 
+    public SchoolMasterEntity(
+            String mincode,
+            String distno,
+            String schlno,
+            String schoolCategoryCode
+    ) {
+        this.mincode = mincode;
+        this.distno = distno;
+        this.schlno = schlno;
+        this.schoolCategoryCode = schoolCategoryCode;
+    }
+
     @Override
     public String getMincode() {
         return this.mincode;

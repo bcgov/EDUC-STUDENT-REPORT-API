@@ -76,6 +76,68 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
     public StudentMasterEntity() {
     }
 
+    public StudentMasterEntity(
+            String studNo,
+            String studGiven,
+            String studMiddle,
+            String studSurname,
+            String studBirth,
+            String address1,
+            String address2,
+            String city,
+            String provCode,
+            String postal,
+            Character studStatus,
+            String studGrade,
+            Long gradDate,
+            String gradReqtYear,
+            Character honourFlag,
+            Character dogwoodFlag,
+            Long sccDate,
+            String mincode,
+            String mincodeGrad,
+            String prgmCode,
+            String prgmCode2,
+            String prgmCode3,
+            String prgmCode4,
+            String prgmCode5,
+            String englishCert,
+            String frenchCert,
+            String traxCountryCode,
+            String stud_true_no,
+            String isoCountryCode
+    ) {
+        this.studNo = studNo;
+        this.studGiven = studGiven;
+        this.studMiddle = studMiddle;
+        this.studSurname = studSurname;
+        this.studBirth = studBirth;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.city = city;
+        this.provCode = provCode;
+        this.postal = postal;
+        this.studStatus = studStatus;
+        this.studGrade = studGrade;
+        this.gradDate = gradDate;
+        this.gradReqtYear = gradReqtYear;
+        this.honourFlag = honourFlag;
+        this.dogwoodFlag = dogwoodFlag;
+        this.sccDate = sccDate;
+        this.mincode = mincode;
+        this.mincodeGrad = mincodeGrad;
+        this.prgmCode = prgmCode;
+        this.prgmCode2 = prgmCode2;
+        this.prgmCode3 = prgmCode3;
+        this.prgmCode4 = prgmCode4;
+        this.prgmCode5 = prgmCode5;
+        this.englishCert = englishCert;
+        this.frenchCert = frenchCert;
+        this.traxCountryCode = traxCountryCode;
+        this.stud_true_no = stud_true_no;
+        this.isoCountryCode = isoCountryCode;
+    }
+
     @Override
     public String getPen() {
         return getStudNo();
