@@ -6,6 +6,7 @@ ca\bc\gov\educ\isd\reports\data\receipt\impl\PaymentAdminImpl.class
 ca\bc\gov\educ\isd\reports\jasper\impl\ReportImpl.class
 ca\bc\gov\educ\isd\reports\data\receipt\impl\PaymentLineItemImpl.class
 ca\bc\gov\educ\isd\scholarship\impl\ScholarshipImpl.class
+ca\bc\gov\educ\isd\traxadaptor\service\impl\StudentDataBean.class
 ca\bc\gov\educ\isd\traxadaptor\service\TswStudPSIData.class
 ca\bc\gov\educ\isd\reports\admin\impl\StudentProfileReportImpl.class
 ca\bc\gov\educ\isd\traxadaptor\impl\TSWRegistryImpl.class
