@@ -18,7 +18,6 @@ package ca.bc.gov.educ.isd.grad.impl;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.GradProgram;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
-import ca.bc.gov.educ.isd.transcript.impl.TranscriptImpl;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
@@ -28,7 +27,7 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@JsonSubTypes({@JsonSubTypes.Type(value = GradProgramImpl.class, name = "gradProgram")})
+@JsonSubTypes({@JsonSubTypes.Type(value = GraduationProgramCode.class, name = "code")})
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public final class GradProgramImpl extends AbstractDomainEntity
         implements GradProgram {
@@ -36,6 +35,10 @@ public final class GradProgramImpl extends AbstractDomainEntity
     private static final long serialVersionUID = 3L;
 
     private GraduationProgramCode code;
+
+    public GradProgramImpl() {
+
+    }
 
     public GradProgramImpl(GraduationProgramCode code) {
         setCode(code);

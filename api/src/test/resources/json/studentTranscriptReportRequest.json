@@ -1,0 +1,62 @@
+{
+	"data": {
+		"student": {
+			"pen": {
+				"pen": "PEN0000222",
+				"entityId": "ENTITY1"
+			},
+			"firstName": "John",
+			"lastName": "Doe",
+			"birthdate": "1900-01-01",
+			"address": {
+				"streetLine1": "123 1st STREET",
+				"streetLine2": "",
+				"city": "SURREY",
+				"region": "BC",
+				"country": "CN",
+				"code": "B1B1B1"
+			},
+			"grade": "12"
+		},
+		"school": {
+			"minCode": "1111111",
+			"name": "MY SECONDARY SCHOOL",
+			"typeIndicator": "1",
+			"typeBanner": "",
+			"signatureCode": "",
+			"address": {
+				"streetLine1": "123 MAIN STREET",
+				"streetLine2": "",
+				"city": "SHARMING",
+				"region": "BC",
+				"country": "CN",
+				"code": "A1A1A1"
+			}
+		},
+		"logo": "school logo",
+		"transcript": null,
+		"gradProgram": {
+			"code": {
+				"code": "1950",
+				"description": "Adult Graduation Program"
+			}
+		},
+		"nonGradReasons": [
+			{
+				"code": "L",
+				"description": "TOO DUMB"
+			}
+		],
+		"gradMessage": "My Grad Message Here",
+		"updateDate": "1999-01-01",
+		"certificate": null
+	},
+	"options": {
+		"cacheReport": false,
+		"convertTo": "pdf",
+		"overwrite": false,
+		"reportName": "transcript",
+		"reportFile": "Transcript Report.pdf"
+	}
+
+}

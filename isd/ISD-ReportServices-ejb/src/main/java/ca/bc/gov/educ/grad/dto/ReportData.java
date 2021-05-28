@@ -12,11 +12,12 @@ import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
 import ca.bc.gov.educ.isd.transcript.Transcript;
 import ca.bc.gov.educ.isd.transcript.impl.TranscriptImpl;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
-import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
-import org.codehaus.jackson.map.annotate.JsonRootName;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.stereotype.Component;
 
@@ -54,15 +55,22 @@ import java.util.Map;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class ReportData implements Serializable {
 
+	@JsonDeserialize(as = StudentImpl.class)
 	private Student student;
+	@JsonDeserialize(as = SchoolImpl.class)
 	private School school;
 	private String logo;
+	@JsonDeserialize(as = TranscriptImpl.class)
 	private Transcript transcript;
+	@JsonDeserialize(as = GradProgramImpl.class)
 	private GradProgram gradProgram;
+	@JsonIgnore
 	private List<NonGradReason> nonGradReasons;
 	private String gradMessage;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date updateDate;
 	private Map<String, String> parameters;
+	@JsonDeserialize(as = CertificateImpl.class)
 	private Certificate certificate;
-	
+
 }

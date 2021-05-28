@@ -22,6 +22,9 @@ import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
 import ca.bc.gov.educ.isd.student.Student;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
@@ -44,25 +47,29 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
 
     private PersonalEducationNumber pen = null;
     private Date birthdate = new Date(0L);
-    private PostalAddress address = new PostalAddressImpl();
+    private PostalAddress currentMailingAddress = new PostalAddressImpl();
     private String firstName = "";
     private String middleName = "";
     private String lastName = "";
     private String grade = "";
 
     @Override
+    @JsonDeserialize(as = PersonalEducationNumberSimple.class)
     public PersonalEducationNumber getPen() {
         return pen;
     }
 
     @Override
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getBirthdate() {
         return birthdate;
     }
 
     @Override
+    @JsonProperty("address")
+    @JsonDeserialize(as = PostalAddressImpl.class)
     public PostalAddress getCurrentMailingAddress() {
-        return address;
+        return currentMailingAddress;
     }
 
     @Override
@@ -90,7 +97,7 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
     }
 
     public void setCurrentMailingAddress(final PostalAddress address) {
-        this.address = address;
+        this.currentMailingAddress = address;
     }
 
     public void setBirthdate(final Date birthdate) {

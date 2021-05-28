@@ -17,9 +17,16 @@
  */
 package ca.bc.gov.educ.isd.grad;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  * Constants (and synonyms) for the various graduation program codes. These
@@ -41,26 +48,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlEnum(String.class)
-public enum GraduationProgramCode {
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+public enum GraduationProgramCode implements Serializable {
 
     @XmlEnumValue("1950")
+    @JsonProperty("1950")
     PROGRAM_1950("1950", "Adult Graduation Program", 20),
     @XmlEnumValue("1986")
+    @JsonProperty("1986")
     PROGRAM_1986("1986", "Course-Based Graduation Program", 52),
     @XmlEnumValue("1995")
+    @JsonProperty("1995")
     PROGRAM_1995("1995", "Graduation Program 1995", 52),
     @XmlEnumValue("1996")
+    @JsonProperty("1996")
     PROGRAM_1996("1996", PROGRAM_1995.getDescription(), PROGRAM_1995.getCredits()),
     @XmlEnumValue("2004")
+    @JsonProperty("2004")
     PROGRAM_2004("2004", "Graduation Program 2004", 80),
     @XmlEnumValue("2018")
+    @JsonProperty("2018")
     PROGRAM_2018("2018", "Graduation Program 2018", 80),
     @XmlEnumValue("SCCP")
+    @JsonProperty("SCCP")
     PROGRAM_SCCP("SCCP", "School Completion Certificate Program", 0);
 
-    private final String code;
-    private final String description;
-    private final int credits;
+
+    private String code;
+    private String description;
+    private int credits;
 
     /**
      * Constructs a new graduation program code enumerated type.
@@ -70,12 +87,21 @@ public enum GraduationProgramCode {
      * @param credits The number of credits required to graduate from this
      * program.
      */
-    private GraduationProgramCode(final String code, final String description, final int credits) {
+    GraduationProgramCode(final String code, final String description, final int credits) {
         this.code = code;
         this.description = description;
         this.credits = credits;
     }
 
+    @JsonCreator
+    public static GraduationProgramCode forValue(@JsonProperty("code") final String code, @JsonProperty("description") final String description, @JsonProperty("credits") final int credits) {
+        for (GraduationProgramCode graduationProgramCode : GraduationProgramCode.values()) {
+            if (graduationProgramCode.code.equals(code)) {
+                return graduationProgramCode;
+            }
+        }
+        return null;
+    }
     /**
      * Returns the enum associated with the given code.
      *
@@ -92,6 +118,14 @@ public enum GraduationProgramCode {
         throw new IllegalArgumentException("No such program code <" + code + ">.");
     }
 
+    @JsonValue
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
     /**
      * Answers whether this program code and the given program code are
      * identical (ignoring case).
@@ -108,6 +142,7 @@ public enum GraduationProgramCode {
      *
      * @return A textual description of the code, never null, never empty.
      */
+    @JsonValue
     public String getDescription() {
         return this.description;
     }
@@ -117,6 +152,7 @@ public enum GraduationProgramCode {
      *
      * @return A positive integer.
      */
+    @JsonValue
     public int getCredits() {
         return this.credits;
     }

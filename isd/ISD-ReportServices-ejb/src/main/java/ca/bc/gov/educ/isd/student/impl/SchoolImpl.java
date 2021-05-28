@@ -21,7 +21,8 @@ import ca.bc.gov.educ.isd.common.party.Identifier;
 import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.school.School;
-import ca.bc.gov.educ.isd.transcript.impl.TranscriptImpl;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
@@ -83,6 +84,8 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
     }
 
     @Override
+    @JsonProperty("address")
+    @JsonDeserialize(as = PostalAddressImpl.class)
     public PostalAddress getPostalAddress() {
         return this.address;
     }
