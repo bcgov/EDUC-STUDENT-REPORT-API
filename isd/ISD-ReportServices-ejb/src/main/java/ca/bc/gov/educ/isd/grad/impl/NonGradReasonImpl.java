@@ -19,8 +19,6 @@ package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
-import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
-import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
@@ -31,7 +29,6 @@ import java.io.Serializable;
  * <p>
  * @author CGI Information Management Consultants Inc.
  */
-@JsonSubTypes({@JsonSubTypes.Type(value = NonGradReasonImpl.class, name = "nonGradReasons")})
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class NonGradReasonImpl extends AbstractDomainEntity
         implements NonGradReason, Serializable {

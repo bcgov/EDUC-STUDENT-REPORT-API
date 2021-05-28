@@ -22,6 +22,7 @@ import ca.bc.gov.educ.isd.eis.trax.db.ExamStudent;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ExamResultImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.ExamStudentImpl;
 import ca.bc.gov.educ.isd.traxadaptor.service.ExamData;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -46,6 +47,7 @@ import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Repository
 @DeclareRoles({TRAX_READ})
 public class ExamDataBean implements ExamData {
 

@@ -21,6 +21,7 @@ import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.trax.db.TabProvince;
 import ca.bc.gov.educ.isd.traxadaptor.service.TabProvData;
 import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -35,6 +36,7 @@ import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Repository
 @DeclareRoles({TRAX_READ, FULFILLMENT_SERVICES_USER})
 public class TabProvDataBean implements TabProvData {
 

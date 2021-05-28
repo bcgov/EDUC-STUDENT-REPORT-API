@@ -2,7 +2,7 @@
 	"data": {
 		"student": {
 			"pen": {
-				"pen": "PEN0000222",
+				"pen": "132341660",
 				"entityId": "ENTITY1"
 			},
 			"firstName": "John",
@@ -34,7 +34,36 @@
 			}
 		},
 		"logo": "school logo",
-		"transcript": null,
+		"transcript": {
+			"interim": false,
+			"issueDate": "1999-12-31",
+			"results": [
+				{
+					"course": {
+						"name": "My First Course",
+						"code": "MFCC",
+						"level": "2",
+						"credits": "5",
+						"sessionDate": "1999-12-31/2000-01-01",
+						"type": "SELF",
+						"relatedCourse": "NONE",
+						"relatedLevel": "NONE"
+					},
+					"mark": {
+						"schoolPercent": "90",
+						"examPercent": "30",
+						"finalPercent": "70",
+						"finalLetterGrade": "5",
+						"interimPercent": "60",
+						"interimLetterGrade": "5"
+					},
+					"requirement": "Must be guru",
+					"requirementName": "Is it clear?",
+					"equivalency": "EXAM",
+					"usedForGrad": "12"
+				}
+			]
+		},
 		"gradProgram": {
 			"code": {
 				"code": "1950",

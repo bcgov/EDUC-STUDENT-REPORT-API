@@ -17,11 +17,14 @@
  */
 package ca.bc.gov.educ.isd.transcript.impl;
 
+import ca.bc.gov.educ.grad.utils.TranscriptResultListDeserializer;
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.grad.GraduationProgramCode;
 import ca.bc.gov.educ.isd.transcript.Transcript;
 import ca.bc.gov.educ.isd.transcript.TranscriptResult;
-import org.codehaus.jackson.annotate.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
@@ -34,7 +37,6 @@ import java.util.List;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@JsonSubTypes({@JsonSubTypes.Type(value = TranscriptImpl.class, name = "transcript")})
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class TranscriptImpl extends AbstractDomainEntity
         implements Transcript, Serializable {
@@ -46,6 +48,7 @@ public class TranscriptImpl extends AbstractDomainEntity
     private boolean interim;
 
     @Override
+    @JsonDeserialize(using = TranscriptResultListDeserializer.class)
     public List<TranscriptResult> getResults() {
         return this.results;
     }
@@ -59,11 +62,13 @@ public class TranscriptImpl extends AbstractDomainEntity
      * TranscriptServices.
      */
     @Override
+    @JsonIgnore
     public List<TranscriptResult> getResults(final GraduationProgramCode code) {
         return getResults();
     }
 
     @Override
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getIssueDate() {
         return this.issueDate;
     }

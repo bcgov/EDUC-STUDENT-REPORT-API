@@ -586,8 +586,8 @@ public class StudentDemographicImpl implements StudentDemographic {
             } else {
                 signature = schoolDistrictNumber;
             }
-
-            this.certificateSignature = signature.substring(1, 3);
+            if(!"".equals(signature))
+                this.certificateSignature = signature.substring(1, 3);
         } catch (final IndexOutOfBoundsException e) {
             LOG.log(Level.WARNING, "Could not determine certificate signature.", e);
         }
@@ -637,8 +637,7 @@ public class StudentDemographicImpl implements StudentDemographic {
     public boolean isAdultProgram() {
         // FIXME: This class should use a GraduationProgramCode, not a string.
         final String graduationProgram = getGradProgram();
-        final GraduationProgramCode program
-                = GraduationProgramCode.valueFrom(graduationProgram);
+        final GraduationProgramCode program = GraduationProgramCode.valueFrom(graduationProgram);
         boolean isAdult = program.isAdult();
 
         LOG.log(Level.FINE, "PEN {0}: Adult program flag {1}, Graduation program {2}",

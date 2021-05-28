@@ -23,6 +23,7 @@ import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswPSIChoiceEntity;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWChoiceImpl;
 import ca.bc.gov.educ.isd.traxadaptor.service.TswPSIChoiceData;
 import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -45,6 +46,7 @@ import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Repository
 @DeclareRoles({TRAX_READ, FULFILLMENT_SERVICES_USER})
 public class TswPSIChoiceDataBean implements TswPSIChoiceData, Serializable {
 

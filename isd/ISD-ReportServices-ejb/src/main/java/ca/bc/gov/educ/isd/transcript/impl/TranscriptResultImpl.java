@@ -21,6 +21,8 @@ import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.transcript.Course;
 import ca.bc.gov.educ.isd.transcript.Mark;
 import ca.bc.gov.educ.isd.transcript.TranscriptResult;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * A transcript result contains a course and the marks.
@@ -55,33 +57,55 @@ public class TranscriptResultImpl extends AbstractDomainEntity
     }
 
     @Override
+    @JsonDeserialize(as = CourseImpl.class)
     public Course getCourse() {
         return this.course;
     }
 
     @Override
+    @JsonDeserialize(as = MarkImpl.class)
     public Mark getMark() {
         return this.mark;
     }
 
     @Override
+    @JsonProperty("requirement")
     public String getRequirementMet() {
         return this.requirement;
     }
 
     @Override
+    @JsonProperty("requirementName")
     public String getRequirementMetName() {
         return this.requirementName;
     }
 
     @Override
+    @JsonProperty("equivalency")
     public String getEquivalencyChallenge() {
         return equivalency;
     }
 
     @Override
+    @JsonProperty("usedForGrad")
     public String getUsedForGrad() {
         return usedForGrad;
+    }
+
+    public void setEquivalencyChallenge(String equivalency) {
+        this.equivalency = equivalency;
+    }
+
+    public void setUsedForGrad(String usedForGrad) {
+        this.usedForGrad = usedForGrad;
+    }
+
+    public void setRequirementMet(String requirement) {
+        this.requirement = requirement;
+    }
+
+    public void setRequirementMetName(String requirementName) {
+        this.requirementName = requirementName;
     }
 
     public void setCourse(Course course) {

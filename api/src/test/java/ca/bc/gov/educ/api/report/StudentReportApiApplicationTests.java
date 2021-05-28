@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,8 +34,8 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 	public void createTranscriptReport() {
 		LOG.debug("<{}.createTranscriptReport at {}", CLASS_NAME, dateFormat.format(new Date()));
 		assertNotNull(reportRequest);
-		//ResponseEntity response = reportService.getStudentTranscriptReport(reportRequest);
-		//assertNotNull(response.getBody());
+		ResponseEntity response = reportService.getStudentTranscriptReport(reportRequest);
+		assertNotNull(response.getBody());
 		LOG.debug(">createCON11Report");
 	}
 

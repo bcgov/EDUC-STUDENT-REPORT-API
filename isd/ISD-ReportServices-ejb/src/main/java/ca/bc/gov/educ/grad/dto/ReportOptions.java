@@ -1,13 +1,11 @@
 package ca.bc.gov.educ.grad.dto;
 
 import lombok.Data;
-import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 
 @Data
-@JsonSubTypes({@JsonSubTypes.Type(value = ReportOptions.class, name = "options")})
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class ReportOptions implements Serializable {
 

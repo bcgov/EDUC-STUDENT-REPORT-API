@@ -25,7 +25,6 @@ import ca.bc.gov.educ.isd.student.Student;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.util.Date;
@@ -35,11 +34,6 @@ import java.util.List;
  *
  * @author CGI Information Management Consultants Inc.
  */
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = SchoolImpl.class, name = "school"),
-        @JsonSubTypes.Type(value = PostalAddressImpl.class, name = "address"),
-        @JsonSubTypes.Type(value = PersonalEducationNumberSimple.class, name = "pen"),
-})
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class StudentImpl extends AbstractDomainEntity implements Student {
 

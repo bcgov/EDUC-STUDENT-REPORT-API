@@ -24,10 +24,10 @@ import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTxPsiId;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWTxPSIImpl;
 import ca.bc.gov.educ.isd.traxadaptor.service.TswTxPsiData;
 import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +46,7 @@ import static ca.bc.gov.educ.isd.eis.roles.Roles.TRAX_READ;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@Repository
 @DeclareRoles({TRAX_READ})
 public class TswTxPsiDataBean implements TswTxPsiData, Serializable {
 

@@ -24,6 +24,7 @@ import ca.bc.gov.educ.isd.eis.trax.db.*;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TSWRegistryImpl;
 import ca.bc.gov.educ.isd.traxadaptor.service.*;
 import ca.bc.gov.educ.isd.traxadaptor.utils.ExceptionUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.security.DeclareRoles;
@@ -31,7 +32,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,11 +54,11 @@ import static java.lang.String.format;
  */
 @Service
 @DeclareRoles({TRAX_READ, USER, FULFILLMENT_SERVICES_USER, PUBLIC_USER})
-public class TRAXAdapterBean implements TRAXAdapter {
+public class TRAXAdapterServiceImpl implements TRAXAdapter {
 
     private static final long serialVersionUID = 3L;
 
-    private static final String CLASSNAME = TRAXAdapterBean.class.getName();
+    private static final String CLASSNAME = TRAXAdapterServiceImpl.class.getName();
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
     /**
@@ -71,26 +71,23 @@ public class TRAXAdapterBean implements TRAXAdapter {
 
     public static final String TX_PSI_ID = "T04";
 
+    @Autowired
     private ScholarshipData scholarshipDao;
-
+    @Autowired
     private ExamData examDao;
-
+    @Autowired
     private StudentData studentDao;
-
+    @Autowired
     private TranscriptData transcriptDao;
-
-    private TswPSIChoiceData tswChoicesDao;
-
-    private TswPSIRegistryData tswRegistryDao;
-
+    @Autowired
+    private TswPSIChoiceData tswChoicesDao;;
+    @Autowired
     private TswStudPSIData tswStudPSIDao;
-
+    @Autowired
     private TswTxPsiData txPsiDao;
-
-    private CountryConverter traxCountry;
-
+    @Autowired
     private TabProvData tabProvDataBean;
-
+    @Autowired
     private AssessmentData assessmentDao;
 
     private static final Level PERF_LOGGING = Level.FINE;
@@ -692,45 +689,6 @@ public class TRAXAdapterBean implements TRAXAdapter {
     }
 
     @Override
-    @RolesAllowed({TRAX_READ, USER})
-    public List<TSWRegistry> readPSIRegistry(final String psiCode) throws EISException {
-        final String _m = "readPSI_Registry_TRAX(String)";
-        LOG.entering(CLASSNAME, _m, psiCode);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start, with psiCode {1}.", new Object[]{_m, psiCode});
-
-        //<editor-fold desc="Verify input and pre-conditions.">
-        {
-            RuntimeException ex = null;
-            if (psiCode == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be null.");
-            } else if (psiCode.isEmpty()) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be empty.");
-            }
-
-            ExceptionUtilities.parameterValidationException(ex, _m);
-        }
-        //</editor-fold>
-        LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
-
-        final List<TSWRegistry> retList;
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findRegistryBy(psiCode);
-        LOG.log(Level.FINE, "Searched for all PSI Registries for the PSI code {0} in Trax.", psiCode);
-
-        if (tswRegistry.isEmpty()) {
-            retList = null;
-            LOG.finer("Searched for PSI Registries but found nothing.");
-        } else {
-            retList = new ArrayList<>();
-            retList.addAll(tswRegistry);
-        }
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done, with psiCode {1}.", new Object[]{_m, psiCode});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
     @RolesAllowed(TRAX_READ)
     public List<TSWTxPSI> readTxPSI(final String PEN) throws EISException {
         final String _m = "readTx_PSI_TRAX(String)";
@@ -1220,35 +1178,6 @@ public class TRAXAdapterBean implements TRAXAdapter {
 
     @Override
     @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public void mergeTswRegistry(final TSWRegistry data) throws EISException {
-        final String _m = "mergeTswRegistry(TSWRegistry)";
-        LOG.entering(CLASSNAME, _m);
-
-        //<editor-fold desc="Verify input and pre-conditions.">
-        {
-            RuntimeException ex = null;
-            if (data == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The Registry data to be update parameter should not be null.");
-            } else if (data.getPsiCode() == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be null.");
-            } else if (data.getPsiCode().isEmpty()) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be empty.");
-            }
-
-            ExceptionUtilities.parameterValidationException(ex, _m);
-        }
-        //</editor-fold>
-        LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
-
-        boolean isUpdated = tswRegistryDao.updateRegistry(data.getPsiCode(), data);
-        if (!isUpdated) {
-            tswRegistryDao.insertNewRegistry(data);
-        }
-        LOG.exiting(CLASSNAME, _m);
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
     public TSWRegistry createTswRegistry(String psiCode) throws EISException {
         final String _m = "createTswRegistry()";
         LOG.entering(CLASSNAME, _m);
@@ -1271,84 +1200,6 @@ public class TRAXAdapterBean implements TRAXAdapter {
 
         LOG.exiting(CLASSNAME, _m);
         return response;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public void insertTswRegistry(final TSWRegistry data) throws EISException {
-        final String _m = "insertTswRegistry(TSWRegistry)";
-        LOG.entering(CLASSNAME, _m);
-
-        //<editor-fold desc="Verify input and pre-conditions.">
-        {
-            RuntimeException ex = null;
-            if (data == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The Registry data to be update parameter should not be null.");
-            } else if (data.getPsiCode() == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be null.");
-            } else if (data.getPsiCode().isEmpty()) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be empty.");
-            }
-
-            ExceptionUtilities.parameterValidationException(ex, _m);
-        }
-        //</editor-fold>
-        LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
-
-        tswRegistryDao.insertNewRegistry(data);
-
-        LOG.exiting(CLASSNAME, _m);
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public void updateTswRegistry(final TSWRegistry data) throws EISException {
-        final String _m = "updateTswRegistry(TSWRegistry)";
-        LOG.entering(CLASSNAME, _m);
-
-        //<editor-fold desc="Verify input and pre-conditions.">
-        {
-            RuntimeException ex = null;
-            if (data == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The Registry data to be update parameter should not be null.");
-            } else if (data.getPsiCode() == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be null.");
-            } else if (data.getPsiCode().isEmpty()) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be empty.");
-            }
-
-            ExceptionUtilities.parameterValidationException(ex, _m);
-        }
-        //</editor-fold>
-        LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
-
-        tswRegistryDao.updateRegistry(data.getPsiCode(), data);
-        LOG.exiting(CLASSNAME, _m);
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public void deleteTswRegistry(final String psiCode) throws EISException {
-        final String _m = "deleteTswRegistry(String)";
-        LOG.entering(CLASSNAME, _m);
-
-        //<editor-fold desc="Verify input and pre-conditions.">
-        {
-            RuntimeException ex = null;
-            if (psiCode == null) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be null.");
-            } else if (psiCode.isEmpty()) {
-                ex = ExceptionUtilities.setupRuntimeException("The PSI Code parameter should not be empty.");
-            }
-
-            ExceptionUtilities.parameterValidationException(ex, _m);
-        }
-        //</editor-fold>
-        LOG.log(Level.FINE, ExceptionUtilities.LOG_FINE_VALIDATION_DONE);
-
-        tswRegistryDao.deleteRegistry(psiCode);
-
-        LOG.exiting(CLASSNAME, _m);
     }
 
     //TODO move to utility class
@@ -1376,114 +1227,6 @@ public class TRAXAdapterBean implements TRAXAdapter {
 
             throw des;
         }
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> readPSIRegistryTRAX() throws EISException {
-        final String _m = "readPSIRegistryTRAX()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findPSIs();
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> readBCPSIRegistryTRAX() throws EISException {
-        final String _m = "readBCPSIRegistryTRAX()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findBCPSIs();
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> readCANonBCPSIRegistryTRAX() throws EISException {
-        final String _m = "readCANonBCPSIRegistryTRAX()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findNonBCCAPSIs();
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> readInternationlPSIRegistryTRAX() throws EISException {
-        final String _m = "readInternationlPSIRegistryTRAX()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findNonCAPSIs();
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> searchPSIRegistryTRAXByName(final String name) throws EISException {
-        final String _m = "searchPSIRegistryTRAXByName()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findPSIsByName(name);
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public List<TSWRegistry> searchPSIRegistryTRAXByPSICode(final String psiCode) throws EISException {
-        final String _m = "searchPSIRegistryTRAXByPSICode()";
-        LOG.entering(CLASSNAME, _m);
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} start. ", new Object[]{_m});
-
-        List<? extends TSWRegistry> tswRegistry = tswRegistryDao.findRegistryBy(psiCode);
-        List<TSWRegistry> retList = new ArrayList<>();
-        retList.addAll(tswRegistry);
-
-        LOG.log(PERF_LOGGING, "In TRAXAdapter {0} done. ", new Object[]{_m});
-        LOG.exiting(CLASSNAME, _m);
-        return retList;
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public Map<String, String> readTRAXCountryMap() {
-        return traxCountry.getTRAXCountryMap();
-    }
-
-    @Override
-    @RolesAllowed({TRAX_READ, FULFILLMENT_SERVICES_USER})
-    public Map<String, String> readISOCountryMap() {
-        return traxCountry.getISOCountryMap();
     }
 
     @Override

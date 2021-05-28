@@ -20,9 +20,9 @@ package ca.bc.gov.educ.isd.eis.trax.db;
 import ca.bc.gov.educ.isd.eis.EISException;
 import ca.bc.gov.educ.isd.eis.assessment.AssessmentCourseCode;
 import ca.bc.gov.educ.isd.eis.common.DomainServiceException;
+
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * methods which external services can use to call the TRAX EJB service
@@ -166,67 +166,6 @@ public interface TRAXAdapter extends TRAXData {
     List<PSIChoice> readStudentChoices(final String pen, final String psiCode, final String psiYear) throws EISException;
 
     /**
-     * Provides PSI Registry information (TRAX Database).
-     *
-     * @param psiCode TRAX unique identifier for PSI
-     * @return List of PSI Registry associated with the PSI code.
-     * @throws EISException Could not find any matching students.
-     */
-    List<TSWRegistry> readPSIRegistry(final String psiCode) throws EISException;
-
-    /**
-     * Returns all PSIs in TRAX.
-     *
-     * @return list of all currently contained PSIs in TRAX
-     * @throws EISException
-     */
-    List<TSWRegistry> readPSIRegistryTRAX() throws EISException;
-
-    /**
-     * Returns all BC PSIs in TRAX.
-     *
-     * @return list of all currently contained BC PSIs in TRAX
-     * @throws EISException
-     */
-    List<TSWRegistry> readBCPSIRegistryTRAX() throws EISException;
-
-    /**
-     * Returns all non-BC Canadian PSIs in TRAX.
-     *
-     * @return list of all currently contained PSIs in TRAX
-     * @throws EISException
-     */
-    List<TSWRegistry> readCANonBCPSIRegistryTRAX() throws EISException;
-
-    /**
-     * Returns all non-Canadian PSIs in TRAX.
-     *
-     * @return list of all currently contained PSIs in TRAX
-     * @throws EISException
-     */
-    List<TSWRegistry> readInternationlPSIRegistryTRAX() throws EISException;
-
-    /**
-     * Searches TRAX using the passed name.
-     *
-     * @param name to be searched for
-     * @return list of all currently contained PSIs in TRAX that match passed
-     * name
-     * @throws EISException
-     */
-    List<TSWRegistry> searchPSIRegistryTRAXByName(final String name) throws EISException;
-
-    /**
-     * Searches TRAX using the passed code.
-     *
-     * @param psiCode to be searched for
-     * @return list of all currently contained PSIs in TRAX that match passed
-     * code
-     * @throws EISException
-     */
-    List<TSWRegistry> searchPSIRegistryTRAXByPSICode(final String psiCode) throws EISException;
-
-    /**
      * Provides TX PSI information (TRAX Database).
      *
      * @param pen Personal Education Number of the student
@@ -298,29 +237,7 @@ public interface TRAXAdapter extends TRAXData {
 
     void deleteTswStudPSI(final String studNo, final String psiCode, final String psiYear, final Character status) throws EISException;
 
-    void mergeTswRegistry(final TSWRegistry data) throws EISException;
-
     TSWRegistry createTswRegistry(String psiCode) throws EISException;
-
-    void insertTswRegistry(final TSWRegistry data) throws EISException;
-
-    void updateTswRegistry(final TSWRegistry data) throws EISException;
-
-    void deleteTswRegistry(final String psiCode) throws EISException;
-
-    /**
-     * Map that contains the name of the country as key and TRAX code as value
-     *
-     * @return Country map
-     */
-    Map<String, String> readTRAXCountryMap();
-
-    /**
-     * Map that contains the name of the country as key and iso code as value
-     *
-     * @return Country map
-     */
-    Map<String, String> readISOCountryMap();
 
     /**
      * Returns a list with all the regions that exist in TRAX

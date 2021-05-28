@@ -116,6 +116,26 @@ public class CourseImpl extends AbstractDomainEntity implements Course {
         this.relatedLevel = relatedLevel;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public void setCredits(String credits) {
+        this.credits = credits;
+    }
+
+    public void setSessionDate(String sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
     /**
      * Returns a unique identifier for this instance.
      *

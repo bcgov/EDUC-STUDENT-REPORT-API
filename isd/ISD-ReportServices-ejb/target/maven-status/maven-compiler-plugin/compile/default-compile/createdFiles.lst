@@ -87,7 +87,6 @@ ca\bc\gov\educ\isd\reports\impl\NumeracyAssessmentReportImpl.class
 ca\bc\gov\educ\isd\reports\data\impl\Student$Builder.class
 ca\bc\gov\educ\isd\student\impl\PostalAddressImpl.class
 ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswMailerExamEntity.class
-ca\bc\gov\educ\isd\traxadaptor\service\impl\TRAXAdapterBean.class
 ca\bc\gov\educ\isd\reports\admin\impl\NonPENUserOrderImpl.class
 ca\bc\gov\educ\isd\reports\data\impl\PostalAddress.class
 ca\bc\gov\educ\isd\exam\impl\ExamResultImpl.class
@@ -119,9 +118,11 @@ ca\bc\gov\educ\isd\grad\impl\NonGradReasonImpl.class
 ca\bc\gov\educ\isd\reports\data\assessment\impl\RawScore$Builder.class
 ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswMailerAssessmentEntity.class
 ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswPSIChoiceId.class
+ca\bc\gov\educ\grad\utils\TranscriptResultListDeserializer.class
 ca\bc\gov\educ\isd\student\impl\StudentXRefSearchResultImpl.class
 ca\bc\gov\educ\grad\dto\GenerateReportRequest.class
 ca\bc\gov\educ\isd\traxadaptor\dao\impl\StudentProfileMasterLiteEntity.class
+ca\bc\gov\educ\isd\traxadaptor\service\impl\TRAXAdapterServiceImpl.class
 ca\bc\gov\educ\isd\reports\data\assessment\impl\NumeracyAssessmentResult.class
 ca\bc\gov\educ\isd\traxadaptor\impl\PSIChoiceImpl.class
 ca\bc\gov\educ\isd\traxadaptor\impl\StudentInfoImpl.class
@@ -130,7 +131,6 @@ ca\bc\gov\educ\isd\reports\data\impl\Status$Builder.class
 ca\bc\gov\educ\isd\traxadaptor\service\impl\ScholarshipDataBean.class
 ca\bc\gov\educ\isd\exam\impl\MarkImpl.class
 ca\bc\gov\educ\isd\traxadaptor\impl\PSIRegistryAttributesConstants.class
-ca\bc\gov\educ\isd\traxadaptor\service\impl\CountryProviderBean.class
 ca\bc\gov\educ\isd\reports\impl\ReportServiceImpl$1.class
 ca\bc\gov\educ\isd\traxadaptor\dao\utils\TRAXThreadDataUtility.class
 ca\bc\gov\educ\isd\reports\data\impl\TranscriptResult$Builder.class
@@ -214,6 +214,7 @@ ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswPSIChoiceEntity.class
 ca\bc\gov\educ\isd\reports\data\admin\impl\IdleTranscriptImpl.class
 ca\bc\gov\educ\isd\reports\jasper\impl\JasperReportImpl.class
 ca\bc\gov\educ\isd\traxadaptor\dao\impl\TRAXCountryCodes.class
+ca\bc\gov\educ\grad\utils\NonGradReasonListDeserializer.class
 ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswMailerLiteracyAssessmentFrenchEntity.class
 ca\bc\gov\educ\isd\traxadaptor\service\StudentData.class
 ca\bc\gov\educ\isd\reports\data\impl\Signatories.class

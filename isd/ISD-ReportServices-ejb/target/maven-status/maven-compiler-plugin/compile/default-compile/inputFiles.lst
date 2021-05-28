@@ -31,6 +31,7 @@ C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\ma
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\exam\impl\MarkImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\admin\impl\ManualInterventionOrderImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswMailerLiteracyAssessmentFrenchEntity.java
+C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\grad\utils\NonGradReasonListDeserializer.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\service\ExamData.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\impl\PSIChoiceImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\transcript\impl\MarkImpl.java
@@ -68,6 +69,7 @@ C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\ma
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\grad\impl\CertificateImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\admin\impl\StudentProfileImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\jasper\impl\ReportDocumentImpl.java
+C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\grad\utils\TranscriptResultListDeserializer.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\impl\AcademicAward.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\impl\Student.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\impl\TabProvinceImpl.java
@@ -100,7 +102,6 @@ C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\ma
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\exam\impl\StudentExamServiceImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\service\impl\ExamDataBean.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\assessment\impl\AssessmentScore.java
-C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\service\impl\CountryProviderBean.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\admin\impl\ManualInterventionOrderImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\receipt\impl\PaymentLineItemImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\dao\impl\CourseId.java
@@ -121,6 +122,7 @@ C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\ma
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\impl\constants\package-info.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\exam\impl\AssessmentImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\jasper\impl\package-info.java
+C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\service\impl\TRAXAdapterServiceImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\impl\StudentInfoImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\adapter\package-info.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\dao\tsw\impl\TswTranNongradEntity.java
@@ -130,7 +132,6 @@ C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\ma
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\transcript\impl\TranscriptResultImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\admin\impl\SelfServeOrderImpl.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\assessment\impl\NumeracyAssessmentResultImpl.java
-C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\traxadaptor\service\impl\TRAXAdapterBean.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\impl\DistrictOrganisation.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\reports\data\assessment\impl\RawScore.java
 C:\Projects\GRAD\workspace\app\EDUC-REPORT-API\isd\ISD-ReportServices-ejb\src\main\java\ca\bc\gov\educ\isd\scholarship\impl\StudentScholarshipReportImpl.java
