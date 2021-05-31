@@ -104,8 +104,7 @@ public class TranscriptCourseImpl implements TranscriptCourse {
     /**
      * Constructor method. Used by the JPQL to create an object from the
      * database entities.
-     *
-     * @param pen
+     *  @param pen
      * @param courseName
      * @param crseCode
      * @param crseLevel
@@ -134,7 +133,7 @@ public class TranscriptCourseImpl implements TranscriptCourse {
             final String interimMark,
             final String requirement,
             final String specialCase,
-            final Character courseType) {
+            final String courseType) {
         this.pen = pen;
         this.courseName = nullSafe(courseName);
         this.courseCode = nullSafe(crseCode);
@@ -176,7 +175,7 @@ public class TranscriptCourseImpl implements TranscriptCourse {
      * @param rptCrsType
      * @param interimLetterGrade
      */
-    public TranscriptCourseImpl(String studNo, String courseName, String crseCode, String crseLevel, String courseSession, String numCredits, String examPct, String schoolPct, String finalPct, String finalLg, String interimMark, String foundationReq, String specialCase, Character rptCrsType, String interimLetterGrade) {
+    public TranscriptCourseImpl(String studNo, String courseName, String crseCode, String crseLevel, String courseSession, String numCredits, String examPct, String schoolPct, String finalPct, String finalLg, String interimMark, String foundationReq, String specialCase, String rptCrsType, String interimLetterGrade) {
         this(studNo, courseName, crseCode, crseLevel, courseSession, numCredits, examPct, schoolPct, finalPct, finalLg, interimMark, foundationReq, specialCase, rptCrsType);
         this.interimLetterGrade = (interimLetterGrade == null ? "" : interimLetterGrade.trim());
     }

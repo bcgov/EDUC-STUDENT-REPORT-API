@@ -6,12 +6,14 @@ import ca.bc.gov.educ.isd.grad.NonGradReason;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.Student;
 import ca.bc.gov.educ.isd.transcript.Transcript;
+import ca.bc.gov.educ.isd.transcript.TranscriptResult;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.*;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranDemogEntity;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntity;
 import ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl.TswTranNongradEntityPK;
 import ca.bc.gov.educ.isd.traxadaptor.impl.StudentDemographicImpl;
 import ca.bc.gov.educ.isd.traxadaptor.impl.StudentInfoImpl;
+import ca.bc.gov.educ.isd.traxadaptor.impl.TranscriptCourseImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class GradtoIsdDataConvertBean {
             null,// String mincode,
             student.getGrade(),// String studGrade,
             null,// String gradDate,
-            null,// String gradReqtYear,
+            reportData.getGradProgram().getCode().getCode(),// String gradReqtYear,
             reportData.getGradMessage(),// String gradMessage,
             reportData.getUpdateDate().getTime(),// Long updateDt,
             null,// String logoType,
@@ -47,7 +49,7 @@ public class GradtoIsdDataConvertBean {
             null,// Character studStatus,
             null,// Character honourFlag,
             null,// Character dogwoodFlag,
-            reportData.getGradProgram().getCode().name(),// String prgmCode,
+            null,// String prgmCode,
             null,// String prgmCode2,
             null,// String prgmCode3,
             null,// String prgmCode4,
@@ -91,7 +93,27 @@ public class GradtoIsdDataConvertBean {
     }
 
     public List<TranscriptCourse> getTranscriptCources(ReportData reportData) {
+        Student student = getStudent(reportData);
         List<TranscriptCourse> result = new ArrayList<>();
+        for(TranscriptResult r: reportData.getTranscript().getResults()) {
+            TranscriptCourseImpl course = new TranscriptCourseImpl(
+                    student.getPen().getValue(), //String pen,
+                    r.getCourse().getName(), //String courseName,
+                    r.getCourse().getCode(), //String crseCode,
+                    r.getCourse().getLevel(), //String crseLevel,
+                    r.getCourse().getSessionDate(), //String sessionDate,
+                    r.getCourse().getCredits(), //String credits,
+                    r.getMark().getExamPercent(), //String examPercent,
+                    r.getMark().getSchoolPercent(), //String schoolPercent,
+                    r.getMark().getFinalPercent(), //String finalPercent,
+                    r.getMark().getFinalLetterGrade(), //String finalLetterGrade,
+                    r.getMark().getInterimPercent(), //String interimMark,
+          null, //String requirement,
+          null, //String specialCase,
+                    r.getCourse().getType() //Character courseType
+            );
+            result.add(course);
+        }
         return result;
     }
 
@@ -190,7 +212,7 @@ public class GradtoIsdDataConvertBean {
                 studentInfo.getStudentStatus(), //Character studStatus,
                 studentInfo.getGrade(), //String studGrade,
                 studentInfo.getGradDate().getTime(), //Long gradDate,
-                null, //String gradReqtYear,
+                studentInfo.getGraduationProgramCode().getCode(), //String gradReqtYear,
                 null, //Character honourFlag,
                 null, //Character dogwoodFlag,
                 null, //Long sccDate,

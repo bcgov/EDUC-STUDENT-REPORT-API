@@ -269,7 +269,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String paddedCourseLevel = String.format(FORMAT_COURSE_LEVEL, courseLevel);
         final String sessionDate = course.getSessionDate();
 
-        final Character usedForGrad;
+        final String usedForGrad;
 
         if (course.isExaminable()) {
             usedForGrad = getPEUsedForGrad(pen, paddedCourseCode, paddedCourseLevel, sessionDate);
@@ -301,7 +301,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
      * course and level data.
      * @return Used_For_Grad Character if one is found
      */
-    private Character getSXRelatedUsedForGrad(
+    private String getSXRelatedUsedForGrad(
             final String pen,
             final String paddedCourseCode,
             final String paddedCourseLevel,
@@ -310,7 +310,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String _m = "getSXRelatedUsedForGrad(String, String, String, String, TranscriptCourseImpl)";
         LOG.entering(CLASSNAME, _m);
 
-        Character usedForGraduation = ' ';
+        String usedForGraduation = " ";
 
         ReportData reportData = TRAXThreadDataUtility.getGenerateReportData();
 
@@ -334,8 +334,8 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
             final String relatedLevelSanitized = trimSafe(relatedLevel);
             course.setRelatedLevel(relatedLevelSanitized);
 
-            final Character usedForGraduationValue = stsTranCourseEntity.getUsedForGrad();
-            usedForGraduation = (usedForGraduationValue == null ? ' ' : usedForGraduationValue);
+            final String usedForGraduationValue = stsTranCourseEntity.getUsedForGrad();
+            usedForGraduation = (usedForGraduationValue == null ? " " : usedForGraduationValue);
         } catch (final Exception ex) {
             // this indicates a data issue.  Unable to determine correct record so leave TranscriptCourseImpl with default empty attributes.
             LOG.log(Level.WARNING, "Found multiple StudXcrseEntities matching {0},{1},{2},{3}", new Object[]{pen, paddedCourseCode, paddedCourseLevel, session});
@@ -357,7 +357,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
      * @param session
      * @return Used_For_Grad Character if one is found
      */
-    private Character getPEUsedForGrad(
+    private String getPEUsedForGrad(
             final String pen,
             final String paddedCourseCode,
             final String paddedCourseLevel,
@@ -367,7 +367,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         Level logLevel = Level.FINE;
         String logString;
 
-        Character usedForGraduation = ' ';
+        String usedForGraduation = " ";
 
         // some value passed in are dirty which prevents from finding the related
         // entity.
@@ -388,9 +388,9 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         try {
             final StsTranCourseEntity stsTransCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData);
-            final Character usedForGraduationVal = stsTransCourseEntity.getUsedForGrad();
+            final String usedForGraduationVal = stsTransCourseEntity.getUsedForGrad();
 
-            usedForGraduation = (usedForGraduationVal == null ? ' ' : usedForGraduationVal);
+            usedForGraduation = (usedForGraduationVal == null ? " " : usedForGraduationVal);
 
             logString = buildLogString("For pen >{0}<, crseCode >{1}<, crseLevel >{2}<, session >{3}<: usedForGrad >{4}<",
                     sanitizedPen,

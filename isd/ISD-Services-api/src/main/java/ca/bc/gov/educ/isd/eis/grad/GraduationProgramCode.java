@@ -99,6 +99,10 @@ public enum GraduationProgramCode {
         return this.description;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     /**
      * Returns the number of credits required to graduate from the program.
      *

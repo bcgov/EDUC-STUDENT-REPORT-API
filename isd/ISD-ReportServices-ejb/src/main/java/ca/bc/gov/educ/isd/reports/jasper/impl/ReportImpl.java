@@ -56,7 +56,7 @@ public abstract class ReportImpl implements Report {
 
     private static final String TEMPLATE_EXTENSION = ".jasper";
 
-    private static final String DIR_REPORT_BASE = "/META-INF/reports/";
+    private static final String DIR_REPORT_BASE = "/reports/";
     private static final String DIR_RESOURCES = "resources/";
     private static final String DIR_INTERNATIONALIZATION
             = DIR_REPORT_BASE + DIR_RESOURCES + "i18n";
@@ -203,8 +203,9 @@ public abstract class ReportImpl implements Report {
      * @throws IOException Could not open the resource.
      */
     private InputStream openResource(final String resource) throws IOException {
-        final URL url = getReportResource(resource);
-
+        //final URL url = getReportResource(resource);
+        URL url = this.getClass().getResource(DIR_REPORT_BASE + resource);
+        LOG.info("url == " + url.getFile());
         return url.openStream();
     }
 
@@ -220,12 +221,14 @@ public abstract class ReportImpl implements Report {
      * no such resource could be found.
      */
     private URL getReportResource(final String resource) {
-        final String resourcePath = toReportResourcePath(resource);
-        final URL url = getResource(resourcePath);
+        //final String resourcePath = toReportResourcePath(resource);
+        //final URL url = getResource(resourcePath);
+
+        final URL url = ClassLoader.getSystemResource(DIR_REPORT_BASE + resource);
 
         if (url == null) {
             throw new RuntimeException(
-                    "Missing resource path: '" + resourcePath
+                    "Missing resource path: '" + resource
                     + "' (for " + resource + ")");
         }
 
@@ -258,7 +261,7 @@ public abstract class ReportImpl implements Report {
      * Returns the package name that is the root folder for all report-related
      * resources.
      *
-     * @return "/META-INF/reports/"
+     * @return "/reports/"
      */
     protected String getReportPackage() {
         return DIR_REPORT_BASE;

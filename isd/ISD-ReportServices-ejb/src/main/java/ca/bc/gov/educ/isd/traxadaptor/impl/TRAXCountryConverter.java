@@ -53,7 +53,7 @@ public class TRAXCountryConverter {
 
     public static final String SYSTEM_PROPERTY_DIR = "user.dir";
 
-    public static final String META_INF = "META-INF/";
+    public static final String META_INF = "/";
 
     private static final TRAXCountryConverter INSTANCE = new TRAXCountryConverter();
 

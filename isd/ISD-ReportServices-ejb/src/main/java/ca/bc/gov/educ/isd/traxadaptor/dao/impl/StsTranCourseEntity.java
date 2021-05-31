@@ -52,11 +52,11 @@ public class StsTranCourseEntity implements Serializable {
     private String foundationReq;
     private String specialCase;
     private Long updateDt;
-    private Character rptCrsType;
-    private Character crsType;
+    private String rptCrsType;
+    private String crsType;
     private String relatedCrse;
     private String relatedLevel;
-    private Character usedForGrad;
+    private String usedForGrad;
 
     public StsTranCourseEntity() {
     }
@@ -114,15 +114,15 @@ public class StsTranCourseEntity implements Serializable {
         return updateDt;
     }
 
-    public Character getRptCrsType() {
+    public String getRptCrsType() {
         return rptCrsType;
     }
 
-    public Character getCrsType() {
+    public String getCrsType() {
         return crsType;
     }
 
-    public Character getUsedForGrad() {
+    public String getUsedForGrad() {
         return usedForGrad;
     }
 
