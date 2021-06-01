@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,12 +33,16 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 	}
 
 	@Test
-	public void createTranscriptReport() {
+	public void createTranscriptReport() throws Exception {
 		LOG.debug("<{}.createTranscriptReport at {}", CLASS_NAME, dateFormat.format(new Date()));
 		assertNotNull(reportRequest);
 		ResponseEntity response = reportService.getStudentTranscriptReport(reportRequest);
 		assertNotNull(response.getBody());
-		LOG.debug(">createCON11Report");
+		byte[] bArrray = (byte[]) response.getBody();
+		try (OutputStream out = new FileOutputStream("transcript.pdf")) {
+			out.write(bArrray);
+		}
+		LOG.debug(">createTranscriptReport");
 	}
 
 }

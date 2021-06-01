@@ -57,6 +57,7 @@ public abstract class ReportImpl implements Report {
     private static final String TEMPLATE_EXTENSION = ".jasper";
 
     private static final String DIR_REPORT_BASE = "/reports/";
+    private static final String DIR_JASPER_BASE = "reports/";
     private static final String DIR_RESOURCES = "resources/";
     private static final String DIR_INTERNATIONALIZATION
             = DIR_REPORT_BASE + DIR_RESOURCES + "i18n";
@@ -564,7 +565,7 @@ public abstract class ReportImpl implements Report {
         setParameter("REPORT_LOCALE", reportLocale);
 
         // Relative paths for subreports, images, etc.
-        setParameter("P_REPORT_BASE", DIR_REPORT_BASE);
+        setParameter("P_REPORT_BASE", DIR_JASPER_BASE);
 
         // Toggle pagination for HTML reports.
         setParameter(IS_IGNORE_PAGINATION, !isPaginated);

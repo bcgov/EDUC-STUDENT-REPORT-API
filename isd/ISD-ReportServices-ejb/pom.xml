@@ -51,6 +51,36 @@
             <artifactId>jasperreports-metadata</artifactId>
             <version>6.8.0</version>
         </dependency>
+        <!--dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-arimo</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-carlito</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-inconsolata</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-liberationsans</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-texgyreschola</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>jasper.fonts</groupId>
+            <artifactId>report-fonts-tinos</artifactId>
+            <version>2.0</version>
+        </dependency-->
 		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-anim -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
