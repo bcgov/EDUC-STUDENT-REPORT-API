@@ -19,6 +19,8 @@ package ca.bc.gov.educ.isd.transcript.impl;
 
 import ca.bc.gov.educ.isd.common.support.AbstractDomainEntity;
 import ca.bc.gov.educ.isd.transcript.GraduationData;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ import static java.lang.Boolean.FALSE;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class GraduationDataImpl extends AbstractDomainEntity
         implements GraduationData, Serializable {
 
@@ -51,18 +54,19 @@ public class GraduationDataImpl extends AbstractDomainEntity
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setGraduationDate(Date certificateDate) {
-        this.graduationDate = certificateDate;
-    }
-
     @Override
     public boolean hasGraduated() {
         return this.graduationDate != null;
     }
 
     @Override
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getGraduationDate() {
         return this.graduationDate == null ? new Date() : this.graduationDate;
+    }
+
+    public void setGraduationDate(Date graduationDate) {
+        this.graduationDate = graduationDate;
     }
 
     public void setDogwoodFlag(Boolean dogwoodFlag) {

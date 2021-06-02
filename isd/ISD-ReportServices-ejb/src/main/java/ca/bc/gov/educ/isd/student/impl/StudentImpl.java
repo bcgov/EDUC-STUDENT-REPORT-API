@@ -41,7 +41,7 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
 
     private PersonalEducationNumber pen = null;
     private Date birthdate = new Date(0L);
-    private PostalAddress currentMailingAddress = new PostalAddressImpl();
+    private PostalAddress address = new PostalAddressImpl();
     private String firstName = "";
     private String middleName = "";
     private String lastName = "";
@@ -63,7 +63,7 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
     @JsonProperty("address")
     @JsonDeserialize(as = PostalAddressImpl.class)
     public PostalAddress getCurrentMailingAddress() {
-        return currentMailingAddress;
+        return address;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
     }
 
     public void setCurrentMailingAddress(final PostalAddress address) {
-        this.currentMailingAddress = address;
+        this.address = address;
     }
 
     public void setBirthdate(final Date birthdate) {

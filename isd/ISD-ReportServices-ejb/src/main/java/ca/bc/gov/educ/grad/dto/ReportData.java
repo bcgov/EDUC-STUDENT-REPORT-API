@@ -11,7 +11,9 @@ import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.Student;
 import ca.bc.gov.educ.isd.student.impl.SchoolImpl;
 import ca.bc.gov.educ.isd.student.impl.StudentImpl;
+import ca.bc.gov.educ.isd.transcript.GraduationData;
 import ca.bc.gov.educ.isd.transcript.Transcript;
+import ca.bc.gov.educ.isd.transcript.impl.GraduationDataImpl;
 import ca.bc.gov.educ.isd.transcript.impl.TranscriptImpl;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -63,5 +65,7 @@ public class ReportData implements Serializable {
 	private Map<String, String> parameters;
 	@JsonDeserialize(as = CertificateImpl.class)
 	private Certificate certificate;
+	@JsonDeserialize(as = GraduationDataImpl.class)
+	private GraduationData graduationData;
 
 }

@@ -33,13 +33,13 @@ public class GradtoIsdDataConvertBean {
             student.getBirthdate().getTime(),// Long birthdate,
             student.getEntityId(),// String localId,
             null,// Character studGender,
-            null,// String mincode,
+            school.getMinistryCode(),// String mincode,
             student.getGrade(),// String studGrade,
-            null,// String gradDate,
+            reportData.getGraduationData().getGraduationDate().toString(),// String gradDate,
             reportData.getGradProgram().getCode().getCode(),// String gradReqtYear,
             reportData.getGradMessage(),// String gradMessage,
             reportData.getUpdateDate().getTime(),// Long updateDt,
-            null,// String logoType,
+            reportData.getLogo(),// String logoType,
             student.getCurrentMailingAddress().getStreetLine1(),// String studentAddress1,
             student.getCurrentMailingAddress().getStreetLine2(),// String studentAddress2,
             student.getCurrentMailingAddress().getCity(),// String studentCity,
@@ -47,13 +47,13 @@ public class GradtoIsdDataConvertBean {
             student.getCurrentMailingAddress().getPostalCode(),// String studentPostalCode,
             student.getCurrentMailingAddress().getCountryCode(),// String traxStudentCountry,
             null,// Character studStatus,
-            null,// Character honourFlag,
-            null,// Character dogwoodFlag,
-            null,// String prgmCode,
-            null,// String prgmCode2,
-            null,// String prgmCode3,
-            null,// String prgmCode4,
-            null,// String prgmCode5,
+            reportData.getGraduationData().getHonorsFlag() == false ? 'N' : 'Y',// Character honourFlag,
+            reportData.getGraduationData().getDogwoodFlag() == false ? 'N' : 'Y',// Character dogwoodFlag,
+            reportData.getGraduationData().getProgramCodes().get(0),// String prgmCode,
+            reportData.getGraduationData().getProgramCodes().get(1),// String prgmCode2,
+            reportData.getGraduationData().getProgramCodes().get(2),// String prgmCode3,
+            reportData.getGraduationData().getProgramCodes().get(3),// String prgmCode4,
+            reportData.getGraduationData().getProgramCodes().get(4),// String prgmCode5,
             school.getName(),// String schoolName,
             school.getPostalAddress().getStreetLine1(),// String schoolStreet,
             school.getPostalAddress().getStreetLine2(),// String schoolStreet2,
@@ -117,23 +117,50 @@ public class GradtoIsdDataConvertBean {
         return result;
     }
 
-    public StsTranCourseEntity getStsTranCourse(ReportData reportData) {
-        return null;
+    public StsTranCourseEntity getStsTranCourse(ReportData reportData, TranscriptCourseImpl course) {
+        StsTranCourseEntity result = new StsTranCourseEntity();
+        CourseId courseId = new CourseId(
+                reportData.getStudent().getPen().getValue(),
+                course.getCourseCode(),
+                course.getCourseLevel(),
+                course.getSessionDate()
+        );
+        result.setPrimaryKey(courseId);
+        result.setCourseName(course.getCourseName());
+        result.setNumCredits(course.getCredits());
+        result.setExamPct(course.getExamPercent());
+        result.setSchoolPct(course.getSchoolPercent());
+        result.setFinalPct(course.getFinalPercent());
+        result.setFinalLg(course.getFinalLetterGrade());
+        result.setInterimMark(course.getInterimMark());
+        result.setInterimLetterGrade(course.getInterimLetterGrade());
+        result.setFoundationReq(null);
+        result.setSpecialCase(null);
+        result.setUpdateDt(null);
+        result.setRptCrsType(null);
+        result.setCrsType(course.getCourseType());
+        result.setRelatedCrse(course.getRelatedCourse());
+        result.setRelatedLevel(course.getRelatedLevel());
+        result.setUsedForGrad(course.getUsedForGrad());
+
+        return result;
     }
 
     public List<TswTranNongradEntity> getTswTranNongradEntity(ReportData reportData) {
         List<TswTranNongradEntity> result = new ArrayList<>();
-        for(NonGradReason reason: reportData.getNonGradReasons()) {
-            TswTranNongradEntityPK pk = new TswTranNongradEntityPK(
-                    reportData.getStudent().getPen().getValue(),
-                    reason.getCode()
-            );
-            TswTranNongradEntity entity = new TswTranNongradEntity(
-                    pk,
-                    reason.getDescription(),
-                    null
-            );
-            result.add(entity);
+        if(reportData.getNonGradReasons() != null) {
+            for (NonGradReason reason : reportData.getNonGradReasons()) {
+                TswTranNongradEntityPK pk = new TswTranNongradEntityPK(
+                        reportData.getStudent().getPen().getValue(),
+                        reason.getCode()
+                );
+                TswTranNongradEntity entity = new TswTranNongradEntity(
+                        pk,
+                        reason.getDescription(),
+                        reportData.getUpdateDate().getTime()
+                );
+                result.add(entity);
+            }
         }
         return result;
     }
@@ -156,9 +183,9 @@ public class GradtoIsdDataConvertBean {
                 school.getMinistryCode(), //String mincode,
                 student.getGrade(), //String studGrade,
                 null, //String gradDate,
-                null, //String gradReqtYear,
+                reportData.getGradProgram().getCode().getCode(), //String gradReqtYear,
                 reportData.getUpdateDate().getTime(), //Long updateDt,
-                null, //String logoType,
+                reportData.getLogo(), //String logoType,
                 reportData.getGradMessage(), //String gradMsgTxt,
                 null, //Character gradFlag,
                 null  //Character currentFormerFlag

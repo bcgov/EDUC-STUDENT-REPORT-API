@@ -2,82 +2,398 @@
 	"data": {
 		"student": {
 			"pen": {
-				"pen": "132341660",
-				"entityId": "ENTITY1"
+				"pen": "100000033",
+				"entityId": null
 			},
-			"firstName": "John",
-			"lastName": "Doe",
-			"birthdate": "1900-01-01",
+			"firstName": "MANBIR",
+			"lastName": "ORDINARIO",
+			"birthdate": "1977-04-21",
 			"address": {
 				"streetLine1": "123 1st STREET",
 				"streetLine2": "",
 				"city": "SURREY",
 				"region": "BC",
-				"country": "CN",
+				"country": "",
 				"code": "B1B1B1"
 			},
 			"grade": "12"
 		},
 		"school": {
-			"minCode": "1111111",
-			"name": "MY SECONDARY SCHOOL",
+			"mincode": "00807013",
+			"name": "L V ROGERS SECONDARY",
 			"typeIndicator": "1",
 			"typeBanner": "",
 			"signatureCode": "",
 			"address": {
-				"streetLine1": "123 MAIN STREET",
+				"streetLine1": "1004 COTTONWOOD STREET",
 				"streetLine2": "",
-				"city": "SHARMING",
+				"city": "NELSON",
 				"region": "BC",
-				"country": "CN",
-				"code": "A1A1A1"
+				"country": "",
+				"code": "V1L3W2"
 			}
 		},
-		"logo": "school logo",
+		"logo": "BC",
 		"transcript": {
 			"interim": false,
-			"issueDate": "1999-12-31",
+			"issueDate": "1995-06-01",
 			"results": [
 				{
 					"course": {
-						"name": "My First Course",
-						"code": "MFCC",
-						"level": "2",
-						"credits": "5",
-						"sessionDate": "1999-12-31/2000-01-01",
-						"type": "1",
-						"relatedCourse": "NONE",
-						"relatedLevel": "NONE"
+						"name": "BUSINESS EDUCATION 10",
+						"code": "BE",
+						"level": "10",
+						"credits": "4",
+						"sessionDate": "199306",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
 					},
 					"mark": {
-						"schoolPercent": "90",
-						"examPercent": "30",
-						"finalPercent": "70",
-						"finalLetterGrade": "5",
-						"interimPercent": "60",
-						"interimLetterGrade": "5"
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "A",
+						"interimPercent": "",
+						"interimLetterGrade": ""
 					},
 					"requirement": "Must be guru",
 					"requirementName": "Is it clear?",
-					"equivalency": "EXAM",
-					"usedForGrad": "12"
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "PHYSICS 11",
+						"code": "PH",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "C",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "Must be guru",
+					"requirementName": "Is it clear?",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "CHEMISTRY 11",
+						"code": "CH",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "C",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "ENGLISH 12",
+						"code": "EN",
+						"level": "12",
+						"credits": "4",
+						"sessionDate": "199411",
+						"type": "1",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "76",
+						"examPercent": "68",
+						"finalPercent": "73",
+						"finalLetterGrade": "B",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "GEOGRAPHY 12",
+						"code": "GEO",
+						"level": "12",
+						"credits": "4",
+						"sessionDate": "199506",
+						"type": "1",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "84",
+						"examPercent": "44",
+						"finalPercent": "68",
+						"finalLetterGrade": "C+",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "HISTORY 12",
+						"code": "HI",
+						"level": "12",
+						"credits": "4",
+						"sessionDate": "199506",
+						"type": "1",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "66",
+						"examPercent": "54",
+						"finalPercent": "61",
+						"finalLetterGrade": "C",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "PRINCIPLES OF MATHEMATICS 11",
+						"code": "MA",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "C+",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "PRINCIPLES OF MATHEMATICS 12",
+						"code": "MA",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199501",
+						"type": "1",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "58",
+						"examPercent": "51",
+						"finalPercent": "55",
+						"finalLetterGrade": "C-",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "PHYSICAL EDUCATION 11",
+						"code": "PE",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "A",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "PHYSICAL EDUCATION 12",
+						"code": "PE",
+						"level": "12",
+						"credits": "4",
+						"sessionDate": "199411",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "90",
+						"finalLetterGrade": "A",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "SOCIAL STUDIES 11",
+						"code": "SS",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199504",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "83",
+						"finalLetterGrade": "B",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "WESTERN CIVILIZATION 12",
+						"code": "WCN",
+						"level": "12",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "C+",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "LD DIRECTED STUDIES 11",
+						"code": "XDIRS",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "70",
+						"finalLetterGrade": "C+",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
+				},
+				{
+					"course": {
+						"name": "CS BEGINNERS' RUSSIAN 11",
+						"code": "ZBRU",
+						"level": "11",
+						"credits": "4",
+						"sessionDate": "199406",
+						"type": "2",
+						"relatedCourse": "",
+						"relatedLevel": ""
+					},
+					"mark": {
+						"schoolPercent": "",
+						"examPercent": "",
+						"finalPercent": "",
+						"finalLetterGrade": "C+",
+						"interimPercent": "",
+						"interimLetterGrade": ""
+					},
+					"requirement": "",
+					"requirementName": "",
+					"equivalency": "",
+					"usedForGrad": ""
 				}
 			]
 		},
 		"gradProgram": {
 			"code": {
-				"code": "1950",
-				"description": "Adult Graduation Program"
+				"code": "1986",
+				"description": "Course-Based Graduation Program",
+				"credits": 52,
+				"name": "PROGRAM_1986"
 			}
 		},
-		"nonGradReasons": [
-			{
-				"code": "L",
-				"description": "TOO DUMB"
-			}
-		],
-		"gradMessage": "My Grad Message Here",
-		"updateDate": "1999-01-01",
+		"graduationData": {
+			"graduationDate": "1995-06-01",
+			"honorsFlag": false,
+			"dogwoodFlag": false,
+			"programCodes": ["","","","",""],
+			"programNames": ["","","","",""],
+			"totalCreditsUsedForGrad": "0"
+		},
+		"gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 1986. Graduation date: June 1995.",
+		"updateDate": "1995-06-01",
 		"certificate": null
 	},
 	"options": {

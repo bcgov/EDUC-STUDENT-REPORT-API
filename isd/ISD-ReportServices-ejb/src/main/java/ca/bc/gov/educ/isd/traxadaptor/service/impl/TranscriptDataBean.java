@@ -272,7 +272,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         final String usedForGrad;
 
         if (course.isExaminable()) {
-            usedForGrad = getPEUsedForGrad(pen, paddedCourseCode, paddedCourseLevel, sessionDate);
+            usedForGrad = getPEUsedForGrad(pen, paddedCourseCode, paddedCourseLevel, sessionDate, course);
         } else {
             usedForGrad = getSXRelatedUsedForGrad(pen, paddedCourseCode, paddedCourseLevel, sessionDate, course);
         }
@@ -324,7 +324,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
 
         try {
 
-            final StsTranCourseEntity stsTranCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData);
+            final StsTranCourseEntity stsTranCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData, course);
 
             final String relatedCourse = stsTranCourseEntity.getRelatedCrse();
             final String relatedCourseSanitized = trimSafe(relatedCourse);
@@ -361,7 +361,8 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
             final String pen,
             final String paddedCourseCode,
             final String paddedCourseLevel,
-            final String session) {
+            final String session,
+            final TranscriptCourseImpl course) {
         final String _m = "getPEUsedForGrad(String, String, String, String)";
         LOG.entering(CLASSNAME, _m);
         Level logLevel = Level.FINE;
@@ -387,7 +388,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
         }
 
         try {
-            final StsTranCourseEntity stsTransCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData);
+            final StsTranCourseEntity stsTransCourseEntity = (StsTranCourseEntity) gradtoIsdDataConvertBean.getStsTranCourse(reportData, course);
             final String usedForGraduationVal = stsTransCourseEntity.getUsedForGrad();
 
             usedForGraduation = (usedForGraduationVal == null ? " " : usedForGraduationVal);

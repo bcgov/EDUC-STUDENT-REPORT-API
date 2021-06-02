@@ -79,9 +79,9 @@ public class JasperReportImpl {
         final byte[] bytes;
 
         try (final ByteArrayOutputStream out = createByteArrayOutputStream()) {
-            final JasperPrint print = format == XML
-                    ? createEmptyReport()
-                    : createFilledReport();
+            //final JasperPrint print = format.equals(XML) ? createEmptyReport() : createFilledReport();
+
+            final JasperPrint print = createFilledReport();
 
             switch (format) {
                 case CSV:
@@ -127,7 +127,6 @@ public class JasperReportImpl {
     /**
      * Returns a new exporter instance for the given output format.
      *
-     * @param format The report output format to use to generate the report.
      * @return An exporter that can generate a report in the given format.
      */
     private Exporter createExporter() {

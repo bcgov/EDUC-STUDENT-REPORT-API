@@ -134,4 +134,71 @@ public class StsTranCourseEntity implements Serializable {
         return relatedLevel;
     }
 
+    public void setPrimaryKey(CourseId primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void setNumCredits(String numCredits) {
+        this.numCredits = numCredits;
+    }
+
+    public void setExamPct(String examPct) {
+        this.examPct = examPct;
+    }
+
+    public void setSchoolPct(String schoolPct) {
+        this.schoolPct = schoolPct;
+    }
+
+    public void setFinalPct(String finalPct) {
+        this.finalPct = finalPct;
+    }
+
+    public void setFinalLg(String finalLg) {
+        this.finalLg = finalLg;
+    }
+
+    public void setInterimMark(String interimMark) {
+        this.interimMark = interimMark;
+    }
+
+    public void setInterimLetterGrade(String interimLetterGrade) {
+        this.interimLetterGrade = interimLetterGrade;
+    }
+
+    public void setFoundationReq(String foundationReq) {
+        this.foundationReq = foundationReq;
+    }
+
+    public void setSpecialCase(String specialCase) {
+        this.specialCase = specialCase;
+    }
+
+    public void setUpdateDt(Long updateDt) {
+        this.updateDt = updateDt;
+    }
+
+    public void setRptCrsType(String rptCrsType) {
+        this.rptCrsType = rptCrsType;
+    }
+
+    public void setCrsType(String crsType) {
+        this.crsType = crsType;
+    }
+
+    public void setRelatedCrse(String relatedCrse) {
+        this.relatedCrse = relatedCrse;
+    }
+
+    public void setRelatedLevel(String relatedLevel) {
+        this.relatedLevel = relatedLevel;
+    }
+
+    public void setUsedForGrad(String usedForGrad) {
+        this.usedForGrad = usedForGrad;
+    }
 }

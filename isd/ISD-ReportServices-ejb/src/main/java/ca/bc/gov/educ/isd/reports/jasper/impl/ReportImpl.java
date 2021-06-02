@@ -60,7 +60,7 @@ public abstract class ReportImpl implements Report {
     private static final String DIR_JASPER_BASE = "reports/";
     private static final String DIR_RESOURCES = "resources/";
     private static final String DIR_INTERNATIONALIZATION
-            = DIR_REPORT_BASE + DIR_RESOURCES + "i18n";
+            = DIR_JASPER_BASE + DIR_RESOURCES + "i18n";
 
     /**
      * Canadian English locale by default.

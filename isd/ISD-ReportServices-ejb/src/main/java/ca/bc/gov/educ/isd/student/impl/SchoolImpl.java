@@ -39,6 +39,9 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
 
     private PostalAddress address = new PostalAddressImpl();
     private String mincode = "";
+    private String distno = "";
+    private String schlno = "";
+    private String schoolCategoryCode = "";
     private String name = "";
     private String typeIndicator = "";
     private String typeBanner = "";
@@ -50,6 +53,38 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
 
     public void setMincode(final String mincode) {
         this.mincode = mincode;
+    }
+
+    public PostalAddress getAddress() {
+        return address;
+    }
+
+    public String getMincode() {
+        return mincode;
+    }
+
+    public String getDistno() {
+        return distno;
+    }
+
+    public void setDistno(String distno) {
+        this.distno = distno;
+    }
+
+    public String getSchlno() {
+        return schlno;
+    }
+
+    public void setSchlno(String schlno) {
+        this.schlno = schlno;
+    }
+
+    public String getSchoolCategoryCode() {
+        return schoolCategoryCode;
+    }
+
+    public void setSchoolCategoryCode(String schoolCategoryCode) {
+        this.schoolCategoryCode = schoolCategoryCode;
     }
 
     public void setName(final String name) {
