@@ -31,11 +31,15 @@ public class ReportService {
     public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReportRequest reportRequest) {
     	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
+
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
+
+		String reportFile = reportRequest.getOptions().getReportFile();
+
 		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studentachievementreport.pdf");
+			headers.add("Content-Disposition", "inline; filename=" + reportFile);
 			return ResponseEntity
 			        .ok()
 			        .headers(headers)
@@ -55,11 +59,13 @@ public class ReportService {
 
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
+		String reportFile = reportRequest.getOptions().getReportFile();
+
 		try {
 			StudentTranscriptReport report = transcriptService.buildOfficialTranscriptReport();
 			byte[] reportBinary = report.getReportData();
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studenttranscriptreport.pdf");
+			headers.add("Content-Disposition", "inline; filename=" + reportFile);
 			return ResponseEntity
 			        .ok()
 			        .headers(headers)
@@ -78,11 +84,13 @@ public class ReportService {
 
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
+		String reportFile = reportRequest.getOptions().getReportFile();
+
 		try {
 			List<GradCertificateReport> gradCertificateReports = gradCertificateService.buildReport();
 			byte[] resultBinary = gradCertificateReports.get(0).getReportData();
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studentcertificate.pdf");
+			headers.add("Content-Disposition", "inline; filename=" + reportFile);
 			return ResponseEntity
 			        .ok()
 			        .headers(headers)
@@ -101,10 +109,12 @@ public class ReportService {
 
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
+		String reportFile = reportRequest.getOptions().getReportFile();
+
 		try {
 			byte[] resultBinary = null;
 			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studentverification.pdf");
+			headers.add("Content-Disposition", "inline; filename=" + reportFile);
 			return ResponseEntity
 					.ok()
 					.headers(headers)
