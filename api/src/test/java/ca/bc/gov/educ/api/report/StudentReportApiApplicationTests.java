@@ -52,7 +52,7 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 		ResponseEntity response = reportService.getStudentCertificateReport(reportRequest);
 		assertNotNull(response.getBody());
 		byte[] bArrray = (byte[]) response.getBody();
-		try (OutputStream out = new FileOutputStream("target/transcript.pdf")) {
+		try (OutputStream out = new FileOutputStream("target/certificate.pdf")) {
 			out.write(bArrray);
 		}
 		LOG.debug(">createCertificateReport");
