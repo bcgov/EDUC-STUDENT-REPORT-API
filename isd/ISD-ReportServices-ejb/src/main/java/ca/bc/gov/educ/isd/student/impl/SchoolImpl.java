@@ -46,6 +46,7 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
     private String typeIndicator = "";
     private String typeBanner = "";
     private String signatureCode = "";
+    private String phoneNumber = "";
 
     public void setAddress(final PostalAddress address) {
         this.address = address;
@@ -143,6 +144,15 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
     @Override
     public String getSignatureCode() {
         return this.signatureCode;
+    }
+
+    @Override
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /**

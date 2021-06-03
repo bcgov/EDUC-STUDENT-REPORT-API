@@ -7,6 +7,7 @@
 			},
 			"firstName": "MANBIR",
 			"lastName": "ORDINARIO",
+			"gender": "M",
 			"birthdate": "1977-04-21",
 			"address": {
 				"streetLine1": "123 1st STREET",
@@ -16,7 +17,12 @@
 				"country": "",
 				"code": "B1B1B1"
 			},
-			"grade": "12"
+			"grade": "12",
+			"studStatus": "A",
+			"sccDate": "1982-05-21",
+			"mincodeGrad": "",
+			"englishCert": "E",
+			"frenchCert": "F"
 		},
 		"school": {
 			"mincode": "00807013",
@@ -24,6 +30,9 @@
 			"typeIndicator": "1",
 			"typeBanner": "",
 			"signatureCode": "",
+			"distno": "",
+			"schlno": "",
+			"schoolCategoryCode": "",
 			"address": {
 				"streetLine1": "1004 COTTONWOOD STREET",
 				"streetLine2": "",
@@ -394,7 +403,9 @@
 		},
 		"gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 1986. Graduation date: June 1995.",
 		"updateDate": "1995-06-01",
-		"certificate": null
+		"certificate": {
+			"issued": "2001-05-31"
+		}
 	},
 	"options": {
 		"cacheReport": false,

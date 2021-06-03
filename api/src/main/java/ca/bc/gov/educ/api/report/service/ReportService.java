@@ -1,5 +1,6 @@
 package ca.bc.gov.educ.api.report.service;
 
+import ca.bc.gov.educ.api.report.util.ReportApiUtils;
 import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
 import ca.bc.gov.educ.isd.grad.GradCertificateReport;
 import ca.bc.gov.educ.isd.grad.GradCertificateService;
@@ -88,7 +89,14 @@ public class ReportService {
 
 		try {
 			List<GradCertificateReport> gradCertificateReports = gradCertificateService.buildReport();
-			byte[] resultBinary = gradCertificateReports.get(0).getReportData();
+
+			byte[] resultBinary = null;
+			for (final GradCertificateReport report : gradCertificateReports) {
+				final String key = report.getReportTypeName();
+				resultBinary = ReportApiUtils.appendData(resultBinary, report.getReportData());
+				log.debug("Added certificate with key: {0}", key);
+			}
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=" + reportFile);
 			return ResponseEntity

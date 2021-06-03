@@ -37,7 +37,7 @@ public interface School extends Organization {
     /**
      * Returns the code the Ministry uses to uniquely identify this school.
      *
-     * @return MINCODE
+     * @return MINCODE ministry code
      */
     String getMinistryCode();
 
@@ -70,4 +70,32 @@ public interface School extends Organization {
      * @return A non-null String, possibly empty.
      */
     String getTypeBanner();
+
+    /**
+     * Gets distno.
+     *
+     * @return the distno
+     */
+    String getDistno();
+
+    /**
+     * Gets schlno.
+     *
+     * @return the schlno
+     */
+    String getSchlno() ;
+
+    /**
+     * Gets school category code.
+     *
+     * @return the school category code
+     */
+    String getSchoolCategoryCode();
+
+    /**
+     * Gets phone number.
+     *
+     * @return the phone number
+     */
+    String getPhoneNumber();
 }

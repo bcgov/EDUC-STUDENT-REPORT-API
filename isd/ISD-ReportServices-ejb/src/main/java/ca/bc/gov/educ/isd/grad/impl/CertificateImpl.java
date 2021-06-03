@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.isd.cert.Certificate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
@@ -40,6 +41,7 @@ public class CertificateImpl implements Certificate, Serializable {
     }
 
     @Override
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getIssued() {
         return this.issued;
     }

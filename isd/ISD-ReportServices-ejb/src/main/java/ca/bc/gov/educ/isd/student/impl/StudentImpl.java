@@ -46,6 +46,12 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
     private String middleName = "";
     private String lastName = "";
     private String grade = "";
+    private Character gender = ' ';
+    private Date sccDate;
+    private String mincodeGrad;
+    private String englishCert;
+    private String frenchCert;
+    private Character studStatus = ' ';
 
     @Override
     @JsonDeserialize(as = PersonalEducationNumberSimple.class)
@@ -86,6 +92,15 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
         return grade;
     }
 
+    @Override
+    public Character getGender() {
+        return gender;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
     public void setPen(final PersonalEducationNumber pen) {
         this.pen = pen;
     }
@@ -112,6 +127,47 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
 
     public void setGrade(final String grade) {
         this.grade = grade;
+    }
+
+    public Date getSccDate() {
+        return sccDate;
+    }
+
+    public void setSccDate(Date sccDate) {
+        this.sccDate = sccDate;
+    }
+
+    public String getMincodeGrad() {
+        return mincodeGrad;
+    }
+
+    public void setMincodeGrad(String mincodeGrad) {
+        this.mincodeGrad = mincodeGrad;
+    }
+
+    public String getEnglishCert() {
+        return englishCert;
+    }
+
+    public void setEnglishCert(String englishCert) {
+        this.englishCert = englishCert;
+    }
+
+    public String getFrenchCert() {
+        return frenchCert;
+    }
+
+    public void setFrenchCert(String frenchCert) {
+        this.frenchCert = frenchCert;
+    }
+
+    @Override
+    public Character getStudStatus() {
+        return studStatus;
+    }
+
+    public void setStudStatus(Character studStatus) {
+        this.studStatus = studStatus;
     }
 
     /**

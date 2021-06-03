@@ -18,7 +18,7 @@
 package ca.bc.gov.educ.isd.grad.impl;
 
 import ca.bc.gov.educ.exception.EntityNotFoundException;
-import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
+import ca.bc.gov.educ.grad.dao.GradToIsdDataConvertBean;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.cert.Certificate;
 import ca.bc.gov.educ.isd.common.BusinessProcessException;
@@ -84,7 +84,7 @@ public class GradCertificateServiceImpl
     private ReportService reportService;
 
     @Autowired
-    GradtoIsdDataConvertBean gradtoIsdDataConvertBean;
+    GradToIsdDataConvertBean gradtoIsdDataConvertBean;
 
     @RolesAllowed({STUDENT_CERTIFICATE_REPORT, USER})
     @Override
@@ -113,7 +113,7 @@ public class GradCertificateServiceImpl
                 "Confirmed the user is a student and retrieved the PEN.");
 
         // access TRAX adaptor to obtain required data for PEN
-        final StudentDemographic studentData = readStudentDemog(penId);
+        final StudentDemographic studentData = readStudentDemog(penId); //validated
         if (studentData == null) {
             final String msg = "Failed to find student demographic information in TRAX for PEN: " + penId;
             final DomainServiceException dse = new DomainServiceException(msg);
@@ -122,8 +122,8 @@ public class GradCertificateServiceImpl
         }
 
         // transfer TRAX data to other objects for reporting
-        final Student student = transferStudentData(penObj, studentData);
-        final School school = transferSchoolData(studentData);
+        final Student student = transferStudentData(penObj, studentData); //validated
+        final School school = transferSchoolData(studentData); //validated
         final String penEntityId = penObj.getEntityId();
         final Certificate certificate = new CertificateImpl(
                 studentData.getCertificateDate());

@@ -45,4 +45,17 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 		LOG.debug(">createTranscriptReport");
 	}
 
+	@Test
+	public void createCertificateReport() throws Exception {
+		LOG.debug("<{}.createCertificateReport at {}", CLASS_NAME, dateFormat.format(new Date()));
+		assertNotNull(reportRequest);
+		ResponseEntity response = reportService.getStudentCertificateReport(reportRequest);
+		assertNotNull(response.getBody());
+		byte[] bArrray = (byte[]) response.getBody();
+		try (OutputStream out = new FileOutputStream("target/transcript.pdf")) {
+			out.write(bArrray);
+		}
+		LOG.debug(">createCertificateReport");
+	}
+
 }

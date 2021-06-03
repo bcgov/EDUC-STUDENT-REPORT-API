@@ -18,7 +18,7 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.exception.EntityNotFoundException;
-import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
+import ca.bc.gov.educ.grad.dao.GradToIsdDataConvertBean;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.eis.common.DomainServiceException;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentDemographic;
@@ -92,7 +92,7 @@ public class StudentDataBean implements StudentData, Serializable {
     private final static String WORD_PATTERN = "^\\w+$";
 
     @Autowired
-    GradtoIsdDataConvertBean gradtoIsdDataConvertBean;
+    GradToIsdDataConvertBean gradtoIsdDataConvertBean;
 
     /**
      * This first tries to find a student record with a grad min code and, if

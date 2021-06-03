@@ -5,6 +5,7 @@ import ca.bc.gov.educ.isd.eis.trax.db.*;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
 import ca.bc.gov.educ.isd.school.School;
 import ca.bc.gov.educ.isd.student.Student;
+import ca.bc.gov.educ.isd.transcript.GraduationData;
 import ca.bc.gov.educ.isd.transcript.Transcript;
 import ca.bc.gov.educ.isd.transcript.TranscriptResult;
 import ca.bc.gov.educ.isd.traxadaptor.dao.impl.*;
@@ -20,11 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GradtoIsdDataConvertBean {
+public class GradToIsdDataConvertBean {
 
     public StudentInfo getStudentInfo(ReportData reportData) {
         Student student = getStudent(reportData);
         School school = getSchool(reportData);
+        GraduationData gradData = reportData.getGraduationData();
+        List<String> programCodes = gradData.getProgramCodes();
         StudentInfoImpl result = new StudentInfoImpl(
             student.getPen().getValue(),// String studNo,
             student.getFirstName(),// String firstName,
@@ -32,10 +35,10 @@ public class GradtoIsdDataConvertBean {
             student.getLastName(),// String lastName,
             student.getBirthdate().getTime(),// Long birthdate,
             student.getEntityId(),// String localId,
-            null,// Character studGender,
+            student.getGender(),// Character studGender,
             school.getMinistryCode(),// String mincode,
             student.getGrade(),// String studGrade,
-            reportData.getGraduationData().getGraduationDate().toString(),// String gradDate,
+            gradData.getGraduationDate().toString(),// String gradDate,
             reportData.getGradProgram().getCode().getCode(),// String gradReqtYear,
             reportData.getGradMessage(),// String gradMessage,
             reportData.getUpdateDate().getTime(),// Long updateDt,
@@ -46,38 +49,42 @@ public class GradtoIsdDataConvertBean {
             student.getCurrentMailingAddress().getRegion(),// String studentProv,
             student.getCurrentMailingAddress().getPostalCode(),// String studentPostalCode,
             student.getCurrentMailingAddress().getCountryCode(),// String traxStudentCountry,
-            null,// Character studStatus,
-            reportData.getGraduationData().getHonorsFlag() == false ? 'N' : 'Y',// Character honourFlag,
-            reportData.getGraduationData().getDogwoodFlag() == false ? 'N' : 'Y',// Character dogwoodFlag,
-            reportData.getGraduationData().getProgramCodes().get(0),// String prgmCode,
-            reportData.getGraduationData().getProgramCodes().get(1),// String prgmCode2,
-            reportData.getGraduationData().getProgramCodes().get(2),// String prgmCode3,
-            reportData.getGraduationData().getProgramCodes().get(3),// String prgmCode4,
-            reportData.getGraduationData().getProgramCodes().get(4),// String prgmCode5,
+            student.getStudStatus(),// Character studStatus,
+            gradData.getHonorsFlag() ? 'Y' : 'N', //Character honourFlag,
+            gradData.getDogwoodFlag() ? 'Y' : 'N', //Character dogwoodFlag
+            programCodes != null && programCodes.size() >= 1 ? programCodes.get(0) : null, //String prgmCode,
+            programCodes != null && programCodes.size() >= 2 ? programCodes.get(1) : null, //String prgmCode2,
+            programCodes != null && programCodes.size() >= 3 ? programCodes.get(2) : null, //String prgmCode3,
+            programCodes != null && programCodes.size() >= 4 ? programCodes.get(3) : null, //String prgmCode4,
+            programCodes != null && programCodes.size() >= 5 ? programCodes.get(4) : null, //String prgmCode5,
             school.getName(),// String schoolName,
             school.getPostalAddress().getStreetLine1(),// String schoolStreet,
             school.getPostalAddress().getStreetLine2(),// String schoolStreet2,
             school.getPostalAddress().getCity(),// String schoolCity,
             school.getPostalAddress().getRegion(),// String schoolProv,
             school.getPostalAddress().getPostalCode(),// String schoolPostalCode,
-            null,// String schoolPhone,
+            school.getPhoneNumber(),// String schoolPhone,
             school.getTypeIndicator()// Character schlIndType
         );
         return result;
     }
 
     public List<StudentDemographic>  getStudentDemog(ReportData reportData) {
+        List<StudentDemographic> result = new ArrayList<>();
+        result.add(getSingleStudentDemog(reportData));
+        return result;
+    }
+
+    private StudentDemographic  getSingleStudentDemog(ReportData reportData) {
         StudentMaster studentMaster = getStudentMaster(reportData);
         TabSchool tabSchool = getTabSchool(reportData);
 
-        List<StudentDemographic> result = new ArrayList<>();
         StudentDemographicImpl studentDemographic = new StudentDemographicImpl(
                 studentMaster,
                 tabSchool
         );
 
-        result.add(studentDemographic);
-        return result;
+        return studentDemographic;
     }
 
     public Transcript getTranscript(ReportData reportData) {
@@ -179,7 +186,7 @@ public class GradtoIsdDataConvertBean {
                 student.getLastName(), //String lastName,
                 student.getBirthdate().getTime(), //Long birthdate,
                 student.getEntityId(), //String localId,
-                null, //Character studGender,
+                student.getGender(), //Character studGender,
                 school.getMinistryCode(), //String mincode,
                 student.getGrade(), //String studGrade,
                 null, //String gradDate,
@@ -197,9 +204,9 @@ public class GradtoIsdDataConvertBean {
         School school = getSchool(reportData);
         SchoolMasterEntity result = new SchoolMasterEntity(
                 school.getMinistryCode(), //String mincode,
-                null, //String distno,
-                null, //String schlno,
-                null  //String schoolCategoryCode
+                school.getDistno(), //String distno,
+                school.getSchlno(), //String schlno,
+                school.getSchoolCategoryCode()  //String schoolCategoryCode
         );
         return result;
     }
@@ -216,7 +223,7 @@ public class GradtoIsdDataConvertBean {
                 school.getPostalAddress().getPostalCode(), //String postal,
                 null, //String signatureDistno,
                 null, //Character xcriptElig,
-                null, //String phone,
+                school.getPhoneNumber(), //String phone,
                 null, //Character schlIndType
                 null //Character dogwoodElig
         );
@@ -224,7 +231,10 @@ public class GradtoIsdDataConvertBean {
     }
 
     public StudentMaster getStudentMaster(ReportData reportData) {
+        Student student = getStudent(reportData);
         StudentInfo studentInfo = getStudentInfo(reportData);
+        GraduationData gradData = reportData.getGraduationData();
+        List<String> programCodes = gradData.getProgramCodes();
         StudentMasterEntity result = new StudentMasterEntity(
                 studentInfo.getPen(), //String studNo,
                 studentInfo.getFirstName(), //String studGiven,
@@ -240,18 +250,18 @@ public class GradtoIsdDataConvertBean {
                 studentInfo.getGrade(), //String studGrade,
                 studentInfo.getGradDate().getTime(), //Long gradDate,
                 studentInfo.getGraduationProgramCode().getCode(), //String gradReqtYear,
-                null, //Character honourFlag,
-                null, //Character dogwoodFlag,
-                null, //Long sccDate,
+                gradData.getHonorsFlag() ? 'Y' : 'N', //Character honourFlag,
+                gradData.getDogwoodFlag() ? 'Y' : 'N', //Character dogwoodFlag,
+                gradData.getGraduationDate().getTime(), //Long sccDate,
                 studentInfo.getMincode(), //String mincode,
-                null, //String mincodeGrad,
-                null, //String prgmCode,
-                null, //String prgmCode2,
-                null, //String prgmCode3,
-                null, //String prgmCode4,
-                null, //String prgmCode5,
-                null, //String englishCert,
-                null, //String frenchCert,
+                student.getMincodeGrad(), //String mincodeGrad,
+                programCodes != null && programCodes.size() >= 1 ? programCodes.get(0) : null, //String prgmCode,
+                programCodes != null && programCodes.size() >= 2 ? programCodes.get(1) : null, //String prgmCode2,
+                programCodes != null && programCodes.size() >= 3 ? programCodes.get(2) : null, //String prgmCode3,
+                programCodes != null && programCodes.size() >= 4 ? programCodes.get(3) : null, //String prgmCode4,
+                programCodes != null && programCodes.size() >= 5 ? programCodes.get(4) : null, //String prgmCode5,
+                student.getEnglishCert(), //String englishCert,
+                student.getFrenchCert(), //String frenchCert,
                 null, //String traxCountryCode,
                 null, //String stud_true_no,
                 null  //String isoCountryCode

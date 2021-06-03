@@ -1,10 +1,12 @@
 package ca.bc.gov.educ.api.report.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ReportApiUtils {
 
@@ -27,5 +29,18 @@ public class ReportApiUtils {
 	public static String formatDate (Date date, String dateFormat) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         return simpleDateFormat.format(date);
+    }
+
+    public static byte[] appendData(byte[] firstObject,byte[] secondObject){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+        try {
+            if (firstObject!=null && firstObject.length != 0)
+                outputStream.write(firstObject);
+            if (secondObject!=null && secondObject.length != 0)
+                outputStream.write(secondObject);
+        } catch (IOException e) {
+            //ignore
+        }
+        return outputStream.toByteArray();
     }
 }

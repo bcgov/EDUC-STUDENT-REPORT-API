@@ -18,7 +18,7 @@
 package ca.bc.gov.educ.isd.traxadaptor.service.impl;
 
 import ca.bc.gov.educ.exception.EntityNotFoundException;
-import ca.bc.gov.educ.grad.dao.GradtoIsdDataConvertBean;
+import ca.bc.gov.educ.grad.dao.GradToIsdDataConvertBean;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.eis.trax.db.StudentInfo;
 import ca.bc.gov.educ.isd.eis.trax.db.TranscriptCourse;
@@ -70,7 +70,7 @@ public class TranscriptDataBean implements TranscriptData, Serializable {
     private static final Logger LOG = Logger.getLogger(CLASSNAME);
 
     @Autowired
-    GradtoIsdDataConvertBean gradtoIsdDataConvertBean;
+    GradToIsdDataConvertBean gradtoIsdDataConvertBean;
 
     /* Keep it for conversion reference for now
     private static final String QUERY_FIND_STUD_BY_PEN

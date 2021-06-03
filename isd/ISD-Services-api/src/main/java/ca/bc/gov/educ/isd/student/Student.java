@@ -19,7 +19,6 @@ package ca.bc.gov.educ.isd.student;
 
 import ca.bc.gov.educ.isd.common.party.Person;
 import ca.bc.gov.educ.isd.common.party.address.PostalAddress;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
 
@@ -32,11 +31,11 @@ public interface Student extends Person {
 
     /**
      * Retrieve the Student PEN.
-     *
+     * <p>
      * The PEN is an identifier given to students. It is possible that a student
      * does not have a PEN assign or that a duplicate PEN exists.
      *
-     * @return
+     * @return pen pen
      */
     PersonalEducationNumber getPen();
 
@@ -55,6 +54,13 @@ public interface Student extends Person {
     String getGrade();
 
     /**
+     * Student's current gender.
+     *
+     * @return Current gender.
+     */
+    Character getGender();
+
+    /**
      * Returns information about where to send physical items (such as the
      * student's transcripts). In the future, this might change to accommodate
      * international mailing addresses.
@@ -62,4 +68,33 @@ public interface Student extends Person {
      * @return A non-null mailing address.
      */
     PostalAddress getCurrentMailingAddress();
+
+    /**
+     * Gets mincode grad.
+     *
+     * @return the mincode grad
+     */
+    String getMincodeGrad();
+
+    /**
+     * Gets english cert.
+     *
+     * @return the english cert
+     */
+    String getEnglishCert();
+
+    /**
+     * Gets french cert.
+     *
+     * @return the french cert
+     */
+    String getFrenchCert();
+
+    /**
+     * Gets stud status.
+     *
+     * @return the stud status
+     */
+    Character getStudStatus();
+
 }
