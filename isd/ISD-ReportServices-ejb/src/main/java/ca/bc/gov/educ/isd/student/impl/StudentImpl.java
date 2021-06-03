@@ -129,6 +129,7 @@ public class StudentImpl extends AbstractDomainEntity implements Student {
         this.grade = grade;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getSccDate() {
         return sccDate;
     }

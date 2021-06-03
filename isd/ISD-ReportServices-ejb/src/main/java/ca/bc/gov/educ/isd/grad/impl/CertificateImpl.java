@@ -34,7 +34,10 @@ public class CertificateImpl implements Certificate, Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    private final Date issued;
+    private Date issued;
+
+    public CertificateImpl() {
+    }
 
     public CertificateImpl(final Date issued) {
         this.issued = issued;
@@ -44,5 +47,9 @@ public class CertificateImpl implements Certificate, Serializable {
     @JsonFormat(pattern="yyyy-MM-dd")
     public Date getIssued() {
         return this.issued;
+    }
+
+    public void setIssued(Date issued) {
+        this.issued = issued;
     }
 }
