@@ -755,7 +755,7 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
             System.out.println("student.middleNames = " + stu.getMiddleNames());
             System.out.println("student.birthdate = " + new SimpleDateFormat( "yy/MM/dd" ).format(stu.getBirthdate()));
             System.out.println("student.graduationProgram.description = " + stu.getGraduationProgram().getDescription());
-            System.out.println("report date = " + new SimpleDateFormat( "d-MMM-yyyy").format( new Date(1990,06,02)).toUpperCase());
+            System.out.println("report date = " + new SimpleDateFormat( "d-MMM-yyyy").format( new Date()).toUpperCase());
             System.out.println("student.school.name = " + stu.getSchool().getName().toUpperCase());
             System.out.println("student.school.districtOrganisation.name = " + stu.getSchool().getDistrictOrganisation().getName());
             System.out.println("student.school.districtOrganisation.logoCode = " + stu.getSchool().getDistrictOrganisation().getLogoCode());
