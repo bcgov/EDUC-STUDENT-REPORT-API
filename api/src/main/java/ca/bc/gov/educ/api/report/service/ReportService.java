@@ -1,9 +1,10 @@
 package ca.bc.gov.educ.api.report.service;
 
-import ca.bc.gov.educ.api.report.util.ReportApiUtils;
 import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
-import ca.bc.gov.educ.isd.grad.GradCertificateReport;
+import ca.bc.gov.educ.isd.common.BusinessReport;
 import ca.bc.gov.educ.isd.grad.GradCertificateService;
+import ca.bc.gov.educ.isd.reports.bundle.service.BCMPBundleService;
+import ca.bc.gov.educ.isd.reports.bundle.service.DocumentBundle;
 import ca.bc.gov.educ.isd.transcript.StudentTranscriptReport;
 import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
 import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
@@ -28,6 +29,9 @@ public class ReportService {
 
 	@Autowired
 	GradCertificateService gradCertificateService;
+
+	@Autowired
+	BCMPBundleService bcmpBundleService;
 
     public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReportRequest reportRequest) {
     	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
@@ -88,14 +92,11 @@ public class ReportService {
 		String reportFile = reportRequest.getOptions().getReportFile();
 
 		try {
-			List<GradCertificateReport> gradCertificateReports = gradCertificateService.buildReport();
+			List<BusinessReport> gradCertificateReports = gradCertificateService.buildReport();
 
-			byte[] resultBinary = null;
-			for (final GradCertificateReport report : gradCertificateReports) {
-				final String key = report.getReportTypeName();
-				resultBinary = ReportApiUtils.appendData(resultBinary, report.getReportData());
-				log.debug("Added certificate with key: {0}", key);
-			}
+			DocumentBundle documentBundle = bcmpBundleService.createDocumentBundle(reportRequest.getData().getCertificate().getOrderType());
+			documentBundle.appendBusinessReport(gradCertificateReports);
+			byte[] resultBinary = documentBundle.asBytes();
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Disposition", "inline; filename=" + reportFile);

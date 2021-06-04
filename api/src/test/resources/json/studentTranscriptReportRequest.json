@@ -404,7 +404,13 @@
 		"gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 1986. Graduation date: June 1995.",
 		"updateDate": "1995-06-01",
 		"certificate": {
-			"issued": "2001-05-31"
+			"issued": "2001-05-31",
+			"orderType": {
+				"name": "Certificate",
+				"paperType": {
+					"code": "YEDB"
+				}
+			}
 		}
 	},
 	"options": {

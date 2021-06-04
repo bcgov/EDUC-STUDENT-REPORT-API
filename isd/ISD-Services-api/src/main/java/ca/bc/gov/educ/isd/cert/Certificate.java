@@ -15,6 +15,8 @@
  * ********************************************************************** */
 package ca.bc.gov.educ.isd.cert;
 
+import ca.bc.gov.educ.isd.reports.bundle.service.OrderType;
+
 import java.util.Date;
 
 /**
@@ -30,5 +32,12 @@ public interface Certificate {
      *
      * @return A non-null Date instance.
      */
-     Date getIssued();
+    Date getIssued();
+
+    /**
+     * Gets certificate type.
+     *
+     * @return the certificate type
+     */
+    OrderType getOrderType();
 }

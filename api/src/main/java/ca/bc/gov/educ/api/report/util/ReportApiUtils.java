@@ -3,8 +3,6 @@ package ca.bc.gov.educ.api.report.util;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -31,16 +29,4 @@ public class ReportApiUtils {
         return simpleDateFormat.format(date);
     }
 
-    public static byte[] appendData(byte[] firstObject,byte[] secondObject){
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-        try {
-            if (firstObject!=null && firstObject.length != 0)
-                outputStream.write(firstObject);
-            if (secondObject!=null && secondObject.length != 0)
-                outputStream.write(secondObject);
-        } catch (IOException e) {
-            //ignore
-        }
-        return outputStream.toByteArray();
-    }
 }

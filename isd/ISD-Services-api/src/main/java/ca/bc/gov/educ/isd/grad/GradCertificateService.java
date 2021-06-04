@@ -16,11 +16,13 @@
 package ca.bc.gov.educ.isd.grad;
 
 import ca.bc.gov.educ.isd.common.BusinessProcessException;
+import ca.bc.gov.educ.isd.common.BusinessReport;
 import ca.bc.gov.educ.isd.common.BusinessService;
 import ca.bc.gov.educ.isd.common.DomainServiceException;
 import ca.bc.gov.educ.isd.common.party.Identifier;
 import ca.bc.gov.educ.isd.common.party.address.Address;
 import ca.bc.gov.educ.isd.student.PersonalEducationNumber;
+
 import java.util.List;
 
 /**
@@ -53,7 +55,7 @@ public interface GradCertificateService extends BusinessService {
      * <p>
      * @throws DomainServiceException
      */
-    List<GradCertificateReport> buildReport() throws DomainServiceException;
+    List<BusinessReport> buildReport() throws DomainServiceException;
 
     String sendReport(String orderXRef, Identifier partyId, Address addr)
             throws BusinessProcessException, DomainServiceException;

@@ -17,11 +17,13 @@
  */
 package ca.bc.gov.educ.isd.reports.bundle.service;
 
+import ca.bc.gov.educ.isd.common.BusinessReport;
 import ca.bc.gov.educ.isd.ecommerce.delivery.PostalDeliveryInfo;
 import ca.bc.gov.educ.isd.reports.CertificateType;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
 import ca.bc.gov.educ.isd.reports.ReportExportService;
 import ca.bc.gov.educ.isd.reports.packingslip.PackingSlipDetails;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -50,7 +52,7 @@ public interface BCMPBundleService extends ReportExportService, Serializable {
      * @return A bundle concatenated with the bundle contents and the report.
      * @throws IOException Could not append to the bundle.
      */
-    DocumentBundle append(
+    DocumentBundle appendReportDocument(
             DocumentBundle bundle,
             ReportDocument report) throws IOException;
 
@@ -62,9 +64,35 @@ public interface BCMPBundleService extends ReportExportService, Serializable {
      * @return A bundle concatenated with the bundle contents and the report.
      * @throws IOException Could not append to the bundle.
      */
-    DocumentBundle append(
+    DocumentBundle appendReportDocument(
             DocumentBundle bundle,
             List<ReportDocument> reports) throws IOException;
+
+    /**
+     * Appends a report document (transcript or certificate) to the given
+     * bundle.
+     *
+     * @param bundle The bundle to receive another document.
+     * @param report The document to append to the bundle.
+     * @return A bundle concatenated with the bundle contents and the report.
+     * @throws IOException Could not append to the bundle.
+     */
+    DocumentBundle appendBusinessReport(
+            DocumentBundle bundle,
+            BusinessReport report) throws IOException;
+
+    /**
+     * Appends a list of reports (transcript or certificate) to the given bundle.
+     *
+     * @param bundle The bundle to receive another document.
+     * @param reports The documents to append to the bundle.
+     * @return A bundle concatenated with the bundle contents and the report.
+     * @throws IOException Could not append to the bundle.
+     */
+    DocumentBundle appendBusinessReport(
+            DocumentBundle bundle,
+            List<BusinessReport> reports) throws IOException;
+
 
     /**
      * Adds page numbers to a document. This must be called before prepending

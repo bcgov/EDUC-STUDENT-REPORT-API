@@ -21,10 +21,7 @@ import ca.bc.gov.educ.exception.EntityNotFoundException;
 import ca.bc.gov.educ.grad.dao.GradToIsdDataConvertBean;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.cert.Certificate;
-import ca.bc.gov.educ.isd.common.BusinessProcessException;
-import ca.bc.gov.educ.isd.common.Constants;
-import ca.bc.gov.educ.isd.common.DataException;
-import ca.bc.gov.educ.isd.common.DomainServiceException;
+import ca.bc.gov.educ.isd.common.*;
 import ca.bc.gov.educ.isd.common.party.Identifier;
 import ca.bc.gov.educ.isd.common.party.address.Address;
 import ca.bc.gov.educ.isd.eis.EISException;
@@ -88,7 +85,7 @@ public class GradCertificateServiceImpl
 
     @RolesAllowed({STUDENT_CERTIFICATE_REPORT, USER})
     @Override
-    public List<GradCertificateReport> buildReport() throws DomainServiceException {
+    public List<BusinessReport> buildReport() throws DomainServiceException {
         final String _m = "buildReport()";
         LOG.entering(CLASSNAME, _m);
 
@@ -128,7 +125,7 @@ public class GradCertificateServiceImpl
         final Certificate certificate = new CertificateImpl(
                 studentData.getCertificateDate());
 
-        final List<GradCertificateReport> certificates = new ArrayList<>();
+        final List<BusinessReport> certificates = new ArrayList<>();
         final String englishCert = studentData.getEnglishCertificate().trim();
         final String frenchCert = studentData.getFrenchCertificate().trim();
         final boolean sccp = PROGRAM_SCCP.isCode(studentData.getCertificateCategory());

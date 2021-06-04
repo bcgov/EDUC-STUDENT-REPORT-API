@@ -17,7 +17,9 @@
  */
 package ca.bc.gov.educ.isd.reports.bundle.service;
 
+import ca.bc.gov.educ.isd.common.BusinessReport;
 import ca.bc.gov.educ.isd.reports.ReportDocument;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -42,7 +44,21 @@ public interface DocumentBundle extends ReportDocument {
      * @param reports A list of Reports to append to the bundle.
      * @throws IOException Could not append the report to the bundle.
      */
-    void append(final List<ReportDocument> reports) throws IOException;
+    void appendReportDocument(final List<ReportDocument> reports) throws IOException;
+
+    /**
+     * Append multiple reports to the bundle by their order in the list.
+     *
+     * @param reports A list of Reports to append to the bundle.
+     * @throws IOException Could not append the report to the bundle.
+     */
+    void appendBusinessReport(final List<BusinessReport> reports) throws IOException;
+    /**
+     * Append multiple documents to the bundle by their order in the list.
+     *
+     * @param report the report
+     */
+    void append(final BusinessReport report) throws IOException;
 
     /**
      * Overlay page numbers to the bundle. For a transcript, this will only
