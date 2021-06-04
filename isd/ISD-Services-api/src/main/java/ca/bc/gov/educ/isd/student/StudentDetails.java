@@ -219,7 +219,7 @@ public interface StudentDetails {
      *
      * @return
      */
-    Long getSccDate();
+    Date getSccDate();
 
     /**
      * get the mincode of the school from which the student graduated.

@@ -48,14 +48,12 @@ import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static ca.bc.gov.educ.isd.common.Constants.DATE_TRAX_YMD;
 import static ca.bc.gov.educ.isd.common.Constants.PESC_HST_PREDICATE;
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.nullSafe;
 import static ca.bc.gov.educ.isd.common.support.impl.Roles.FULFILLMENT_SERVICES_USER;
@@ -889,16 +887,7 @@ public class StudentTranscriptServiceImpl implements StudentTranscriptService, S
         Date gradDate = null;
 
         if (PROGRAM_SCCP.equals(program)) {
-            final Long sccDate = studentDemog.getSccDate();
-
-            if (sccDate != null && sccDate.compareTo(0L) != 0) {
-                final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TRAX_YMD);
-                try {
-                    gradDate = sdf.parse(sccDate.toString());
-                } catch (final ParseException ex) {
-                    LOG.log(Level.WARNING, "Failed to parse date: <{0}>", sccDate);
-                }
-            }
+            gradDate = studentDemog.getSccDate();
         } else {
             gradDate = studentDemog.getCertificateDate();
         }

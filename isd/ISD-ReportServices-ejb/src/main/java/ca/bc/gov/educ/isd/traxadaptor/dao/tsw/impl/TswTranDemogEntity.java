@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.traxadaptor.dao.tsw.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * An auto generated entity for the TSW_TRAN_DEMOG_VW view which is a view
@@ -40,7 +41,7 @@ public class TswTranDemogEntity implements Serializable {
 
     private String lastName;
 
-    private Long birthdate;
+    private Date birthdate;
 
     private String localId;
 
@@ -54,7 +55,7 @@ public class TswTranDemogEntity implements Serializable {
 
     private String gradReqtYear;
 
-    private Long updateDt;
+    private Date updateDt;
 
     private String logoType;
 
@@ -72,14 +73,14 @@ public class TswTranDemogEntity implements Serializable {
             String firstName,
             String middleName,
             String lastName,
-            Long birthdate,
+            Date birthdate,
             String localId,
             Character studGender,
             String mincode,
             String studGrade,
             String gradDate,
             String gradReqtYear,
-            Long updateDt,
+            Date updateDt,
             String logoType,
             String gradMsgTxt,
             Character gradFlag,
@@ -119,7 +120,7 @@ public class TswTranDemogEntity implements Serializable {
         return lastName;
     }
 
-    public Long getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
@@ -147,7 +148,7 @@ public class TswTranDemogEntity implements Serializable {
         return gradReqtYear;
     }
 
-    public Long getUpdateDt() {
+    public Date getUpdateDt() {
         return updateDt;
     }
 

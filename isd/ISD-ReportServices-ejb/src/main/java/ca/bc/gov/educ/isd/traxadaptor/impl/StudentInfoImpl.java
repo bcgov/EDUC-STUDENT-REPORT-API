@@ -28,7 +28,6 @@ import java.util.logging.Logger;
 
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.asBoolean;
 import static ca.bc.gov.educ.isd.common.support.VerifyUtils.trimSafe;
-import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YM;
 import static ca.bc.gov.educ.isd.eis.common.Constants.DATE_TRAX_YMD;
 import static ca.bc.gov.educ.isd.eis.grad.GraduationProgramCode.valueFrom;
 
@@ -137,15 +136,15 @@ public class StudentInfoImpl implements StudentInfo {
             final String firstName,
             final String middleName,
             final String lastName,
-            final Long birthdate,
+            final Date birthdate,
             final String localId,
             final Character studGender,
             final String mincode,
             final String studGrade,
-            final String gradDate,
+            final Date gradDate,
             final String gradReqtYear,
             final String gradMessage,
-            final Long updateDt,
+            final Date updateDt,
             final String logoType,
             final String studentAddress1,
             final String studentAddress2,
@@ -174,15 +173,15 @@ public class StudentInfoImpl implements StudentInfo {
         this.firstName = trimSafe(firstName);
         this.middleName = trimSafe(middleName);
         this.lastName = trimSafe(lastName);
-        this.birthDate = createDate(birthdate);
+        this.birthDate = birthdate;
         this.schoolId = trimSafe(localId);
         this.gender = studGender;
         this.mincode = trimSafe(mincode);
         this.grade = trimSafe(studGrade);
-        this.gradDate = createDate(trimSafe(gradDate), DATE_TRAX_YM);
+        this.gradDate = gradDate;
         this.gradProgram = trimSafe(gradReqtYear);
         this.gradMessage = trimSafe(gradMessage);
-        this.reportDate = createDate(updateDt);
+        this.reportDate = updateDt;
         this.logo = trimSafe(logoType);
         this.studentAddress1 = trimSafe(studentAddress1);
         this.studentAddress2 = trimSafe(studentAddress2);

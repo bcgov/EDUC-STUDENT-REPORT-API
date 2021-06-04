@@ -69,7 +69,7 @@ public interface StudentMaster extends TRAXCountry {
 
     public String getStudGrade();
 
-    public Long getGradDate();
+    public Date getGradDate();
 
     public String getGradReqtYear();
 
@@ -77,7 +77,7 @@ public interface StudentMaster extends TRAXCountry {
 
     public Character getDogwoodFlag();
 
-    public Long getSccDate();
+    public Date getSccDate();
 
     public String getMincode();
 

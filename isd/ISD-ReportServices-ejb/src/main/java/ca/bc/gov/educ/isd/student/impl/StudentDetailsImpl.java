@@ -56,7 +56,7 @@ public class StudentDetailsImpl implements StudentDetails, OverwriteStudentValid
     private String gradProgram = "";
     private Boolean transcriptEligible = Boolean.FALSE;
     private Character studentType = ' ';
-    private Long sccDate = 0L;
+    private Date sccDate;
     private String dogwoodFlag = "";
 
     /**
@@ -392,11 +392,11 @@ public class StudentDetailsImpl implements StudentDetails, OverwriteStudentValid
     }
 
     @Override
-    public Long getSccDate() {
+    public Date getSccDate() {
         return sccDate;
     }
 
-    public void setSccDate(final Long sccDate) {
+    public void setSccDate(final Date sccDate) {
         this.sccDate = sccDate;
     }
 

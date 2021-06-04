@@ -224,7 +224,7 @@ public interface StudentDemographic extends TRAXData {
     /**
      * @return
      */
-    Long getSccDate();
+    Date getSccDate();
 
     /**
      * Returns the Dogwood eligibility flag

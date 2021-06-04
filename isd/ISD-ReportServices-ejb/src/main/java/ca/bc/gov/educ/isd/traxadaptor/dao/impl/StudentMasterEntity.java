@@ -21,12 +21,7 @@ import ca.bc.gov.educ.isd.eis.trax.db.StudentMaster;
 import ca.bc.gov.educ.isd.traxadaptor.impl.TRAXCountryConverter;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_TRAX_YMD;
-import static ca.bc.gov.educ.isd.eis.trax.Constants.DATE_UNKNOWN_BIRTHDATE;
 
 /**
  * An auto generated entity for the STUDENT_MASTER_VW view which is a view
@@ -46,7 +41,7 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
     private String studGiven;
     private String studMiddle;
     private String studSurname;
-    private String studBirth;
+    private Date studBirth;
     private String address1;
     private String address2;
     private String city;
@@ -54,11 +49,11 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
     private String postal;
     private Character studStatus;
     private String studGrade;
-    private Long gradDate;
+    private Date gradDate;
     private String gradReqtYear;
     private Character honourFlag;
     private Character dogwoodFlag;
-    private Long sccDate;
+    private Date sccDate;
     private String mincode;
     private String mincodeGrad;
     private String prgmCode;
@@ -81,7 +76,7 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
             String studGiven,
             String studMiddle,
             String studSurname,
-            String studBirth,
+            Date studBirth,
             String address1,
             String address2,
             String city,
@@ -89,11 +84,11 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
             String postal,
             Character studStatus,
             String studGrade,
-            Long gradDate,
+            Date gradDate,
             String gradReqtYear,
             Character honourFlag,
             Character dogwoodFlag,
-            Long sccDate,
+            Date sccDate,
             String mincode,
             String mincodeGrad,
             String prgmCode,
@@ -172,18 +167,7 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
      */
     @Override
     public Date getStudBirth() {
-        final SimpleDateFormat sdf = new SimpleDateFormat(DATE_TRAX_YMD);
-        Date birthdate = DATE_UNKNOWN_BIRTHDATE;
-
-        try {
-            if (this.studBirth != null && !this.studBirth.trim().isEmpty()) {
-                birthdate = sdf.parse(this.studBirth);
-            }
-        } catch (final ParseException e) {
-            // TODO: Log the date that couldn't be parsed.
-        }
-
-        return birthdate;
+        return studBirth;
     }
 
     @Override
@@ -222,7 +206,7 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
     }
 
     @Override
-    public Long getGradDate() {
+    public Date getGradDate() {
         return gradDate;
     }
 
@@ -242,7 +226,7 @@ public class StudentMasterEntity implements StudentMaster, Serializable {
     }
 
     @Override
-    public Long getSccDate() {
+    public Date getSccDate() {
         return sccDate;
     }
 

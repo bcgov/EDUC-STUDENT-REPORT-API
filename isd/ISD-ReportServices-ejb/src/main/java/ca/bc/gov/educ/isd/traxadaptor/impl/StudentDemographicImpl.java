@@ -65,7 +65,7 @@ public class StudentDemographicImpl implements StudentDemographic {
     private String gradProgram = "";
     private Boolean transcriptEligible = Boolean.FALSE;
     private Character studentType = ' ';
-    private Long sccDate = 0L;
+    private Date sccDate;
     private String dogwoodFlag = "";
 
     /**
@@ -182,18 +182,17 @@ public class StudentDemographicImpl implements StudentDemographic {
             final String gradProgram,
             final String mincodeGrad,
             final String mincode,
-            final Long gradDate,
+            final Date gradDate,
             final Character dogwoodFlag,
             final String frenchCert,
             final String englishCert,
-            final Long sccDate,
+            final Date sccDate,
             final String truePen) {
         this.pen = pen;
         this.firstName = trimSafe(given);
         this.middleName = trimSafe(middle);
         this.lastName = trimSafe(surname);
         this.birthDate = (birthdate == null ? new Date() : birthdate);
-
         this.status = nullSafe(status);
         this.grade = trimSafe(grade);
         this.gradProgram = trimSafe(gradProgram);
@@ -213,12 +212,12 @@ public class StudentDemographicImpl implements StudentDemographic {
         Long graduationDate = 0L;
 
         if (gradDate != null && gradDate.toString().length() == DATE_TRAX_YM.length()) {
-            graduationDate = gradDate;
+            graduationDate = gradDate.getTime();
         }
 
         LOG.log(Level.FINE, "graduationDate value = {0}", graduationDate);
 
-        setCertEligibility(graduationDate, this.dogwoodFlag, this.mincode);
+        setCertEligibility(gradDate, this.dogwoodFlag, this.mincode);
 
         this.frenchCertificate = trimSafe(frenchCert);
         this.englishCertificate = trimSafe(englishCert);
@@ -239,7 +238,7 @@ public class StudentDemographicImpl implements StudentDemographic {
         LOG.log(Level.FINE, "certificateDate value = {0}", certificateDate);
 
         this.truePen = trimSafe(truePen);
-        this.sccDate = nullSafe(sccDate);
+        this.sccDate = sccDate;
     }
 
     @Override
@@ -400,7 +399,7 @@ public class StudentDemographicImpl implements StudentDemographic {
     }
 
     @Override
-    public Long getSccDate() {
+    public Date getSccDate() {
         return this.sccDate;
     }
 
@@ -414,10 +413,10 @@ public class StudentDemographicImpl implements StudentDemographic {
      * @param gradDate
      * @param dogwood
      */
-    private void setCertEligibility(final Long gradDate, final String dogwood, final String mincode) {
+    private void setCertEligibility(final Date gradDate, final String dogwood, final String mincode) {
         if (!"Y".equalsIgnoreCase(dogwood)) {
             this.certificateEligible = false;
-        } else if (gradDate == 0) {
+        } else if (gradDate == null) {
             this.certificateEligible = false;
         } else {
             this.certificateEligible = !"098".equals(mincode);
