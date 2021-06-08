@@ -17,12 +17,19 @@
  */
 package ca.bc.gov.educ.isd.reports;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+
 /**
  * Represents the type of paper to use for printing transcripts and
  * certificates.
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public enum PaperType {
 
     CERTIFICATE_SCCP("YED2"),
@@ -78,5 +85,15 @@ public enum PaperType {
      */
     private String getCode() {
         return this.code;
+    }
+
+    @JsonCreator
+    public static PaperType forValue(@JsonProperty("code") final String code) {
+        for (PaperType paperType : PaperType.values()) {
+            if (paperType.code.equals(code)) {
+                return paperType;
+            }
+        }
+        return null;
     }
 }

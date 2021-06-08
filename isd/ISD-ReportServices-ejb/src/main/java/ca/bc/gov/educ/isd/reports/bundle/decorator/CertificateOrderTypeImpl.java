@@ -18,7 +18,9 @@
 package ca.bc.gov.educ.isd.reports.bundle.decorator;
 
 import ca.bc.gov.educ.isd.reports.CertificateType;
+import ca.bc.gov.educ.isd.reports.PaperType;
 import ca.bc.gov.educ.isd.reports.bundle.service.CertificateOrderType;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 /**
  * Responsible for creating order types that can print certificates on the
@@ -26,10 +28,17 @@ import ca.bc.gov.educ.isd.reports.bundle.service.CertificateOrderType;
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class CertificateOrderTypeImpl extends OrderTypeImpl
         implements CertificateOrderType {
 
     private static final long serialVersionUID = 3L;
+
+    private String name;
+    private CertificateType certificateType;
+
+    public CertificateOrderTypeImpl() {
+    }
 
     /**
      * Constructs with paper type based on the certificate that was ordered.
@@ -48,5 +57,22 @@ public class CertificateOrderTypeImpl extends OrderTypeImpl
     @Override
     public String getName() {
         return "Certificates";
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CertificateType getCertificateType() {
+        return certificateType;
+    }
+
+    public void setCertificateType(CertificateType certificateType) {
+        this.certificateType = certificateType;
+    }
+
+    @Override
+    public PaperType getPaperType() {
+        return this.certificateType.getPaperType();
     }
 }

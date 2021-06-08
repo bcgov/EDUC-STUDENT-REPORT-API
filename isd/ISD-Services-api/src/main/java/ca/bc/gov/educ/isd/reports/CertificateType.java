@@ -15,20 +15,30 @@
  * ********************************************************************** */
 package ca.bc.gov.educ.isd.reports;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+
 /**
  * Represents the classifications of certificates. This is used in combination
  * with CertificateReportSubtype to select the certificate to generate.
  *
  * @author CGI Information Management Consultants Inc.
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public enum CertificateType {
 
     ADULT("Adult", PaperType.CERTIFICATE_ADULT),
     SCCP("SCCP", PaperType.CERTIFICATE_SCCP),
     REGULAR("Regular", PaperType.CERTIFICATE_REGULAR);
 
-    private final String reportName;
-    private final PaperType paperType;
+    private String reportName;
+    private PaperType paperType;
+
+    CertificateType() {
+    }
 
     /**
      * Constructs a new enumerated type for a certificate.
@@ -57,5 +67,27 @@ public enum CertificateType {
     @Override
     public String toString() {
         return this.reportName;
+    }
+
+    public String getReportName() {
+        return reportName;
+    }
+
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
+
+    public void setPaperType(PaperType paperType) {
+        this.paperType = paperType;
+    }
+
+    @JsonCreator
+    public static CertificateType forValue(@JsonProperty("reportName") final String reportName) {
+        for (CertificateType certificateType : CertificateType.values()) {
+            if (certificateType.getReportName().equals(reportName)) {
+                return certificateType;
+            }
+        }
+        return null;
     }
 }

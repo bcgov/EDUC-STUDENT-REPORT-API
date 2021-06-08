@@ -1,4 +1,11 @@
 {
+	"options": {
+		"cacheReport": false,
+		"convertTo": "pdf",
+		"overwrite": false,
+		"reportName": "transcript",
+		"reportFile": "Transcript Report.pdf"
+	},
 	"data": {
 		"student": {
 			"pen": {
@@ -407,18 +414,13 @@
 			"issued": "2001-05-31",
 			"orderType": {
 				"name": "Certificate",
-				"paperType": {
-					"code": "YEDB"
+				"certificateType": {
+					"reportName": "Adult",
+					"paperType": {
+						"code": "YED4"
+					}
 				}
 			}
 		}
-	},
-	"options": {
-		"cacheReport": false,
-		"convertTo": "pdf",
-		"overwrite": false,
-		"reportName": "transcript",
-		"reportFile": "Transcript Report.pdf"
 	}
-
 }

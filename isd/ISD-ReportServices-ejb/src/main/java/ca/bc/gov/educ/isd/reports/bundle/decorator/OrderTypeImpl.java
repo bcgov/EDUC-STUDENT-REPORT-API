@@ -40,7 +40,7 @@ public abstract class OrderTypeImpl implements OrderType {
      *
      * @return A non-null, non-empty string.
      */
-    protected PaperType getPaperType() {
+    public PaperType getPaperType() {
         return this.paperType;
     }
 
@@ -49,7 +49,7 @@ public abstract class OrderTypeImpl implements OrderType {
      *
      * @param paperType The paper used for printing the order.
      */
-    protected void setPaperType(final PaperType paperType) {
+    public void setPaperType(final PaperType paperType) {
         this.paperType = paperType;
     }
 
