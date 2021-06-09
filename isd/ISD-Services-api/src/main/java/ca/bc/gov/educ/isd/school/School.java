@@ -98,4 +98,6 @@ public interface School extends Organization {
      * @return the phone number
      */
     String getPhoneNumber();
+
+    String getDogwoodElig();
 }

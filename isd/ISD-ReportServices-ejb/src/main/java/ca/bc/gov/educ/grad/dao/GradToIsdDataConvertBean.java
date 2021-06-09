@@ -224,8 +224,8 @@ public class GradToIsdDataConvertBean {
                 null, //String signatureDistno,
                 null, //Character xcriptElig,
                 school.getPhoneNumber(), //String phone,
-                null, //Character schlIndType
-                null //Character dogwoodElig
+                "Y".equalsIgnoreCase(school.getTypeIndicator()) ? 'Y' : 'N', //Character schlIndType
+                "Y".equalsIgnoreCase(school.getDogwoodElig()) ? 'Y' : 'N' //Character dogwoodElig
         );
         return result;
     }

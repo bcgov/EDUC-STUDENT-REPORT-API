@@ -93,7 +93,6 @@ public class StudentInfoImpl implements StudentInfo {
 
     /**
      * JPQL constructor for the student information related to transcripts.
-     *
      * @param studNo
      * @param firstName
      * @param middleName

@@ -32,8 +32,8 @@
 			"frenchCert": "F"
 		},
 		"school": {
-			"mincode": "00807013",
-			"name": "L V ROGERS SECONDARY",
+			"mincode": "04196031",
+			"name": "ST. THOMAS MORE COLLEGIATE",
 			"typeIndicator": "1",
 			"typeBanner": "",
 			"signatureCode": "",
@@ -41,13 +41,15 @@
 			"schlno": "",
 			"schoolCategoryCode": "",
 			"address": {
-				"streetLine1": "1004 COTTONWOOD STREET",
+				"streetLine1": "7450 12TH AVE",
 				"streetLine2": "",
-				"city": "NELSON",
+				"city": "BURNABY",
 				"region": "BC",
 				"country": "",
-				"code": "V1L3W2"
-			}
+				"code": "V3N2K1"
+			},
+			"phoneNumber": "6045211801",
+			"dogwoodElig": "Y"
 		},
 		"logo": "BC",
 		"transcript": {

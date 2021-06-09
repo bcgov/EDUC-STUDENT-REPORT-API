@@ -47,6 +47,7 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
     private String typeBanner = "";
     private String signatureCode = "";
     private String phoneNumber = "";
+    private String dogwoodElig = "";
 
     public void setAddress(final PostalAddress address) {
         this.address = address;
@@ -149,6 +150,14 @@ public class SchoolImpl extends AbstractDomainEntity implements School {
     @Override
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getDogwoodElig() {
+        return dogwoodElig;
+    }
+
+    public void setDogwoodElig(String dogwoodElig) {
+        this.dogwoodElig = dogwoodElig;
     }
 
     public void setPhoneNumber(String phoneNumber) {
