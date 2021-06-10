@@ -1,5 +1,6 @@
 package ca.bc.gov.educ.grad.dao;
 
+import ca.bc.gov.educ.exception.InvalidParameterException;
 import ca.bc.gov.educ.grad.dto.ReportData;
 import ca.bc.gov.educ.isd.eis.trax.db.*;
 import ca.bc.gov.educ.isd.grad.NonGradReason;
@@ -92,10 +93,16 @@ public class GradToIsdDataConvertBean {
     }
 
     public Student getStudent(ReportData reportData) {
+        if(reportData.getStudent() == null || reportData.getStudent().getPen() == null) {
+            throw new InvalidParameterException("Student and PEN can't be NULL");
+        }
         return reportData.getStudent();
     }
 
     public School getSchool(ReportData reportData) {
+        if(reportData.getSchool() == null || reportData.getSchool().getMinistryCode() == null) {
+            throw new InvalidParameterException("School and mincode can't be NULL");
+        }
         return reportData.getSchool();
     }
 
@@ -103,6 +110,9 @@ public class GradToIsdDataConvertBean {
         Student student = getStudent(reportData);
         List<TranscriptCourse> result = new ArrayList<>();
         for(TranscriptResult r: reportData.getTranscript().getResults()) {
+            if(r.getCourse() == null || r.getMark() == null) {
+                throw new InvalidParameterException("Transcript Result Course and Mark can't be NULL");
+            }
             TranscriptCourseImpl course = new TranscriptCourseImpl(
                     student.getPen().getValue(), //String pen,
                     r.getCourse().getName(), //String courseName,
@@ -127,7 +137,7 @@ public class GradToIsdDataConvertBean {
     public StsTranCourseEntity getStsTranCourse(ReportData reportData, TranscriptCourseImpl course) {
         StsTranCourseEntity result = new StsTranCourseEntity();
         CourseId courseId = new CourseId(
-                reportData.getStudent().getPen().getValue(),
+                getStudent(reportData).getPen().getValue(),
                 course.getCourseCode(),
                 course.getCourseLevel(),
                 course.getSessionDate()
@@ -179,6 +189,7 @@ public class GradToIsdDataConvertBean {
     public TswTranDemogEntity getTswTranDemog(ReportData reportData) {
         Student student = getStudent(reportData);
         School school = getSchool(reportData);
+        GraduationData gradData = reportData.getGraduationData();
         TswTranDemogEntity result = new TswTranDemogEntity(
                 student.getPen().getValue(), //String studNo,
                 student.getFirstName(), //String firstName,
@@ -189,7 +200,7 @@ public class GradToIsdDataConvertBean {
                 student.getGender(), //Character studGender,
                 school.getMinistryCode(), //String mincode,
                 student.getGrade(), //String studGrade,
-                null, //String gradDate,
+                gradData.getTruncatedGraduationDate(), //String gradDate,
                 reportData.getGradProgram() != null ?  reportData.getGradProgram().getCode().getCode() : "", //String gradReqtYear,
                 reportData.getUpdateDate(), //Long updateDt,
                 reportData.getLogo(), //String logoType,

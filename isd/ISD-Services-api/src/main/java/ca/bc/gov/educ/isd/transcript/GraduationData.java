@@ -18,6 +18,7 @@
 package ca.bc.gov.educ.isd.transcript;
 
 import ca.bc.gov.educ.isd.common.DomainEntity;
+
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,14 @@ public interface GraduationData extends DomainEntity {
      * @return Date of graduation.
      */
     Date getGraduationDate();
+
+    /**
+     * Get the truncated date the student graduated in the form of yyyy/MM. This will return the current date if
+     * the user has not graduated.
+     *
+     * @return Date of graduation.
+     */
+    String getTruncatedGraduationDate();
 
     /**
      * Get the honours flag.

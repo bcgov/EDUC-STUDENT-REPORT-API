@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +68,12 @@ public class GraduationDataImpl extends AbstractDomainEntity
 
     public void setGraduationDate(Date graduationDate) {
         this.graduationDate = graduationDate;
+    }
+
+    public String getTruncatedGraduationDate() {
+        Date result = getGraduationDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM");
+        return sdf.format(result);
     }
 
     public void setDogwoodFlag(Boolean dogwoodFlag) {
