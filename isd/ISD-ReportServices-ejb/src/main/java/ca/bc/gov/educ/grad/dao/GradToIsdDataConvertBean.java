@@ -115,7 +115,7 @@ public class GradToIsdDataConvertBean {
                     r.getMark().getFinalPercent(), //String finalPercent,
                     r.getMark().getFinalLetterGrade(), //String finalLetterGrade,
                     r.getMark().getInterimPercent(), //String interimMark,
-          null, //String requirement,
+                    r.getRequirementMet(), //String requirement,
           null, //String specialCase,
                     r.getCourse().getType() //Character courseType
             );
