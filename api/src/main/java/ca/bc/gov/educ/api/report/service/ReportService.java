@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class ReportService {
 	@Autowired
 	BCMPBundleService bcmpBundleService;
 
-    public ResponseEntity<byte[]> getStudentAchievementReport(GenerateReportRequest reportRequest) {
+    public ResponseEntity getStudentAchievementReport(GenerateReportRequest reportRequest) {
     	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
 
@@ -41,55 +42,72 @@ public class ReportService {
 
 		String reportFile = reportRequest.getOptions().getReportFile();
 
+		ResponseEntity response = null;
+
 		try {
-			byte[] resultBinary = null;
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + reportFile);
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(resultBinary);
+			byte[] resultBinary = new byte[0];
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			}
 		} catch (Exception e) {
 			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
 		log.debug(">{}.{}", _m, CLASS_NAME);
-		return null;
+		return response;
     	
     }
 
-	public ResponseEntity<byte[]> getStudentTranscriptReport(GenerateReportRequest reportRequest) {
+	public ResponseEntity getStudentTranscriptReport(GenerateReportRequest reportRequest) {
 		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
 
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		String reportFile = reportRequest.getOptions().getReportFile();
+
+		ResponseEntity response = null;
 
 		try {
 			StudentTranscriptReport report = transcriptService.buildOfficialTranscriptReport();
-			byte[] reportBinary = report.getReportData();
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + reportFile);
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(reportBinary);
+			byte[] resultBinary = report.getReportData();
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			}
+
 		} catch (Exception e) {
 			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
 		log.debug(">{}.{}", _m, CLASS_NAME);
-		return null;
+		return response;
 	}
 	
-	public ResponseEntity<byte[]> getStudentCertificateReport(GenerateReportRequest reportRequest) {
+	public ResponseEntity getStudentCertificateReport(GenerateReportRequest reportRequest) {
 		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
 		log.debug("<{}.{}", _m, CLASS_NAME);
 
 		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
 		String reportFile = reportRequest.getOptions().getReportFile();
+
+		ResponseEntity response = null;
 
 		try {
 			List<BusinessReport> gradCertificateReports = gradCertificateService.buildReport();
@@ -98,41 +116,41 @@ public class ReportService {
 			documentBundle.appendBusinessReport(gradCertificateReports);
 			byte[] resultBinary = documentBundle.asBytes();
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + reportFile);
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(resultBinary);
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			}
 		} catch (Exception e) {
 			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
 		log.debug(">{}.{}", _m, CLASS_NAME);
-		return null;
+		return response;
 	}
 
-	public ResponseEntity<byte[]> getStudentVerificationReport(GenerateReportRequest reportRequest) {
-		String _m = "getStudentVerificationReport(GenerateReportRequest reportRequest)";
-		log.debug("<{}.{}", _m, CLASS_NAME);
+	protected ResponseEntity getInternalServerErrorResponse(Throwable t) {
+		ResponseEntity result = null;
 
-		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
-
-		String reportFile = reportRequest.getOptions().getReportFile();
-
-		try {
-			byte[] resultBinary = null;
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=" + reportFile);
-			return ResponseEntity
-					.ok()
-					.headers(headers)
-					.contentType(MediaType.APPLICATION_PDF)
-					.body(resultBinary);
-		} catch (Exception e) {
-			log.error("Unable to execute {}", _m, e);
+		Throwable tmp = t;
+		String message = null;
+		if (tmp.getCause() != null) {
+			tmp = tmp.getCause();
+			message = tmp.getMessage();
+		} else {
+			message = tmp.getMessage();
 		}
-		log.debug(">{}.{}", _m, CLASS_NAME);
-		return null;
+		if(message == null) {
+			message = tmp.getClass().getName();
+		}
+
+		result = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+		return result;
 	}
 }
