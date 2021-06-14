@@ -9,37 +9,36 @@
   "data": {
     "student": {
       "pen": {
-        "pen": "11111111",
+        "pen": "127370773",
         "entityId": null
       },
-      "firstName": "JOHN",
-      "middelName": "PIRATE",
-      "lastName": "SILVER",
-      "gender": "M",
+      "firstName": "ROSS",
+      "lastName": "SCOVILLE",
+      "gender": "",
       "birthdate": "2002-08-05",
       "address": {
-        "streetLine1": "HISPANIOLA",
-        "streetLine2": "",
-        "city": "SHOONER",
-        "region": "BOAT",
-        "country": "VESSEL",
-        "code": "PAC SEA"
+        "streetLine1": "SITE 15 COMP 142",
+        "streetLine2": "RR 1 STN MAIN",
+        "city": "FORT ST JOHN",
+        "region": "BC",
+        "country": "",
+        "code": "V1J4M6"
       },
-      "grade": "12",
-      "studStatus": "A",
+      "grade": "",
+      "studStatus": "",
       "sccDate": "",
-      "mincodeGrad": "03939008",
+      "mincodeGrad": "",
       "englishCert": "E",
       "frenchCert": ""
     },
     "school": {
       "mincode": "03939008",
       "name": "LORD BYNG SECONDARY",
-      "typeIndicator": "",
+      "typeIndicator": "1",
       "typeBanner": "",
-      "signatureCode": "039",
-      "distno": "039",
-      "schlno": "03939008",
+      "signatureCode": "",
+      "distno": "",
+      "schlno": "",
       "schoolCategoryCode": "",
       "address": {
         "streetLine1": "3939 16TH AVENUE W",
@@ -52,7 +51,7 @@
     },
     "logo": "BC",
     "transcript": {
-      "interim": false,
+      "interim": "",
       "issueDate": "2021-04-26",
       "results": [
         {
@@ -589,12 +588,12 @@
       "code": {
         "code": "2018",
         "description": "Graduation Program 2018",
-        "credits": 80,
-        "name": "PROGRAM_2018"
+        "credits": "",
+        "name": ""
       }
     },
     "graduationData": {
-      "graduationDate": "2020-09-01",
+      "graduationDate": "",
       "honorsFlag": false,
       "dogwoodFlag": false,
       "programCodes": [
@@ -611,10 +610,10 @@
         "",
         ""
       ],
-      "totalCreditsUsedForGrad": "0"
+      "totalCreditsUsedForGrad": ""
     },
     "gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 2018. Graduation date: September 2020.",
-    "updateDate": "2021-04-26",
+    "updateDate": "",
     "certificate": {
       "issued": "2021-04-26",
       "orderType": {

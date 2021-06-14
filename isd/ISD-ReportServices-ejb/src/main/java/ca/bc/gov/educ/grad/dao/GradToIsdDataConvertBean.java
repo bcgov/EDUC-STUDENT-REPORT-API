@@ -29,6 +29,7 @@ public class GradToIsdDataConvertBean {
         School school = getSchool(reportData);
         GraduationData gradData = reportData.getGraduationData();
         List<String> programCodes = gradData.getProgramCodes();
+        Transcript transcript = reportData.getTranscript();
         StudentInfoImpl result = new StudentInfoImpl(
             student.getPen().getValue(),// String studNo,
             student.getFirstName(),// String firstName,
@@ -42,7 +43,7 @@ public class GradToIsdDataConvertBean {
             gradData.getGraduationDate(),// Date gradDate,
             reportData.getGradProgram() != null ? reportData.getGradProgram().getCode().getCode() : "",// String gradReqtYear,
             reportData.getGradMessage(),// String gradMessage,
-            reportData.getUpdateDate(),// String updateDt,
+            reportData.getUpdateDate() == null ? transcript.getIssueDate() : reportData.getUpdateDate(),// String updateDt,
             reportData.getLogo(),// String logoType,
             student.getCurrentMailingAddress() != null ? student.getCurrentMailingAddress().getStreetLine1() : "",// String studentAddress1,
             student.getCurrentMailingAddress() != null ? student.getCurrentMailingAddress().getStreetLine2() : "",// String studentAddress2,
