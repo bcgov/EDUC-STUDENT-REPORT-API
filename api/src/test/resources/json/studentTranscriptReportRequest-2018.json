@@ -50,6 +50,16 @@
       }
     },
     "logo": "BC",
+    "nonGradReasons" : [
+      {
+        "code": "101",
+        "description" : "No Language Arts 10"
+      },
+      {
+        "code": "107",
+        "description" : "No Mathematics 11 or 12"
+      }
+    ],
     "transcript": {
       "interim": "",
       "issueDate": "2021-04-26",
