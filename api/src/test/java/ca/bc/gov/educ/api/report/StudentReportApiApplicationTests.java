@@ -31,18 +31,18 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 	}
 
 	@Test
-	public void createTranscriptReport() throws Exception {
-		LOG.debug("<{}.createTranscriptReport at {}", CLASS_NAME, dateFormat.format(new Date()));
-		GenerateReportRequest reportRequest = createReportRequest("json/studentTranscriptReportRequest-REGULAR.json");
+	public void createTranscriptReport_2004() throws Exception {
+		LOG.debug("<{}.createTranscriptReport_2004 at {}", CLASS_NAME, dateFormat.format(new Date()));
+		GenerateReportRequest reportRequest = createReportRequest("json/studentTranscriptReportRequest-2004.json");
 		assertNotNull(reportRequest);
-		reportRequest.getOptions().setReportFile("Transcript REGULAR Report.pdf");
+		reportRequest.getOptions().setReportFile("Transcript 2004 Report.pdf");
 		ResponseEntity response = reportService.getStudentTranscriptReport(reportRequest);
 		assertNotNull(response.getBody());
 		byte[] bArrray = (byte[]) response.getBody();
 		try (OutputStream out = new FileOutputStream("target/"+reportRequest.getOptions().getReportFile())) {
 			out.write(bArrray);
 		}
-		LOG.debug(">createTranscriptReport");
+		LOG.debug(">createTranscriptReport_2004");
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 	@Test
 	public void createCertificateReport() throws Exception {
 		LOG.debug("<{}.createCertificateReport at {}", CLASS_NAME, dateFormat.format(new Date()));
-		GenerateReportRequest reportRequest = createReportRequest("json/studentTranscriptReportRequest-REGULAR.json");
+		GenerateReportRequest reportRequest = createReportRequest("json/studentTranscriptReportRequest-2004.json");
 		assertNotNull(reportRequest);
 		reportRequest.getOptions().setReportFile("Certificate REGULAR Report.pdf");
 		ResponseEntity response = reportService.getStudentCertificateReport(reportRequest);

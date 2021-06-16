@@ -597,10 +597,10 @@
     },
     "gradProgram": {
       "code": {
-        "code": "2018",
-        "description": "Graduation Program 2018",
+        "code": "2004",
+        "description": "Graduation Program 2004",
         "credits": 80,
-        "name": "PROGRAM_2018"
+        "name": ""
       }
     },
     "graduationData": {
@@ -623,7 +623,7 @@
       ],
       "totalCreditsUsedForGrad": "0"
     },
-    "gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 2018. Graduation date: September 2020.",
+    "gradMessage": "Based on the information provided by the school, this student has graduated in the Graduation Program 2004. Graduation date: September 2020.",
     "updateDate": "2021-04-26",
     "certificate": {
       "issued": "2021-04-26",
