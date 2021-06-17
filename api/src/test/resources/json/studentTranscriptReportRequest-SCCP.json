@@ -9,20 +9,21 @@
   "data": {
     "student": {
       "pen": {
-        "pen": "129770848",
+        "pen": "11111111",
         "entityId": null
       },
-      "firstName": "JORDYN",
-      "lastName": "ERSKINE",
+      "firstName": "JOHN",
+      "middelName": "PIRATE",
+      "lastName": "SILVER",
       "gender": "M",
-      "birthdate": "2004-02-17",
+      "birthdate": "2002-08-05",
       "address": {
-        "streetLine1": "1797 VIEW ST",
+        "streetLine1": "HISPANIOLA",
         "streetLine2": "",
-        "city": "PORT MOODY",
-        "region": "BC",
-        "country": "",
-        "code": "V3H3Y3"
+        "city": "SHOONER",
+        "region": "BOAT",
+        "country": "VESSEL",
+        "code": "PAC SEA"
       },
       "grade": "11",
       "studStatus": "A",
