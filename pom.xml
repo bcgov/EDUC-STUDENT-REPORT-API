@@ -12,7 +12,7 @@
 
 	<modules>
 		<module>isd</module>		
-		<module>api</module>		
+		<module>api</module>
 	</modules>
 
 	<packaging>pom</packaging>	
