@@ -9,20 +9,20 @@
   "data": {
     "student": {
       "pen": {
-        "pen": "127370773",
+        "pen": "111111111",
         "entityId": null
       },
-      "firstName": "ROSS",
-      "lastName": "SCOVILLE",
-      "gender": "",
+      "firstName": "JOHN",
+      "lastName": "SILVER",
+      "gender": null
       "birthdate": "2002-08-05",
       "address": {
-        "streetLine1": "SITE 15 COMP 142",
-        "streetLine2": "RR 1 STN MAIN",
-        "city": "FORT ST JOHN",
+        "streetLine1": "ROOM 1",
+        "streetLine2": "RR 1 MAIN",
+        "city": "VANCOUVER",
         "region": "BC",
         "country": "",
-        "code": "V1J4M6"
+        "code": "A0A0A0"
       },
       "grade": "",
       "studStatus": "",
