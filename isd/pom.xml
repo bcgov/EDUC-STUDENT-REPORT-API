@@ -324,7 +324,29 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
-			</plugin>			
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>2</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>mondrian</groupId>
+							<artifactId>mondrian</artifactId>
+							<version>3.1.1.12687</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/mondrian-3.1.1.12687.jar</file>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
