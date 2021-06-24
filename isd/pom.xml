@@ -332,7 +332,7 @@
 				<inherited>false</inherited>
 				<executions>
 					<execution>
-						<id>2</id>
+						<id>1</id>
 						<phase>initialize</phase>
 						<goals>
 							<goal>install-file</goal>
@@ -343,6 +343,34 @@
 							<version>3.1.1.12687</version>
 							<packaging>jar</packaging>
 							<file>${basedir}/lib/mondrian-3.1.1.12687.jar</file>
+						</configuration>
+					</execution>
+					<execution>
+						<id>2</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>pentaho</groupId>
+							<artifactId>mondrian</artifactId>
+							<version>9.3.0.0-22</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/mondrian-9.3.0.0-22.jar</file>
+						</configuration>
+					</execution>
+					<execution>
+						<id>3</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<groupId>lowagie</groupId>
+							<artifactId>itext</artifactId>
+							<version>2.1.7.js8</version>
+							<packaging>jar</packaging>
+							<file>${basedir}/lib/itext-2.1.7.js8.jar</file>
 						</configuration>
 					</execution>
 				</executions>
