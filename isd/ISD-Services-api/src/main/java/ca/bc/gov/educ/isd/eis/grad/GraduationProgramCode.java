@@ -43,6 +43,7 @@ public enum GraduationProgramCode {
     PROGRAM_1996("1996", PROGRAM_1995.getDescription(), PROGRAM_1995.getCredits()),
     PROGRAM_2004("2004", "Graduation Program 2004", 80),
     PROGRAM_2018("2018", "Graduation Program 2018", 80),
+    PROGRAM_2018_EN("2018-EN", "Graduation Program 2018", 80),
     PROGRAM_SCCP("SCCP", "School Completion Certificate Program", 0);
 
     private final String code;

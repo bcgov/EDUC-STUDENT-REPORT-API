@@ -70,6 +70,9 @@ public enum GraduationProgramCode implements Serializable {
     @XmlEnumValue("2018")
     @JsonProperty("2018")
     PROGRAM_2018("2018", "Graduation Program 2018", 80),
+    @XmlEnumValue("2018-EN")
+    @JsonProperty("2018-EN")
+    PROGRAM_2018_EN("2018-EN", "Graduation Program 2018", 80),
     @XmlEnumValue("SCCP")
     @JsonProperty("SCCP")
     PROGRAM_SCCP("SCCP", "School Completion Certificate Program", 0);

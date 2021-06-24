@@ -32,7 +32,7 @@
 		<paragraph leftIndent="2"/>
 	</style>
 	<style name="CourseRow" style="GeneratedText" vTextAlign="Top"/>
-	<style name="GraduationStatus" style="GeneratedText" fontSize="10">
+	<style name="GraduationStatus" style="GeneratedText" fontSize="9">
 		<paragraph lineSpacing="Proportional" lineSpacingSize="1.2"/>
 	</style>
 	<style name="SummaryBody" style="StaticText" fontSize="9"/>

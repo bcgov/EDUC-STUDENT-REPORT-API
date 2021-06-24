@@ -21,4 +21,4 @@
  * ISD-CommonSupport.
  * 
  */
-package ca.bc.gov.educ.isd.eis.common;
+package ca.bc.gov.educ.isd.eis.roles;
