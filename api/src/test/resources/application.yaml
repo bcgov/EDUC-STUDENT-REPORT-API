@@ -1,16 +1,9 @@
-#Keycloak/OAuth properties
-security:
-  oauth2:
-    resource:
-      jwt:
-        key-value: ${KEYCLOAK_PUBLIC_KEY}
-
 #Spring boot Properties
 spring:
   jmx:
     enabled: false
   mvc:
-    log-request-details: ${SPRING_SHOW_REQUEST_DETAILS}
+    log-request-details: true
   jackson:
     deserialization:
       fail-on-unknown-properties: false
@@ -31,22 +24,14 @@ logging:
         gov:
           educ:
             api:
-              report: ${APP_LOG_LEVEL}
+              report: INFO
     org:
       springframework:
-        web: ${SPRING_WEB_LOG_LEVEL}
-        security: ${SPRING_SECURITY_LOG_LEVEL}
+        web: INFO
+        security: INFO
         boot:
           autoconfigure:
-            logging: ${SPRING_BOOT_AUTOCONFIG_LOG_LEVEL}
-
-#Local properties
-server:
-  undertow:
-    threads:
-      worker: 128
-      io: 16
-  port: ${HTTP_PORT}
+            logging: INFO
 
 #API Documentation
 springdoc:

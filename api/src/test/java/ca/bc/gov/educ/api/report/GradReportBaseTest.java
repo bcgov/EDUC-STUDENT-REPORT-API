@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -22,10 +22,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ReportApiApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestPropertySource(locations = "classpath:application-test.yaml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ActiveProfiles("test")
 public abstract class GradReportBaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(GradReportBaseTest.class);
