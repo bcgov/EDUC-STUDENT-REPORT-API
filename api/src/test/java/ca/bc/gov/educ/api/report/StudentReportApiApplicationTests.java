@@ -75,7 +75,7 @@ public class StudentReportApiApplicationTests extends GradReportBaseTest {
 		LOG.debug(">createTranscriptReport_2018");
 	}
 
-	@Test
+	//@Test
 	public void createTranscriptReport_SCCP() throws Exception {
 		LOG.debug("<{}.createTranscriptReport_SCCP at {}", CLASS_NAME, dateFormat.format(new Date()));
 		GenerateReportRequest reportRequest = createReportRequest("json/studentTranscriptReportRequest-SCCP.json");
