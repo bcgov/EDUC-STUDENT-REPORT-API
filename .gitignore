@@ -27,3 +27,6 @@ hs_err_pid*
 /isd/ISD-Services-api/target/
 /isd/ISD-ReportServices-ejb/target/
 /.project
+/.css
+/.img
+/coverage

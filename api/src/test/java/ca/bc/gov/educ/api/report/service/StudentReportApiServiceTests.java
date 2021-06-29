@@ -1,6 +1,6 @@
-package ca.bc.gov.educ.api.report;
+package ca.bc.gov.educ.api.report.service;
 
-import ca.bc.gov.educ.api.report.service.ReportService;
+import ca.bc.gov.educ.api.report.GradReportBaseTest;
 import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +16,10 @@ import java.util.Date;
 
 import static org.junit.Assert.assertNotNull;
 
-public class StudentReportApiApplicationTests extends GradReportBaseTest {
+public class StudentReportApiServiceTests extends GradReportBaseTest {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StudentReportApiApplicationTests.class);
-	private static final String CLASS_NAME = StudentReportApiApplicationTests.class.getSimpleName();
+	private static final Logger LOG = LoggerFactory.getLogger(StudentReportApiServiceTests.class);
+	private static final String CLASS_NAME = StudentReportApiServiceTests.class.getSimpleName();
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 	@Autowired
