@@ -5,25 +5,25 @@ security:
       jwt:
         key-value: ${KEYCLOAK_PUBLIC_KEY}
 
-#DB Properties
+#Spring boot Properties
 spring:
   jmx:
     enabled: false
-  datasource:
-    hikari:
-      pool-name: report-api-cp
-      maximum-pool-size: ${MAXIMUM_POOL_SIZE}
-      connection-timeout: ${CONNECTION_TIMEOUT}
-      max-lifetime: ${MAX_LIFETIME}
-    url: ${JDBC_URL}
-    username: ${ORACLE_USERNAME}
-    password: ${ORACLE_PASSWORD}
-    driver-class: oracle.jdbc.driver.OracleDriver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.Oracle12cDialect
-    hibernate:
-      ddl-auto: none
+  #datasource:
+  #  hikari:
+  #    pool-name: report-api-cp
+  #    maximum-pool-size: ${MAXIMUM_POOL_SIZE}
+  #    connection-timeout: ${CONNECTION_TIMEOUT}
+  #    max-lifetime: ${MAX_LIFETIME}
+  #  url: ${JDBC_URL}
+  #  username: ${ORACLE_USERNAME}
+  #  password: ${ORACLE_PASSWORD}
+  #  driver-class: oracle.jdbc.driver.OracleDriver
+  #jpa:
+  #  show-sql: true
+  #  database-platform: org.hibernate.dialect.Oracle12cDialect
+  #  hibernate:
+  #    ddl-auto: none
   mvc:
     log-request-details: ${SPRING_SHOW_REQUEST_DETAILS}
   jackson:
@@ -70,16 +70,3 @@ springdoc:
   swagger-ui:
     path: /api/v1/api-docs-ui.html
     operationsSorter: alpha
-
-report:
-  render:
-    user: ${REPORT_RENDER_USER}
-    password: ${REPORT_RENDER_PASSWORD}
-
-#Endpoints
-endpoint:
-  weasyprint:
-    getPDFfromHTML: http://weasyprint-wbmfsf-dev.pathfinder.gov.bc.ca/pdf?filename=myfile.pdf
-  cdogs:
-    getPDF: https://cdogs-test.apps.silver.devops.gov.bc.ca/api/v2/template/render
-    getToken: https://test.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token

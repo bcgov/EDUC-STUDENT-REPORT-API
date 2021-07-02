@@ -1,410 +1,156 @@
 package ca.bc.gov.educ.api.report.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.docx4j.TraversalUtil;
-import org.docx4j.dml.wordprocessingDrawing.Inline;
-import org.docx4j.finders.RangeFinder;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.BinaryPartAbstractImage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
-import org.docx4j.wml.Body;
-import org.docx4j.wml.CTBookmark;
-import org.docx4j.wml.Document;
-import org.docx4j.wml.Drawing;
-import org.docx4j.wml.ObjectFactory;
-import org.docx4j.wml.P;
-import org.docx4j.wml.R;
+import ca.bc.gov.educ.grad.dto.GenerateReportRequest;
+import ca.bc.gov.educ.isd.common.BusinessReport;
+import ca.bc.gov.educ.isd.grad.GradCertificateService;
+import ca.bc.gov.educ.isd.reports.bundle.service.BCMPBundleService;
+import ca.bc.gov.educ.isd.reports.bundle.service.DocumentBundle;
+import ca.bc.gov.educ.isd.transcript.StudentTranscriptReport;
+import ca.bc.gov.educ.isd.transcript.StudentTranscriptService;
+import ca.bc.gov.educ.isd.traxadaptor.dao.utils.TRAXThreadDataUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import ca.bc.gov.educ.api.report.dto.GenerateReport;
-import ca.bc.gov.educ.api.report.dto.ReportOptions;
-import ca.bc.gov.educ.api.report.dto.ReportTemplate;
-import ca.bc.gov.educ.api.report.dto.ResponseObj;
-import ca.bc.gov.educ.api.report.dto.StudentAssessment;
-import ca.bc.gov.educ.api.report.dto.StudentCourse;
-import ca.bc.gov.educ.api.report.dto.StudentCourseAssessment;
-import ca.bc.gov.educ.api.report.template.AchievementReportTemplate;
-import ca.bc.gov.educ.api.report.template.TranscriptReportTemplate;
-import ca.bc.gov.educ.api.report.util.ReportApiConstants;
-import ca.bc.gov.educ.api.report.util.ReportApiUtils;
+import java.util.List;
 
 @Service
 public class ReportService {
 
-    private static Logger logger = LoggerFactory.getLogger(ReportService.class);
+	private static final String CLASS_NAME = ReportService.class.getName();
+	private static Logger log = LoggerFactory.getLogger(CLASS_NAME);
 
-    @Value(ReportApiConstants.ENDPOINT_GET_PDF_FROM_HTML_URL)
-    private String getPDFfromHTMLURL;
-    
-    @Value(ReportApiConstants.ENDPOINT_GET_PDF_URL)
-    private String getPDF;
-    
-    @Value(ReportApiConstants.ENDPOINT_GET_TOKEN_URL)
-    private String getToken;
-    
-    @Autowired
-    RestTemplate restTemplate;
-    
-    @Value("${report.render.user}")
-	private String uName;
+	@Autowired
+	StudentTranscriptService transcriptService;
 
-	@Value("${report.render.password}")
-	private String pass;
+	@Autowired
+	GradCertificateService gradCertificateService;
 
-    /**
-     * Get Student Achievement Report
-     *
-     * @return achievementReportAsPdf
-     */
-    public ResponseEntity<byte[]> getStudentAchievementReport(Map<String, String> reportParameters) {
+	@Autowired
+	BCMPBundleService bcmpBundleService;
 
-        AchievementReportTemplate achievementReport = new AchievementReportTemplate(reportParameters);
+    public ResponseEntity getStudentAchievementReport(GenerateReportRequest reportRequest) {
+    	String _m = "getStudentAchievementReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
 
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(
-                new ByteArrayHttpMessageConverter());
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
+		String reportFile = reportRequest.getOptions().getReportFile();
 
-        HttpEntity<String> entity = new HttpEntity<String>(achievementReport.getHtmlTemplate().toString(), headers);
+		ResponseEntity response = null;
 
-        ResponseEntity<byte[]> achievementReportAsPdf = restTemplate.exchange(
-                getPDFfromHTMLURL, HttpMethod.POST, entity, byte[].class, "1");
-
-        return achievementReportAsPdf;
-    }
-
-    /**
-     * Get Student Transcript Report
-     *
-     * @return GraduationData
-     */
-    public ResponseEntity<byte[]> getStudentTranscriptReport(Map<String, String> reportParameters) {
-
-        TranscriptReportTemplate transcriptReport = new TranscriptReportTemplate(reportParameters);
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(
-                new ByteArrayHttpMessageConverter());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
-
-        HttpEntity<String> entity = new HttpEntity<String>(transcriptReport.getHtmlTemplate().toString(), headers);
-
-        ResponseEntity<byte[]> transcriptReportAsPdf = restTemplate.exchange(
-                getPDFfromHTMLURL, HttpMethod.POST, entity, byte[].class, "1");
-
-        return transcriptReportAsPdf;
-    }
-    
-    public ResponseEntity<byte[]> getStudentAchievementReportCdogs(GenerateReport report) {
-    	InputStream inputStream = null;
-    	if(report.getData().getStudentExam() != null && report.getData().getStudentExam().size() > 0) {
-    		inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_inc_exam_template.docx");
-		}else {
-			inputStream = getClass().getResourceAsStream("/templates/student_achievement_report_template.docx");
-		}
 		try {
-			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
-			File tempFile = File.createTempFile("student_achievement_report_template", ".docx");
-			FileOutputStream out = new FileOutputStream(tempFile);
-			IOUtils.copy(inputStream, out);
-			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
-			byte[] encoded = Base64.encodeBase64(reportByteArr);
-			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
-			ReportTemplate template = new ReportTemplate();
-			template.setContent(encodedString);
-			report.setOptions(new ReportOptions("achievement"));
-			report.setTemplate(template);		    
-			
-			//Getting Token
-			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
-			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-			map.add("grant_type", "client_credentials");
-			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
-			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
-					request, ResponseObj.class).getBody();
-			
-			//Making CDOG call
-			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
-			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
-							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
-			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studentachievementreport.pdf");
-			tempFile.delete();
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(ress);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			byte[] resultBinary = new byte[0];
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			}
+		} catch (Exception e) {
+			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
-		return null;
+		log.debug(">{}.{}", _m, CLASS_NAME);
+		return response;
     	
     }
 
-	public ResponseEntity<byte[]> getStudentTranscriptReportCDogs(GenerateReport report) {
-		List<StudentCourse> studentCourseList = report.getData().getStudentCourse();
-		List<StudentCourse> operatedList = new ArrayList<>();
-		studentCourseList.stream()
-		  .filter(sC -> sC.isFailed())
-		  .filter(sC -> sC.isDuplicate())
-		  .forEach(operatedList::add);
-		studentCourseList.removeAll(operatedList);
-		List<StudentCourseAssessment> studentCourseAssesmentList = prepareCourseList(studentCourseList);
-		prepareAssessmentList(report.getData().getStudentAssessment(),studentCourseAssesmentList);
-		report.getData().setStudentCourseAssessment(studentCourseAssesmentList);
-		InputStream inputStream = null;
-		inputStream = getInputStream(report,inputStream,studentCourseAssesmentList);
-		
-		try {
-			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
-			File tempFile = File.createTempFile("student_transcript_report_template", ".docx");
-			FileOutputStream out = new FileOutputStream(tempFile);
-			IOUtils.copy(inputStream, out);
-			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
-			byte[] encoded = Base64.encodeBase64(reportByteArr);
-			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
-			ReportTemplate template = new ReportTemplate();
-			template.setContent(encodedString);
-			report.setOptions(new ReportOptions("transcript"));
-			report.setTemplate(template);		    
-			
-			//Getting Token
-			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
-			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-			map.add("grant_type", "client_credentials");
-			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
-			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
-					request, ResponseObj.class).getBody();
-			
-			//Making CDOG call
-			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
-			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
-							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
-			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studenttranscriptreport.pdf");
-			tempFile.delete();
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(ress);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public ResponseEntity<byte[]> getStudentCertificateCDogs(GenerateReport report) {
-		
-		InputStream inputStream = null;
-		inputStream = getClass().getResourceAsStream("/templates/student_certificate_template.docx");
-		
-		try {
-			//report.getData().setIsaDate(ReportApiUtils.formatDate(new Date(),"yyyyMMdd"));
-			File tempFile = File.createTempFile("student_certificate_template", ".docx");
-			FileOutputStream out = new FileOutputStream(tempFile);
-			IOUtils.copy(inputStream, out);
-			//addImageToTemplate(tempFile);
-			byte[] reportByteArr = FileUtils.readFileToByteArray(tempFile);
-			byte[] encoded = Base64.encodeBase64(reportByteArr);
-			String encodedString = new String(encoded,StandardCharsets.US_ASCII);
-			ReportTemplate template = new ReportTemplate();
-			template.setContent(encodedString);
-			report.setOptions(new ReportOptions("certificate"));
-			report.setTemplate(template);		    
-			
-			//Getting Token
-			HttpHeaders httpHeaders = ReportApiUtils.getHeaders(uName,pass);
-			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-			map.add("grant_type", "client_credentials");
-			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, httpHeaders);
-			ResponseObj res = restTemplate.exchange(getToken, HttpMethod.POST,
-					request, ResponseObj.class).getBody();
-			
-			//Making CDOG call
-			HttpHeaders httpCdogsHeaders = ReportApiUtils.getHeaders(res.getAccess_token());
-			byte[] ress = restTemplate.exchange(getPDF, HttpMethod.POST,
-							new HttpEntity<>(report,httpCdogsHeaders), byte[].class).getBody();
-			//ByteArrayInputStream bis = new ByteArrayInputStream(ress);
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Disposition", "inline; filename=studentcertificate.pdf");
-			tempFile.delete();
-			return ResponseEntity
-			        .ok()
-			        .headers(headers)
-			        .contentType(MediaType.APPLICATION_PDF)
-			        .body(ress);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+	public ResponseEntity getStudentTranscriptReport(GenerateReportRequest reportRequest) {
+		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
 
-	private void addImageToTemplate(File tempFile) throws IOException {
-		String targetPath = "target.docx";
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
+
+		String reportFile = reportRequest.getOptions().getReportFile();
+
+		ResponseEntity response = null;
+
 		try {
-			WordprocessingMLPackage wPackage1 = WordprocessingMLPackage.createPackage();
-			WordprocessingMLPackage wPackage = WordprocessingMLPackage.load(new FileInputStream(tempFile));
-	        MainDocumentPart mainDocumentPart = wPackage.getMainDocumentPart();
-			Document wmlDoc = mainDocumentPart.getContents();
-			Body body = wmlDoc.getBody();
-			List<Object> paragraphs = body.getContent();
-			RangeFinder rt = new RangeFinder("CTBookmark", "CTMarkupRange");
-			new TraversalUtil(paragraphs, rt);
-	        // traverse bookmarks
-			for (CTBookmark bm:rt.getStarts()) {
-			   if (bm.getName().equals("ministerOfEducation")){             
-				   File image = new File("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
-				   byte[] fileContent = Files.readAllBytes(image.toPath());
-				   BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, fileContent);
-			       Inline inline = imagePart.createImageInline("Baeldung Image 1", "Alt Text 1", 1, 2, false, 1100);
-			       P p = (P)(bm.getParent());			       
-			       p.getContent().add(addImageToParagraph(inline));
-			   }
-			   if (bm.getName().equals("superintendentOfSchools")){             
-				   File image = new File("C:\\Users\\s.karekkattumanasree\\Documents\\sign-sree.PNG");
-				   byte[] fileContent = Files.readAllBytes(image.toPath());
-				   BinaryPartAbstractImage imagePart = BinaryPartAbstractImage.createImagePart(wPackage, fileContent);
-			       Inline inline = imagePart.createImageInline("Baeldung Image 2", "Alt Text 2", 1, 2, false, 1100);		                        
-			       P p = (P)(bm.getParent());
-			       p.getContent().add(addImageToParagraph(inline));
-			   }
+			StudentTranscriptReport report = transcriptService.buildOfficialTranscriptReport();
+			byte[] resultBinary = report.getReportData();
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 			}
-			//wPackage.save(new FileOutputStream(tempCreatedFile));
-			MainDocumentPart mainDocumentPart1 = wPackage1.getMainDocumentPart();
-			for(Object p:paragraphs) {
-				mainDocumentPart1.addParagraph(p.toString());
-			}
-//			wmlDoc1.setBody(body);
-//			wmlDoc1.setIgnorable(wmlDoc.getIgnorable());
-//			wmlDoc1.setParent(wmlDoc.getParent());
-//			mainDocumentPart1.setContents(wmlDoc1);
-			wPackage1.save(new FileOutputStream(targetPath));
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
+		log.debug(">{}.{}", _m, CLASS_NAME);
+		return response;
 	}
 	
-	private static R addImageToParagraph(Inline inline) {
-	        ObjectFactory factory = new ObjectFactory();
-	        R r = factory.createR();
-	        Drawing drawing = factory.createDrawing();
-	        r.getContent().add(drawing);
-	        drawing.getAnchorOrInline().add(inline);
-	        return r;
-	    }
-	private InputStream getInputStream(GenerateReport report, InputStream inputStream, List<StudentCourseAssessment> studentCourseAssesmentList) {
-		if(!report.getData().getDemographics().getMincode().substring(0, 3).equalsIgnoreCase("098")) {
-	    	if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
-	    		inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_bc_template.docx");
-			}else {
-				inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_bc_multiple_template.docx");
+	public ResponseEntity getStudentCertificateReport(GenerateReportRequest reportRequest) {
+		String _m = "getStudentTranscriptReport(GenerateReportRequest reportRequest)";
+		log.debug("<{}.{}", _m, CLASS_NAME);
+
+		TRAXThreadDataUtility.setGenerateReportData(reportRequest.getData());
+
+		String reportFile = reportRequest.getOptions().getReportFile();
+
+		ResponseEntity response = null;
+
+		try {
+			List<BusinessReport> gradCertificateReports = gradCertificateService.buildReport();
+
+			DocumentBundle documentBundle = bcmpBundleService.createDocumentBundle(reportRequest.getData().getCertificate().getOrderType());
+			documentBundle.appendBusinessReport(gradCertificateReports);
+			byte[] resultBinary = documentBundle.asBytes();
+
+			if(resultBinary.length > 0) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Disposition", "inline; filename=" + reportFile);
+				response = ResponseEntity
+						.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_PDF)
+						.body(resultBinary);
+			} else {
+				response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 			}
-		}else {
-			if(studentCourseAssesmentList != null && studentCourseAssesmentList.size() < 22) {
-	    		inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_yukon_template.docx");
-			}else {
-				inputStream = getClass().getResourceAsStream("/templates/student_transcript_report_yukon_multiple_template.docx");
-			}
+		} catch (Exception e) {
+			log.error("Unable to execute {}", _m, e);
+			response = getInternalServerErrorResponse(e);
 		}
-		
-		modifyReportDataBasedOnListSize(report);
-		return inputStream;
+		log.debug(">{}.{}", _m, CLASS_NAME);
+		return response;
 	}
 
-	private void modifyReportDataBasedOnListSize(GenerateReport report) {
-		StudentCourseAssessment secondLastRecord = new StudentCourseAssessment();
-		secondLastRecord.setCourseName(" ");
-		report.getData().getStudentCourseAssessment().add(secondLastRecord);	
-		StudentCourseAssessment lastRecord = new StudentCourseAssessment();
-		secondLastRecord.setCourseName("*** End of Course / Assessment List ***");
-		report.getData().getStudentCourseAssessment().add(lastRecord);		
-	}
+	protected ResponseEntity getInternalServerErrorResponse(Throwable t) {
+		ResponseEntity result = null;
 
-	private List<StudentCourseAssessment> prepareAssessmentList(List<StudentAssessment> studentAssessment,
-			List<StudentCourseAssessment> studentCourseAssessmentList) {
-		Collections.sort(studentAssessment, Comparator.comparing(StudentAssessment::getAssessmentCode));
-		studentAssessment.stream().forEach(sA -> {
-			StudentCourseAssessment scA = new StudentCourseAssessment();
-			scA.setCourseCode(sA.getAssessmentCode());
-			scA.setCourseName(sA.getAssessmentName());
-			scA.setSessionDate(sA.getSessionDate());
-			if(sA.getAssessmentCode().equalsIgnoreCase("LTE10") || sA.getAssessmentCode().equalsIgnoreCase("LTP10")) {
-				scA.setFinalPercentage("RM");
-			}else {
-				if(sA.getSpecialCase() != null) {
-					if(sA.getSpecialCase().equalsIgnoreCase("A")) {
-						scA.setFinalPercentage("AEG");
-					}else if(sA.getSpecialCase().equalsIgnoreCase("E")) {
-						scA.setFinalPercentage("AEG");
-					}else {
-						scA.setFinalPercentage(sA.getProficiencyScore() != null ? sA.getProficiencyScore().toString() : null);
-					}
-				}
-			}
-			studentCourseAssessmentList.add(scA);
-		});
-		return studentCourseAssessmentList;
-		
-	}
+		Throwable tmp = t;
+		String message = null;
+		if (tmp.getCause() != null) {
+			tmp = tmp.getCause();
+			message = tmp.getMessage();
+		} else {
+			message = tmp.getMessage();
+		}
+		if(message == null) {
+			message = tmp.getClass().getName();
+		}
 
-	private List<StudentCourseAssessment> prepareCourseList(List<StudentCourse> studentCourseList) {
-		List<StudentCourseAssessment> studentCourseAssessmentList = new ArrayList<StudentCourseAssessment>();
-		studentCourseList.stream().forEach(sC -> {
-			StudentCourseAssessment scA = new StudentCourseAssessment();
-			scA.setCourseCode(sC.getCourseCode());
-			scA.setCourseName(sC.getCourseName());
-			scA.setCourseLevel(sC.getCourseLevel());
-			scA.setCredits(sC.getCredits());
-			scA.setFinalLetterGrade(sC.getCompletedCourseLetterGrade());
-			scA.setFinalPercentage(sC.getCompletedCoursePercentage().toString());
-			scA.setGradReqMet(sC.getGradReqMet());
-			scA.setSessionDate(sC.getSessionDate());
-			studentCourseAssessmentList.add(scA);
-		});
-		Collections.sort(studentCourseAssessmentList, Comparator.comparing(StudentCourseAssessment::getCourseLevel)
-	                .thenComparing(StudentCourseAssessment::getCourseName));
-		return studentCourseAssessmentList;
+		result = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message);
+		return result;
 	}
-
 }
