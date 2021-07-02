@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This is a generated file that's SAFE to modify. It will not be overwritten by subsequent runs of the generator (unless run with "-f" option.) -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.bc.gov.educ.isd</groupId>
 	<artifactId>ISD-parent</artifactId>
@@ -17,19 +17,19 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>		
+		<java.version>11</java.version>
 		<dollar>$</dollar>
 		<maven.test.skip>true</maven.test.skip>
 		<version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
 	</properties>
 
-	<modules>						
-		<module>ISD-Services-api</module>					
+	<modules>
+		<module>ISD-Services-api</module>
 		<module>ISD-ReportServices-ejb</module>
-	</modules>		
+	</modules>
 
 	<dependencyManagement>
-		<dependencies>						
+		<dependencies>
 			<!-- ORACLE database driver -->
 			<dependency>
 				<groupId>com.oracle.ojdbc</groupId>
@@ -218,13 +218,13 @@
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
 				<version>2.2.1</version>
-			</dependency>					
+			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
 			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
 				<version>3.21.0-GA</version>
-			</dependency>			
+			</dependency>
 			<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -236,7 +236,7 @@
 				<groupId>com.jcraft</groupId>
 				<artifactId>jsch</artifactId>
 				<version>0.1.53</version>
-			</dependency>						
+			</dependency>
 			<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 			<dependency>
 				<groupId>log4j</groupId>
@@ -279,7 +279,7 @@
 			<dependency>
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>batik-all</artifactId>
-				<version>1.9.1</version>	
+				<version>1.9.1</version>
 				<type>pom</type>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/mondrian/mondrian -->
@@ -295,28 +295,44 @@
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
 				<!--scope>test</scope-->
-			</dependency>	
+			</dependency>
 			<!-- https://mvnrepository.com/artifact/com.tngtech.java/junit-dataprovider -->
 			<dependency>
 				<groupId>com.tngtech.java</groupId>
 				<artifactId>junit-dataprovider</artifactId>
 				<version>1.10.2</version>
 				<!--scope>test</scope-->
-			</dependency>	
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/pentaho/mondrian -->
+			<dependency>
+				<groupId>pentaho</groupId>
+				<artifactId>mondrian</artifactId>
+				<version>9.3.0.0-22</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+			<dependency>
+				<groupId>com.lowagie</groupId>
+				<artifactId>itext</artifactId>
+				<version>2.1.7</version>
+			</dependency>
+
+
 
 		</dependencies>
 
 	</dependencyManagement>
 
-	<build>			
-		<plugins>						
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${version.maven-compiler-plugin}</version>
 				<configuration>
 					<release>${java.version}</release>
-				</configuration>				
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -325,7 +341,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
 				<version>2.5</version>
@@ -374,7 +390,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 	<repositories>
@@ -387,5 +403,5 @@
 			<url>https://nexus.pentaho.org/content/groups/omni/</url>
 		</repository>
 	</repositories>
-	
+
 </project>
