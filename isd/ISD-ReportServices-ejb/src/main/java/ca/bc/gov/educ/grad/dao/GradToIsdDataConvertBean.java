@@ -110,27 +110,29 @@ public class GradToIsdDataConvertBean {
     public List<TranscriptCourse> getTranscriptCources(ReportData reportData) {
         Student student = getStudent(reportData);
         List<TranscriptCourse> result = new ArrayList<>();
-        for(TranscriptResult r: reportData.getTranscript().getResults()) {
-            if(r.getCourse() == null || r.getMark() == null) {
-                throw new InvalidParameterException("Transcript Result Course and Mark can't be NULL");
-            }
-            TranscriptCourseImpl course = new TranscriptCourseImpl(
-                    student.getPen().getValue(), //String pen,
-                    r.getCourse().getName(), //String courseName,
-                    r.getCourse().getCode(), //String crseCode,
-                    r.getCourse().getLevel(), //String crseLevel,
-                    r.getCourse().getSessionDate(), //String sessionDate,
-                    r.getCourse().getCredits(), //String credits,
-                    r.getMark().getExamPercent(), //String examPercent,
-                    r.getMark().getSchoolPercent(), //String schoolPercent,
-                    r.getMark().getFinalPercent(), //String finalPercent,
-                    r.getMark().getFinalLetterGrade(), //String finalLetterGrade,
-                    r.getMark().getInterimPercent(), //String interimMark,
-                    r.getRequirementMet(), //String requirement,
-          null, //String specialCase,
-                    r.getCourse().getType() //Character courseType
-            );
-            result.add(course);
+        if(reportData.getTranscript() != null) {
+	        for(TranscriptResult r: reportData.getTranscript().getResults()) {
+	            if(r.getCourse() == null || r.getMark() == null) {
+	                throw new InvalidParameterException("Transcript Result Course and Mark can't be NULL");
+	            }
+	            TranscriptCourseImpl course = new TranscriptCourseImpl(
+	                    student.getPen().getValue(), //String pen,
+	                    r.getCourse().getName(), //String courseName,
+	                    r.getCourse().getCode(), //String crseCode,
+	                    r.getCourse().getLevel(), //String crseLevel,
+	                    r.getCourse().getSessionDate(), //String sessionDate,
+	                    r.getCourse().getCredits(), //String credits,
+	                    r.getMark().getExamPercent(), //String examPercent,
+	                    r.getMark().getSchoolPercent(), //String schoolPercent,
+	                    r.getMark().getFinalPercent(), //String finalPercent,
+	                    r.getMark().getFinalLetterGrade(), //String finalLetterGrade,
+	                    r.getMark().getInterimPercent(), //String interimMark,
+	                    r.getRequirementMet(), //String requirement,
+	          null, //String specialCase,
+	                    r.getCourse().getType() //Character courseType
+	            );
+	            result.add(course);
+	        }
         }
         return result;
     }
