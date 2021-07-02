@@ -3,35 +3,46 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-	<description>ISD-ReportServices-ejb</description>
+    <description>ISD-ReportServices-ejb</description>
 
     <parent>
-		<groupId>ca.bc.gov.educ.isd</groupId>
-		<artifactId>ISD-parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+        <groupId>ca.bc.gov.educ.isd</groupId>
+        <artifactId>ISD-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <artifactId>ISD-ReportServices-ejb</artifactId>
     <packaging>jar</packaging>
-	
-	<dependencies>
-		<dependency>
-			<groupId>ca.bc.gov.educ.isd</groupId>
-			<artifactId>ISD-Services-api</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>provided</scope>			
-		</dependency>
+
+    <dependencies>
+        <dependency>
+            <groupId>ca.bc.gov.educ.isd</groupId>
+            <artifactId>ISD-Services-api</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.15</version>
-		</dependency>		
-		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.14.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
         <dependency>
@@ -44,6 +55,12 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-functions</artifactId>
             <version>6.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-metadata -->
         <dependency>
@@ -81,7 +98,7 @@
             <artifactId>report-fonts-tinos</artifactId>
             <version>2.0</version>
         </dependency-->
-		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-anim -->
+        <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-anim -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-anim</artifactId>
@@ -177,12 +194,12 @@
             <artifactId>batik-xml</artifactId>
             <version>1.9</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/pentaho/mondrian -->
-		<dependency>
-			<groupId>pentaho</groupId>
-			<artifactId>mondrian</artifactId>
-			<version>9.3.0.0-22</version>
-		</dependency>
-	</dependencies>
+        <!-- https://mvnrepository.com/artifact/pentaho/mondrian -->
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>mondrian</artifactId>
+            <version>9.3.0.0-22</version>
+        </dependency>
+    </dependencies>
 
 </project>
