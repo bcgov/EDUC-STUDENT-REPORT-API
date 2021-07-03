@@ -79,7 +79,7 @@ pipeline{
           def pom = readMavenPom file: 'api/pom.xml'
           VERSION = pom.version
 
-          sh '/bin/bash -c "mvn -f ./api/pom.xml -Dmaven.test.skip=true package"'
+          sh '/bin/bash -c "mvn -f ./api/pom.xml -Dmaven.test.skip=true package -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"'
         }
       }
     }
