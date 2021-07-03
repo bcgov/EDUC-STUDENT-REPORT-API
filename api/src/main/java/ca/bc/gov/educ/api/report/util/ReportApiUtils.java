@@ -1,10 +1,10 @@
 package ca.bc.gov.educ.api.report.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ReportApiUtils {
 
@@ -28,4 +28,5 @@ public class ReportApiUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         return simpleDateFormat.format(date);
     }
+
 }
